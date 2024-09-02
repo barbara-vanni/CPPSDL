@@ -5,11 +5,12 @@ LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 
 # Directories
 SRC_DIR := game
-GRAPHIC_DIR := $(SRC_DIR)/graphic_game/cpp_files
-LOGIC_DIR := $(SRC_DIR)/logic_game/cpp_files
+GRAPHIC_DIR := $(SRC_DIR)/graphic_game/CPP_files
+LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
 
 # Source files
 SRC_FILES := main.cpp \
+	$(LOGIC_DIR)/Tiles.cpp \
 
 # Object files
 OBJ_FILES := $(SRC_FILES:.cpp=.o)
