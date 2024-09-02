@@ -8,20 +8,15 @@
 
 
 
-Board::Board()
-{
-    
+Board::Board(int size) : size(size)
+{  
+    std::cout << "Board constructor called" << std::endl;
 }
 
 void Board::boardInit()
 {
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            grid[i][j] = 0;
-        }
-    }
+    grid.resize(4, std::vector<Tiles*>(4, nullptr));
+
     addRandomTile();
     addRandomTile();
 }
@@ -36,7 +31,7 @@ void Board::addRandomTile()
     {
         for (int j = 0; j < 4; j++)
         {
-            if (grid[i][j] == 0)
+            if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0)
             {
                 emptyTiles.push_back(std::make_pair(i,j));
             }
@@ -54,7 +49,10 @@ void Board::addRandomTile()
     // generate a 2 with 90% of chance, else generate a 4
     int tileValue = (rand() % 10 < 9) ? 2 : 4;
 
-    grid[x][y] = tileValue;    
+    // grid[x][y] = tileValue; 
+    Tiles* newTile = new Tiles(x, y, tileValue);
+    grid[x][y] = newTile;
+
 }
 
 void Board::displayBoard()
@@ -65,13 +63,13 @@ void Board::displayBoard()
         std::cout << "|";
         for (int j = 0; j < 4; j++)
         {
-            if (grid[i][j] == 0)
+            if (grid[i][j]== 0)
             {
                 std::cout << "    |";
             }
             else
             {
-                std::cout << " " << grid[i][j] << "  |";
+                std::cout << " " << grid[i][j]->getNumberInTile()  << "  |";
             }
         }
         std::cout << std::endl;
@@ -83,4 +81,15 @@ void Board::displayBoard()
 Board::~Board()
 {
   std::cout << "Board destructor called" << std::endl;
+
+    //delete the tiles 
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            if (grid[i][j] != nullptr) {
+                delete grid[i][j]; 
+                grid[i][j] = nullptr;
+            }
+        }
+    }
+
 }

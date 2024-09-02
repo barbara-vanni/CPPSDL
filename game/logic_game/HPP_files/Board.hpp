@@ -1,10 +1,12 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 #include <iostream>
+#include "Tiles.hpp"
+#include <vector>
 
 class Board {
 public:
-    Board();
+    Board(int size = 4);
     ~Board();
     void boardInit();
     void addRandomTile();
@@ -17,7 +19,10 @@ public:
     void displayBoard();
 
 private:
-    int grid[4][4];
+    // int grid[4][4];
+    std::vector<std::vector <Tiles*>> grid;
+    int size = 4;
+
 };
 
 #endif // BOARD_HPP
