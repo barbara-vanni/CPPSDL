@@ -10,7 +10,10 @@ LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
 
 # Source files
 SRC_FILES := main.cpp \
+	$(LOGIC_DIR)/Board.cpp \
 	$(LOGIC_DIR)/Tiles.cpp \
+	$(LOGIC_DIR)/Game.cpp \
+	$(GRAPHIC_DIR)/Window.cpp \
 
 # Object files
 OBJ_FILES := $(SRC_FILES:.cpp=.o)
