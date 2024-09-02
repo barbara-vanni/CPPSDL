@@ -16,7 +16,7 @@ public:
     void displayBoard(); // Now uses SDL for rendering
 
 private:
-    std::vector<std::vector<Tiles*>> grid;
+    std::vector<std::vector<Tiles*> > grid;
     int size;
     SDL_Renderer* renderer;  // SDL renderer for rendering the board
 

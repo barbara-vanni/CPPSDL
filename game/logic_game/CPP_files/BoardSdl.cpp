@@ -1,4 +1,4 @@
-#include "BoardSdl.hpp"
+#include "../HPP_files/BoardSdl.hpp"
 #include <cstdlib>
 #include <ctime>
 
@@ -15,8 +15,8 @@ void Board::boardInit() {
 }
 
 void Board::addRandomTile() {
-    std::vector<std::pair<int, int>> emptyTiles;
-
+    std::vector<std::pair<int, int> > emptyTiles;
+ 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
             if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0) {

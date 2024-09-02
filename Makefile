@@ -12,7 +12,8 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/Window.cpp\
 	$(LOGIC_DIR)/Board.cpp\
 	$(LOGIC_DIR)/Game.cpp\
-	$(LOGIC_DIR)/Tiles.cpp
+	$(LOGIC_DIR)/Tiles.cpp\
+	$(LOGIC_DIR)/BoardSdl.cpp\
 
 # Object files
 OBJ_FILES := $(SRC_FILES:.cpp=.o)
