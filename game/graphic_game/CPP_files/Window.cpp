@@ -1,12 +1,12 @@
 #include "../HPP_files/Window.hpp"
 
-Window::Window(int w, int h) : width(w), height(h), title("2048"), closed(false), board(nullptr) {
+Window::Window(int w, int h) : width(w), height(h), title("Game Window"), closed(false) {
     if (!init()) {
         closed = true;
     }
 }
 
-Window::Window(const std::string &title, int width, int height) : title(title), width(width), height(height), closed(false), board(nullptr) {
+Window::Window(const std::string &title, int width, int height) : title(title), width(width), height(height), closed(false) {
     if (!init()) {
         closed = true;
     }
@@ -21,29 +21,22 @@ bool Window::init() {
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         std::cerr << "Window creation failed: " << SDL_GetError() << std::endl;
-        SDL_Quit();
+        SDL_Quit();  // Clean up SDL before returning
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == nullptr) {
         std::cerr << "Renderer creation failed: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);
-        SDL_Quit();
+        SDL_DestroyWindow(window);  // Clean up the window
+        SDL_Quit();  // Clean up SDL
         return false;
     }
-
-    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
-
-    // Initialize the Board with the SDL renderer
-    board = new Board(4, renderer);  // Pass the renderer to the Board
-    board->displayBoard();  // Render the initial board state
 
     return true;
 }
 
 Window::~Window() {
-    delete board;  // Cleanup the board object
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
@@ -51,6 +44,7 @@ Window::~Window() {
 
 void Window::clear() const {
     SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 bool Window::isClosed() const {

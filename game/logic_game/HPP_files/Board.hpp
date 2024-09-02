@@ -1,5 +1,4 @@
-#ifndef BOARD_HPP
-#define BOARD_HPP
+#pragma once
 #include <iostream>
 
 
@@ -20,5 +19,5 @@ class Board {
         int boardSize;
 };
 
-#endif // BOARD_HPP
+
 

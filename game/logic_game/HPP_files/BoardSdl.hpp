@@ -1,26 +1,22 @@
-#ifndef BOARDSDL_HPP
-#define BOARDSDL_HPP
+// // BoardSdl.hpp
 
-#include <iostream>
-#include <vector>
-#include <SDL2/SDL.h>
-#include "Tiles.hpp"
 
-class Board {
-public:
-    Board(int size = 4, SDL_Renderer* renderer = nullptr);
-    ~Board();
 
-    void boardInit();
-    void addRandomTile();
-    void displayBoard(); // Now uses SDL for rendering
+// #ifndef BOARDSDL_HPP
+// #define BOARDSDL_HPP
 
-private:
-    std::vector<std::vector<Tiles*> > grid;
-    int size;
-    SDL_Renderer* renderer;  // SDL renderer for rendering the board
+// #include <SDL2/SDL.h> // Assuming SDL2 is used
+// #include "Board.hpp"  // Assuming Board is the base class
 
-    void renderTile(int x, int y, int value);  // Render a single tile
-};
+// class BoardSdl : public Board {
+// public:
+//     BoardSdl(int size, SDL_Renderer* renderer);
+//     ~BoardSdl();
 
-#endif // BOARDSDL_HPP
+//     void render();
+
+// private:
+//     SDL_Renderer* renderer;
+// };
+
+// #endif
