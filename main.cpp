@@ -1,7 +1,17 @@
 #include <iostream>
+#include "game/logic_game/HPP_files/Board.hpp"
 #include "game/logic_game/HPP_files/Tiles.hpp"
 
 int main() {
+    // creation of the board
+    Board board;
+    // seed for random number generation base on the actual hour 
+    srand(static_cast<unsigned int>(time(0)));
+
+    board.boardInit();
+    board.displayBoard();
+
+
     Tiles* tile1 = new Tiles(0, 0, 2);
     Tiles* tile2 = new Tiles(0, 1, 2);
 
@@ -34,6 +44,8 @@ int main() {
     delete tile2;
     delete tile3;
     delete tile4;
+
+    board.~Board();
 
     return 0;
 }
