@@ -1,8 +1,7 @@
 CXX := g++
-CXXFLAGS := -I src/include -I /usr/include/SDL2 -I game
-LDFLAGS := -L src/lib
-LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer 
-
+CXXFLAGS := -I/opt/homebrew/include/SDL2 -Igame -I src/include  # Or /usr/local/include/SDL2 for Intel Macs
+LDFLAGS := -L/opt/homebrew/lib  # Or /usr/local/lib for Intel Macs
+LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 # Directories
 SRC_DIR := game
 GRAPHIC_DIR := $(SRC_DIR)/graphic_game/cpp_files
