@@ -1,6 +1,12 @@
 #include "../HPP_files/Tiles.hpp"
 #include <iostream>
 
+/*
+    This class is responsible for creating the tiles that will be used in the game.
+    Each tile has a position in the game board and a number that will be used to merge with other tiles.
+    The tiles can be merged if they have the same number.
+*/
+
 // Constructor & Destructor
 Tiles::Tiles(int posX, int posY, int numberInTile) {
     this->posX = posX;
