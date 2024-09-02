@@ -8,11 +8,13 @@ public:
     ~Board();
     void boardInit();
     void addRandomTile();
-    void moveUp();
-    void moveDown();
-    void moveLeft();
-    void moveRight();
+    bool moveUp();
+    bool moveDown();
+    bool moveLeft();
+    bool moveRight();
     bool okToMove();
+
+    void displayBoard();
 
 private:
     int grid[4][4];
