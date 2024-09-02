@@ -1,4 +1,5 @@
 #include "../HPP_files/Window.hpp"
+#include <../../game/logic_game/HPP_files/BoardSdl.hpp>
 
 Window::Window(int w, int h) : width(w), height(h), title("2048"), closed(false) {
     if (!init()) {
@@ -33,7 +34,11 @@ bool Window::init() {
         return false;
     }
 
-    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);  
+    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);
+
+    Board.render();  // Render the board
+
+    SDL_RenderPresent(renderer);
 
     return true;
 }
