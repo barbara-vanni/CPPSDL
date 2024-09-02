@@ -1,6 +1,6 @@
 #include "../HPP_files/Window.hpp"
 
-Window::Window(int w, int h) : width(w), height(h), title("Game Window"), closed(false) {
+Window::Window(int w, int h) : width(w), height(h), title("2048"), closed(false) {
     if (!init()) {
         closed = true;
     }
@@ -32,6 +32,8 @@ bool Window::init() {
         SDL_Quit();  // Clean up SDL
         return false;
     }
+
+    SDL_SetRenderDrawColor(renderer, 100, 100, 180, 255);  
 
     return true;
 }
