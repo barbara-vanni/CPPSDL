@@ -1,7 +1,7 @@
 #include "game/graphic_game/HPP_files/Window.hpp"
 
 int main() {
-    Window window(800, 600);
+    Window window(600, 600);
 
     // Main loop
     while (!window.isClosed()) {

@@ -21,15 +21,15 @@ bool Window::init() {
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
     if (window == nullptr) {
         std::cerr << "Window creation failed: " << SDL_GetError() << std::endl;
-        SDL_Quit();  // Clean up SDL before returning
+        SDL_Quit(); 
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == nullptr) {
         std::cerr << "Renderer creation failed: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);  // Clean up the window
-        SDL_Quit();  // Clean up SDL
+        SDL_DestroyWindow(window); 
+        SDL_Quit();  
         return false;
     }
 
