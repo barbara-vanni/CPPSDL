@@ -21,7 +21,7 @@ public:
     Window(const std::string &title, int width, int height);
     ~Window();
 
-    bool isClosed() const { return closed; }
+    bool isClosed() const;  // Declaration only
     void clear() const;
 };
 

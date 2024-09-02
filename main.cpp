@@ -3,9 +3,10 @@
 int main() {
     Window window(800, 600);
 
+    // Main loop
     while (!window.isClosed()) {
         window.clear();
-        SDL_Delay(16);
+        SDL_Delay(16);  // Adjust delay for frame rate control
     }
 
     return 0;
