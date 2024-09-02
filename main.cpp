@@ -1,13 +1,12 @@
-#include <iostream>
-#include "game/logic_game/HPP_files/Board.hpp"
-#include "game/logic_game/HPP_files/Game.hpp"
+#include "game/graphic_game/HPP_files/Window.hpp"
 
 int main() {
-    Board board;
-    board.setBoardSize(3);
-    board.printBoard();
-    board.setTile(4, 4, 'X');
-    board.printBoard();
-    std::cout << board.getTile(4, 4) << std::endl;
+    Window window(800, 600);
+
+    while (!window.isClosed()) {
+        window.clear();
+        SDL_Delay(16);
+    }
+
     return 0;
 }
