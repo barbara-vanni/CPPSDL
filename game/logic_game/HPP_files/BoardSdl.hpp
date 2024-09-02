@@ -1,30 +1,33 @@
-#ifndef BOARDSDL_HPP
-#define BOARDSDL_HPP
+#ifndef BOARD_HPP
+#define BOARD_HPP
 
-#include <SDL.h>
 #include <iostream>
-#include <string>
+#include <vector>
+#include "Tiles.hpp"
+#include <SDL2/SDL.h>
 
-class BoardSdl {
-private:
-    SDL_Window* window;
-    SDL_Renderer* renderer;
-    int width;
-    int height;
-    std::string title;
-    bool closed;
-
-    bool init();
-
+class Board {
 public:
-    BoardSdl(int w, int h);
-    BoardSdl(const std::string &title, int width, int height);
-    ~BoardSdl();
+    Board(int size = 4, SDL_Renderer* renderer = nullptr);
+    ~Board();
+    
+    void boardInit();
+    void addRandomTile();
+    bool moveUp();
+    bool moveDown();
+    bool moveLeft();
+    bool moveRight();
+    bool okToMove();
 
-    bool isClosed() const;  // Declaration only
-    void clear() const;
+    void displayBoard();
+    void render();  // New method to render the board using SDL
+
+private:
+    std::vector<std::vector<Tiles*>> grid;
+    int size = 4;
+    SDL_Renderer* renderer;  // SDL renderer
+
+    void renderTile(int x, int y, int value);  // Helper method to render individual tiles
 };
 
-
-
-#endif // BOARDSDL_HPP
+#endif // BOARD_HPP
