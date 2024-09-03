@@ -105,10 +105,78 @@ bool Board::moveRight()
                     moved = true;
                     k++;
                 }
+
                 if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
                 {
                     grid[i][k + 1]->setNumberInTile(grid[i][k + 1]->getNumberInTile() * 2);
                     grid[i][k] = nullptr;
+                    moved = true;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool Board::moveLeft()
+{
+
+    bool moved = false;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] != nullptr)
+            {
+
+                int k = j;
+
+                while (k > 0 && (grid[i][k - 1] == nullptr || grid[i][k - 1] == 0))
+                {
+                    grid[i][k - 1] = grid[i][k];
+                    grid[i][k] = nullptr;
+                    grid[i][k - 1]->setPosY(k - 1);
+                    moved = true;
+                    k--;
+                }
+
+                if (k > 0 && grid[i][k - 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
+                {
+                    grid[i][k - 1]->setNumberInTile(grid[i][k - 1]->getNumberInTile() * 2);
+                    grid[i][k] = nullptr;
+                    moved = true;
+                }
+            }
+        }
+    }
+    return moved;
+}
+
+bool Board::moveDown(){
+
+    bool moved = false;
+
+    for (int j = 0; j < 4; j++)
+    {
+        for (int i = 3; i >= 0; i--)
+        {
+            if (grid[i][j] != nullptr)
+            {
+                int k = i;
+                while (k < 3 && (grid[k + 1][j] == nullptr || grid[k + 1][j]->getNumberInTile() == 0))
+                {
+                    grid[k + 1][j] = grid[k][j];
+                    grid[k][j] = nullptr;
+                    grid[k + 1][j]->setPosX(k + 1);
+                    moved = true;
+                    k++;
+                }
+                if (k < 3 && grid[k + 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
+                {
+                    grid[k + 1][j]->setNumberInTile(grid[k + 1][j]->getNumberInTile() * 2);
+                    grid[k][j] = nullptr;
                     moved = true;
                 }
             }

@@ -22,10 +22,10 @@ void Game::move() {
         moved = board->moveUp();
     } else if (inputValue == 27) {
         gameOver = true;
-    // } else if (inputValue == 2) {
-    //     moved = board->moveDown();
-    // } else if (inputValue == 3) {
-    //     moved = board->moveLeft();
+    } else if (inputValue == 80) {
+        moved = board->moveDown();
+    } else if (inputValue == 75) {
+        moved = board->moveLeft();
     } else if (inputValue == 77) {
         moved = board->moveRight();
     }
