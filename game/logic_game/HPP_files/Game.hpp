@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include "Board.hpp"
+#include "Input.hpp"
 
 class Game {
     public:
@@ -14,6 +15,7 @@ class Game {
         bool checkDefeat();
         bool checkVictory();
         void displayScore();
+        bool getGameOver() { return gameOver; } 
 
     private:
         Board* board;
