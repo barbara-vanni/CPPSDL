@@ -1,4 +1,5 @@
 #include "../HPP_files/Window.hpp"
+#include <iostream>
 
 Window::Window(int w, int h) : width(w), height(h), title("Game Window"), closed(false) {
     if (!init()) {
@@ -6,7 +7,8 @@ Window::Window(int w, int h) : width(w), height(h), title("Game Window"), closed
     }
 }
 
-Window::Window(const std::string &title, int width, int height) : title(title), width(width), height(height), closed(false) {
+Window::Window(const std::string &title, int width, int height) 
+    : title(title), width(width), height(height), closed(false) {
     if (!init()) {
         closed = true;
     }
@@ -55,4 +57,8 @@ bool Window::isClosed() const {
         }
     }
     return closed;
+}
+
+SDL_Renderer* Window::getRenderer() const {
+    return renderer; // Provide access to the renderer
 }

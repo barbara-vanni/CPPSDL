@@ -1,8 +1,7 @@
 CXX := g++
-CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include  # Or /usr/local/include/SDL2 for Intel Macs
-LDFLAGS := -L/opt/homebrew/lib  # Or /usr/local/lib for Intel Macs
+CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
+LDFLAGS := -L/opt/homebrew/lib
 LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
-
 
 SRC_DIR := game
 SRC_FILE := src
@@ -16,6 +15,7 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Game.cpp \
 	$(LOGIC_DIR)/Input.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
+	$(LOGIC_DIR)/BoardSdl.cpp
 
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 

@@ -2,27 +2,25 @@
 #define GAME_HPP
 
 #include <iostream>
-#include "Board.hpp"
+#include "BoardSdl.hpp"
 #include "Input.hpp"
 
 class Game {
-    public:
-        Game();
-        ~Game();
+public:
+    Game();
+    ~Game();
 
-        void start();
-        void move();
-        bool checkDefeat();
-        bool checkVictory();
-        void displayScore();
-        bool getGameOver() { return gameOver; } 
+    void start();
+    void move();
+    bool checkDefeat();
+    bool checkVictory();
+    void displayScore();
+    bool getGameOver() const { return gameOver; } 
 
-    private:
-        Board* board;
-        int score;
-        bool gameOver;
+private:
+    BoardSdl* board;  // Changed from Board* to BoardSdl*
+    int score;
+    bool gameOver;
 };
-
-
 
 #endif // GAME_HPP
