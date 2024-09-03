@@ -1,69 +1,249 @@
-#include <iostream>
 #include "../HPP_files/Board.hpp"
+#include "../HPP_files/Tiles.hpp"
+#include "../HPP_files/Input.hpp"
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
 
-
-Board::Board() {
-    board = nullptr;
-    boardSize = 0;
+Board::Board(int size) : size(size)
+{
+    std::cout << "Board constructor called" << std::endl;
 }
 
-Board::~Board() {
-    for (int i = 0; i < boardSize; i++) {
-        delete[] board[i];
+void Board::boardInit()
+{
+    grid.resize(4, std::vector<Tiles *>(4, nullptr));
+
+    addRandomTile();
+    addRandomTile();
+}
+
+void Board::addRandomTile()
+{
+    std::vector<std::pair<int, int>> emptyTiles;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0)
+            {
+                emptyTiles.push_back(std::make_pair(i, j));
+            }
+        }
     }
-    delete[] board;
+
+    // if there are no empty tiles, return false
+    if (emptyTiles.empty())
+        return;
+
+    // generate a random index to place the tile
+    int randIndex = rand() % emptyTiles.size();
+    int x = emptyTiles[randIndex].first;
+    int y = emptyTiles[randIndex].second;
+
+    // generate a 2 with 90% of chance, else generate a 4
+    int tileValue = (rand() % 10 < 9) ? 2 : 4;
+
+    // grid[x][y] = tileValue;
+    Tiles *newTile = new Tiles(x, y, tileValue);
+    grid[x][y] = newTile;
 }
 
+bool Board::moveUp()
+{
+    bool moved = false;
 
-void Board::printBoard() {
-    for (int i = 0; i < boardSize; i++) {
-        for (int j = 0; j < boardSize - 1; j++) {
-            std::cout << board[i][j] << '*';
+    for (int j = 0; j < 4; j++)
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (grid[i][j] != nullptr)
+            {
+                int k = i;
+                while (k > 0 && (grid[k - 1][j] == nullptr || grid[k - 1][j]->getNumberInTile() == 0))
+                {
+                    grid[k - 1][j] = grid[k][j];
+                    grid[k][j] = nullptr;
+                    grid[k - 1][j]->setPosX(k - 1);
+                    moved = true;
+                    k--;
+                }
+                if (k > 0 && grid[k - 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
+                {
+                    grid[k - 1][j]->setNumberInTile(grid[k - 1][j]->getNumberInTile() * 2);
+                    grid[k][j] = nullptr;
+                    moved = true;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool Board::moveRight()
+{
+
+    bool moved = false;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 3; j >= 0; j--)
+        {
+            if (grid[i][j] != nullptr)
+            {
+
+                int k = j;
+
+                while (k < 3 && (grid[i][k + 1] == nullptr || grid[i][k + 1] == 0))
+                {
+                    grid[i][k + 1] = grid[i][k];
+                    grid[i][k] = nullptr;
+                    grid[i][k + 1]->setPosY(k + 1);
+                    moved = true;
+                    k++;
+                }
+
+                if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
+                {
+                    grid[i][k + 1]->setNumberInTile(grid[i][k + 1]->getNumberInTile() * 2);
+                    grid[i][k] = nullptr;
+                    moved = true;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+bool Board::moveLeft()
+{
+
+    bool moved = false;
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] != nullptr)
+            {
+
+                int k = j;
+
+                while (k > 0 && (grid[i][k - 1] == nullptr || grid[i][k - 1] == 0))
+                {
+                    grid[i][k - 1] = grid[i][k];
+                    grid[i][k] = nullptr;
+                    grid[i][k - 1]->setPosY(k - 1);
+                    moved = true;
+                    k--;
+                }
+
+                if (k > 0 && grid[i][k - 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
+                {
+                    grid[i][k - 1]->setNumberInTile(grid[i][k - 1]->getNumberInTile() * 2);
+                    grid[i][k] = nullptr;
+                    moved = true;
+                }
+            }
+        }
+    }
+    return moved;
+}
+
+bool Board::moveDown(){
+
+    bool moved = false;
+
+    for (int j = 0; j < 4; j++)
+    {
+        for (int i = 3; i >= 0; i--)
+        {
+            if (grid[i][j] != nullptr)
+            {
+                int k = i;
+                while (k < 3 && (grid[k + 1][j] == nullptr || grid[k + 1][j]->getNumberInTile() == 0))
+                {
+                    grid[k + 1][j] = grid[k][j];
+                    grid[k][j] = nullptr;
+                    grid[k + 1][j]->setPosX(k + 1);
+                    moved = true;
+                    k++;
+                }
+                if (k < 3 && grid[k + 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
+                {
+                    grid[k + 1][j]->setNumberInTile(grid[k + 1][j]->getNumberInTile() * 2);
+                    grid[k][j] = nullptr;
+                    moved = true;
+                }
+            }
+        }
+    }
+
+    return moved;
+}
+
+// bool Board::okToMove(){
+//     for (int i = 0; i < 4; i++)
+//     {
+//         for (int j = 0; j < 4; j++)
+//         {
+//             if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0)
+//             {
+//                 return true;
+//             }
+//             if (i != 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
+//             {
+//                 return true;
+//             }
+//             if (j != 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
+//             {
+//                 return true;
+//             }
+//         }
+//     }
+//     return false;
+// }
+
+void Board::displayBoard()
+{
+    std::cout << "---------------------" << std::endl;
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << "|";
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] == 0)
+            {
+                std::cout << "    |";
+            }
+            else
+            {
+                std::cout << " " << grid[i][j]->getNumberInTile() << "  |";
+            }
         }
         std::cout << std::endl;
+        std::cout << "---------------------" << std::endl;
     }
 }
 
-void Board::setTile(int x, int y, char tile) {
-    if (x >= 0 && x < boardSize && y >= 0 && y < boardSize) {
-        board[x][y] = tile;
-    } else {
-        std::cerr << "Error: Attempt to access out-of-bounds index (" << x << ", " << y << ")" << std::endl;
-    }
-}
+Board::~Board()
+{
+    std::cout << "Board destructor called" << std::endl;
 
-char Board::getTile(int x, int y) {
-    if (x >= 0 && x < boardSize && y >= 0 && y < boardSize) {
-        return board[x][y];
-    } else {
-        std::cerr << "Error: Attempt to access out-of-bounds index (" << x << ", " << y << ")" << std::endl;
-        return '\0'; // Return a null character if out of bounds
-    }
-}
-
-void Board::setBoardSize(int size) {
-    // Clean up any existing board memory before resizing
-    if (board != nullptr) {
-        for (int i = 0; i < boardSize; i++) {
-            delete[] board[i];
-        }
-        delete[] board;
-    }
-
-    boardSize = size;
-    board = new char*[size];
-    for (int i = 0; i < size; i++) {
-        board[i] = new char[size];
-        // Initialize the board with empty spaces or any default value
-        for (int j = 0; j < size; j++) {
-            board[i][j] = ' ';
+    // delete the tiles
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            if (grid[i][j] != nullptr)
+            {
+                delete grid[i][j];
+                grid[i][j] = nullptr;
+            }
         }
     }
 }
-
-
-
-
-
-
-
