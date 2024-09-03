@@ -4,7 +4,6 @@
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 
 int main(int argc, char* argv[]) {
-    // Initialize SDL
     Window window(800, 800);
     if (window.isClosed()) {
         std::cerr << "Failed to initialize window" << std::endl;
@@ -48,10 +47,10 @@ int main(int argc, char* argv[]) {
             quit = true;
         }
 
-        window.clear();
-        board.renderBoard(window.getRenderer(), cellSize);
-        SDL_Delay(100); // Adjust this delay as needed
-    }   
+        window.clear();  // Clear the window
+        board.renderBoard(window.getRenderer(), cellSize);  // Render the board
+        SDL_Delay(100);  // Adjust this delay as needed
+    }
 
     return 0;
 }

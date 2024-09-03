@@ -189,9 +189,7 @@ void BoardSdl::renderBoard(SDL_Renderer* renderer, int cellSize) {
             SDL_Color tileColor = getTileColor(tileValue);
             SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
             SDL_RenderFillRect(renderer, &tileRect);
-
-            // Render the tile number
-            // Optionally, render tile text using SDL_ttf for better visualization
         }
     }
+    SDL_RenderPresent(renderer); 
 }
