@@ -53,7 +53,6 @@ void Board::addRandomTile()
 
 bool Board::moveUp()
 {
-
     bool moved = false;
 
     for (int j = 0; j < 4; j++)
@@ -106,7 +105,7 @@ bool Board::moveRight()
                     moved = true;
                     k++;
                 }
-                if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k + 1]->getNumberInTile())
+                if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
                 {
                     grid[i][k + 1]->setNumberInTile(grid[i][k + 1]->getNumberInTile() * 2);
                     grid[i][k] = nullptr;
