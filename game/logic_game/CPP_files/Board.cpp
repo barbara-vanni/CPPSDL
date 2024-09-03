@@ -21,7 +21,7 @@ void Board::boardInit()
 
 void Board::addRandomTile()
 {
-    std::vector<std::pair<int, int>> emptyTiles;
+    std::vector<std::pair<int, int> > emptyTiles;
 
     for (int i = 0; i < 4; i++)
     {
@@ -186,27 +186,35 @@ bool Board::moveDown(){
     return moved;
 }
 
-// bool Board::okToMove(){
-//     for (int i = 0; i < 4; i++)
-//     {
-//         for (int j = 0; j < 4; j++)
-//         {
-//             if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0)
-//             {
-//                 return true;
-//             }
-//             if (i != 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
-//             {
-//                 return true;
-//             }
-//             if (j != 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
-//             {
-//                 return true;
-//             }
-//         }
-//     }
-//     return false;
-// }
+bool Board::okToMove(){
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] == nullptr)
+            {
+                return true;
+            }
+            if (i > 0 && grid[i][j]->getNumberInTile() == grid[i - 1][j]->getNumberInTile())
+            {
+                return true;
+            }
+            if (i < 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
+            {
+                return true;
+            }
+            if (j > 0 && grid[i][j]->getNumberInTile() == grid[i][j - 1]->getNumberInTile())
+            {
+                return true;
+            }
+            if (j < 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 void Board::displayBoard()
 {

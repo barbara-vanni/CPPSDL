@@ -1,6 +1,6 @@
 #include "../HPP_files/Input.hpp"
 #include <stdio.h>
-#include <conio.h>
+#include <ncurses.h>
 #include <iostream>
 
 Input::Input() {

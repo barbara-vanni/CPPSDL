@@ -20,7 +20,7 @@ public:
 
 private:
     // int grid[4][4];
-    std::vector<std::vector <Tiles*>> grid;
+    std::vector<std::vector <Tiles*> > grid;
     int size = 4;
 
 };
