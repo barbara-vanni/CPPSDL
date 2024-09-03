@@ -5,8 +5,10 @@ LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 
 # Directories
 SRC_DIR := game
+SRC_FILE:= src
 GRAPHIC_DIR := $(SRC_DIR)/graphic_game/CPP_files
 LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
+OBJ_DIR := $(SRC_FILE)/obj
 
 # Source files
 SRC_FILES := main.cpp \
@@ -16,10 +18,10 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
 
 # Object files
-OBJ_FILES := $(SRC_FILES:.cpp=.o)
+OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Executable
-TARGET := main
+TARGET := $(OBJ_DIR)/main
 
 # Default target
 all: $(TARGET)
@@ -29,12 +31,13 @@ $(TARGET): $(OBJ_FILES)
 	$(CXX) -o $@ $^ $(LDFLAGS) $(LIBS)
 
 # Compile source files into object files
-%.o: %.cpp
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Clean up build files
 clean:
-	rm -f $(OBJ_FILES) $(TARGET)
+	rm -rf $(OBJ_DIR) $(TARGET)
 
 # Phony targets
 .PHONY: all clean
