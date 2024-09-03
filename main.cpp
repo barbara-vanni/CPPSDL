@@ -1,13 +1,25 @@
-#include "game/graphic_game/HPP_files/Window.hpp"
+#include <iostream>
+#include "game/logic_game/HPP_files/Game.hpp"
+#include "game/logic_game/HPP_files/Input.hpp"
+
 
 int main() {
-    Window window(600, 600);
+    // seed for random numbers
+    srand(static_cast<unsigned int>(time(0)));
 
-    // Main loop
-    while (!window.isClosed()) {
-        window.clear();
-        SDL_Delay(16);  // Adjust delay for frame rate control
+    // creation of the game
+    Game game;
+
+    game.start();
+
+
+    while (game.getGameOver() == false)
+    {
+        game.move();
+
     }
+
+    game.displayScore();
 
     return 0;
 }

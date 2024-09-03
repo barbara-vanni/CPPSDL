@@ -25,4 +25,4 @@ public:
     void clear() const;
 };
 
-#endif // WINDOW_HPP
+#endif 
