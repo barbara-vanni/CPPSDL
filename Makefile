@@ -39,6 +39,7 @@ $(OBJ_DIR)/%.o: %.cpp
 # Clean up build files
 clean:
 	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -rf $(SRC_DIR)/test/moveTest
 
 # Phony targets
 .PHONY: all clean
