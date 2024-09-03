@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>  // Include SDL_ttf for text rendering
 #include <vector>
 #include "Tiles.hpp"
 
@@ -21,8 +22,13 @@ public:
 
 private:
     std::vector<std::vector<Tiles*>> grid;
-    int size = 4;
+    int size;
+    TTF_Font* font;  // Font for rendering text
+    SDL_Color textColor;  // Color for text
+
     SDL_Color getTileColor(int value);
+    bool initSDL_TTF();  // Initialize SDL_ttf and font
+    void closeSDL_TTF();  // Close SDL_ttf and clean up font
 };
 
 #endif // BOARDDSL_HPP

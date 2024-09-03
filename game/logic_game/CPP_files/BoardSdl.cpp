@@ -1,22 +1,26 @@
 #include "../HPP_files/BoardSdl.hpp"
-#include <SDL2/SDL.h>
-#include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <utility>
 
-BoardSdl::BoardSdl(int size) : size(size) {
+// Constructor
+BoardSdl::BoardSdl(int size) : size(size), font(nullptr) {
+    if (!initSDL_TTF()) {
+        std::cerr << "Failed to initialize SDL_ttf" << std::endl;
+    }
     boardInit();
 }
 
+// Destructor
 BoardSdl::~BoardSdl() {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
             delete grid[i][j];
         }
     }
+    closeSDL_TTF();  // Clean up SDL_ttf
 }
 
+// Initialize board
 void BoardSdl::boardInit() {
     grid.resize(size);
     for (int i = 0; i < size; i++) {
@@ -29,6 +33,7 @@ void BoardSdl::boardInit() {
     addRandomTile();
 }
 
+// Add a random tile
 void BoardSdl::addRandomTile() {
     std::vector<std::pair<int, int>> emptyTiles;
     for (int i = 0; i < size; i++) {
@@ -48,8 +53,8 @@ void BoardSdl::addRandomTile() {
     grid[x][y]->setNumberInTile(tileValue);
 }
 
+// Get tile color
 SDL_Color BoardSdl::getTileColor(int value) {
-    // Add more colors as needed
     switch (value) {
         case 2: return {238, 228, 218, 255};
         case 4: return {237, 224, 200, 255};
@@ -62,10 +67,11 @@ SDL_Color BoardSdl::getTileColor(int value) {
         case 512: return {237, 200, 80, 255};
         case 1024: return {237, 197, 63, 255};
         case 2048: return {237, 194, 46, 255};
-        default: return {204, 192, 179, 255}; // Default color
+        default: return {204, 192, 179, 255}; 
     }
 }
 
+// Move up
 bool BoardSdl::moveUp() {
     bool moved = false;
     for (int j = 0; j < size; j++) {
@@ -89,6 +95,7 @@ bool BoardSdl::moveUp() {
     return moved;
 }
 
+// Move down
 bool BoardSdl::moveDown() {
     bool moved = false;
     for (int j = 0; j < size; j++) {
@@ -112,6 +119,7 @@ bool BoardSdl::moveDown() {
     return moved;
 }
 
+// Move left
 bool BoardSdl::moveLeft() {
     bool moved = false;
     for (int i = 0; i < size; i++) {
@@ -135,6 +143,7 @@ bool BoardSdl::moveLeft() {
     return moved;
 }
 
+// Move right
 bool BoardSdl::moveRight() {
     bool moved = false;
     for (int i = 0; i < size; i++) {
@@ -158,6 +167,7 @@ bool BoardSdl::moveRight() {
     return moved;
 }
 
+// Check if a move is possible
 bool BoardSdl::okToMove() {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -181,6 +191,7 @@ bool BoardSdl::okToMove() {
     return false;
 }
 
+// Render board
 void BoardSdl::renderBoard(SDL_Renderer* renderer, int cellSize) {
     for (int i = 0; i < size; i++) {
         for (int j = 0; j < size; j++) {
@@ -189,7 +200,52 @@ void BoardSdl::renderBoard(SDL_Renderer* renderer, int cellSize) {
             SDL_Color tileColor = getTileColor(tileValue);
             SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
             SDL_RenderFillRect(renderer, &tileRect);
+
+            if (tileValue != 0) {
+                // Render text on tile
+                std::string tileText = std::to_string(tileValue);
+                SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, tileText.c_str(), textColor);
+                if (surfaceMessage) {
+                    SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+                    if (message) {
+                        int textWidth = surfaceMessage->w;
+                        int textHeight = surfaceMessage->h;
+                        SDL_Rect messageRect = { j * cellSize + (cellSize - textWidth) / 2, 
+                                                 i * cellSize + (cellSize - textHeight) / 2, 
+                                                 textWidth, 
+                                                 textHeight };
+                        SDL_RenderCopy(renderer, message, NULL, &messageRect);
+                        SDL_DestroyTexture(message);
+                    }
+                    SDL_FreeSurface(surfaceMessage);
+                } else {
+                    std::cerr << "TTF_RenderText_Solid: " << TTF_GetError() << std::endl;
+                }
+            }
         }
     }
-    SDL_RenderPresent(renderer); 
+    SDL_RenderPresent(renderer);
+}
+
+// Initialize SDL_ttf and font
+bool BoardSdl::initSDL_TTF() {
+    if (TTF_Init() == -1) {
+        std::cerr << "TTF_Init: " << TTF_GetError() << std::endl;
+        return false;
+    }
+    font = TTF_OpenFont("path/to/font.ttf", 24);  // Adjust path and size as needed
+    if (!font) {
+        std::cerr << "TTF_OpenFont: " << TTF_GetError() << std::endl;
+        return false;
+    }
+    textColor = {255, 255, 255, 255};  // White color for text
+    return true;
+}
+
+// Close SDL_ttf and clean up font
+void BoardSdl::closeSDL_TTF() {
+    if (font) {
+        TTF_CloseFont(font);
+    }
+    TTF_Quit();
 }
