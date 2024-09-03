@@ -8,7 +8,7 @@ class Input {
         Input();
         ~Input();
 
-        int getInput();
+        bool getInput();
 };
 
 #endif 

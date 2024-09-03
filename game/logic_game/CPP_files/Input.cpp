@@ -11,12 +11,12 @@ Input::~Input() {
     std::cout << "Destructor called" << std::endl;
 }
 
-int Input::getInput() {
+bool Input::getInput() {
     char input = getch();
 
     if (input == 27) {  
         std::cout << "Exit" << std::endl;
-        return 27;
+        return false;
     } else if (input == -32) { 
         input = getch();
         switch (input) {
@@ -39,5 +39,5 @@ int Input::getInput() {
     } else {
         std::cout << "Press arrow keys to move the tiles or ESC to quit" << std::endl;
     }
-    return input;
+    return true;
 }

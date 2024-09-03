@@ -7,11 +7,7 @@
 int main() {
     Input input;
     
-    while (true) {
-        int inputValue = input.getInput();  
-        if (inputValue == 27) {
-            break;
-        }
+    while (input.getInput()) {   
     }
     // creation of the board
     // Board board(4);
