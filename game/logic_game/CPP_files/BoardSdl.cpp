@@ -1,3 +1,6 @@
+//BoardSdl.cpp
+
+
 #include "../HPP_files/BoardSdl.hpp"
 #include <cstdlib>
 #include <ctime>
@@ -191,61 +194,78 @@ bool BoardSdl::okToMove() {
     return false;
 }
 
-// Render board
-void BoardSdl::renderBoard(SDL_Renderer* renderer, int cellSize) {
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            SDL_Rect tileRect = { j * cellSize, i * cellSize, cellSize, cellSize };
-            int tileValue = grid[i][j]->getNumberInTile();
-            SDL_Color tileColor = getTileColor(tileValue);
-            SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
-            SDL_RenderFillRect(renderer, &tileRect);
-
-            if (tileValue != 0) {
-                // Render text on tile
-                std::string tileText = std::to_string(tileValue);
-                SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, tileText.c_str(), textColor);
-                if (surfaceMessage) {
-                    SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
-                    if (message) {
-                        int textWidth = surfaceMessage->w;
-                        int textHeight = surfaceMessage->h;
-                        SDL_Rect messageRect = { j * cellSize + (cellSize - textWidth) / 2, 
-                                                 i * cellSize + (cellSize - textHeight) / 2, 
-                                                 textWidth, 
-                                                 textHeight };
-                        SDL_RenderCopy(renderer, message, NULL, &messageRect);
-                        SDL_DestroyTexture(message);
-                    }
-                    SDL_FreeSurface(surfaceMessage);
-                } else {
-                    std::cerr << "TTF_RenderText_Solid: " << TTF_GetError() << std::endl;
-                }
-            }
-        }
-    }
-    SDL_RenderPresent(renderer);
-}
-
-// Initialize SDL_ttf and font
+// Initialize SDL_ttf
 bool BoardSdl::initSDL_TTF() {
     if (TTF_Init() == -1) {
-        std::cerr << "TTF_Init: " << TTF_GetError() << std::endl;
+        std::cerr << "TTF_Init error: " << TTF_GetError() << std::endl;
         return false;
     }
-    font = TTF_OpenFont("path/to/font.ttf", 24);  // Adjust path and size as needed
-    if (!font) {
-        std::cerr << "TTF_OpenFont: " << TTF_GetError() << std::endl;
+    font = TTF_OpenFont("/Users/mathisserra/Desktop/Github/B2_Laplateforme/CPPSDL/assets/minecraft_font.ttf", 50);
+    if (font == nullptr) {
+        std::cerr << "TTF_OpenFont error: " << TTF_GetError() << std::endl;
         return false;
     }
-    textColor = {255, 255, 255, 255};  // White color for text
+    textColor = {0, 0, 0, 255};
     return true;
 }
 
-// Close SDL_ttf and clean up font
+// Close SDL_ttf
 void BoardSdl::closeSDL_TTF() {
-    if (font) {
-        TTF_CloseFont(font);
-    }
+    TTF_CloseFont(font);
     TTF_Quit();
+}
+
+
+// Render board
+void BoardSdl::renderBoard(SDL_Renderer* renderer, int cellSize) {
+    // Clear the renderer to avoid artifacts
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);  // Set background color to white
+    SDL_RenderClear(renderer);
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            // Draw tile background
+            SDL_Rect tileRect = { j * cellSize, i * cellSize, cellSize, cellSize };
+            int tileValue = grid[i][j]->getNumberInTile();
+            SDL_Color tileColor = getTileColor(tileValue);
+
+            SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
+            SDL_RenderFillRect(renderer, &tileRect);
+
+            // Draw number if the tile is not empty
+            if (tileValue != 0) {
+                std::string tileText = std::to_string(tileValue);
+                SDL_Surface* surfaceMessage = TTF_RenderText_Solid(font, tileText.c_str(), textColor);
+
+                if (surfaceMessage == nullptr) {
+                    std::cerr << "TTF_RenderText_Solid error: " << TTF_GetError() << std::endl;
+                    continue;
+                }
+
+                SDL_Texture* message = SDL_CreateTextureFromSurface(renderer, surfaceMessage);
+                if (message == nullptr) {
+                    std::cerr << "SDL_CreateTextureFromSurface error: " << SDL_GetError() << std::endl;
+                    SDL_FreeSurface(surfaceMessage);
+                    continue;
+                }
+
+                int textWidth = surfaceMessage->w;
+                int textHeight = surfaceMessage->h;
+                SDL_Rect messageRect = {
+                    j * cellSize + (cellSize - textWidth) / 2,
+                    i * cellSize + (cellSize - textHeight) / 2,
+                    textWidth,
+                    textHeight
+                };
+
+                SDL_RenderCopy(renderer, message, nullptr, &messageRect);
+
+                SDL_DestroyTexture(message);
+                SDL_FreeSurface(surfaceMessage);
+            }
+        }
+    }
+
+    // Present the updated frame
+    SDL_RenderPresent(renderer);
 }

@@ -45,8 +45,10 @@ Window::~Window() {
 }
 
 void Window::clear() const {
+    // Set the renderer draw color to black (or any background color you prefer)
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255); 
+    // Clear the current rendering target with the drawing color
     SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
 }
 
 bool Window::isClosed() const {

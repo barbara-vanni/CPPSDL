@@ -1,3 +1,5 @@
+//BoardSql.hpp
+
 #ifndef BOARDDSL_HPP
 #define BOARDDSL_HPP
 
@@ -27,8 +29,9 @@ private:
     SDL_Color textColor;  // Color for text
 
     SDL_Color getTileColor(int value);
-    bool initSDL_TTF();  // Initialize SDL_ttf and font
-    void closeSDL_TTF();  // Close SDL_ttf and clean up font
+    bool initSDL_TTF(); // Initialize SDL_ttf
+    void closeSDL_TTF();  
 };
 
 #endif // BOARDDSL_HPP
+ 

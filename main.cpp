@@ -4,19 +4,25 @@
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 
 int main(int argc, char* argv[]) {
-    Window window(800, 800);
+    Window window(800, 600);
     if (window.isClosed()) {
         std::cerr << "Failed to initialize window" << std::endl;
         return 1;
     }
 
     BoardSdl board(4);
-    const int cellSize = 200; // Adjust this size based on window size and board size
+    const int cellSize = 150;
 
     bool quit = false;
     SDL_Event event;
+    const int FPS = 60;
+    const int frameDelay = 1000 / FPS;
+    Uint32 frameStart;
+    int frameTime;
 
     while (!quit) {
+        frameStart = SDL_GetTicks();
+
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 quit = true;
@@ -48,8 +54,13 @@ int main(int argc, char* argv[]) {
         }
 
         window.clear();  // Clear the window
-        board.renderBoard(window.getRenderer(), cellSize);  // Render the board
-        SDL_Delay(100);  // Adjust this delay as needed
+        board.renderBoard(window.getRenderer(), cellSize);  // Render the board and everything on it
+
+        // Frame rate control
+        frameTime = SDL_GetTicks() - frameStart;
+        if (frameDelay > frameTime) {
+            SDL_Delay(frameDelay - frameTime);
+        }
     }
 
     return 0;

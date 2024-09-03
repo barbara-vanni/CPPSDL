@@ -17,7 +17,8 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
 	$(LOGIC_DIR)/BoardSdl.cpp
 
-OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
+# Convert source file paths to object file paths in the obj directory
+OBJ_FILES := $(SRC_FILES:%.cpp=$(OBJ_DIR)/%.o)
 
 TARGET := main
 
@@ -26,8 +27,9 @@ all: $(TARGET)
 $(TARGET): $(OBJ_FILES)
 	$(CXX) -o $@ $^ $(LDFLAGS) $(LIBS)
 
+# Rule to compile each source file into an object file
 $(OBJ_DIR)/%.o: %.cpp
-	@mkdir -p $(OBJ_DIR)/$(dir $<)
+	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean:
