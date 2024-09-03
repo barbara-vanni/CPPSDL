@@ -22,6 +22,7 @@ bool Input::getInput() {
         switch (input) {
         case 72:
             std::cout << "Up" << std::endl;
+            return 72;
             break;
         case 80:
             std::cout << "Down" << std::endl;
