@@ -5,6 +5,13 @@
 #include "Board.hpp"
 #include "Input.hpp"
 
+
+struct Score
+{
+    int scoreActuel = 0;
+    int scoreMax = 0;
+};
+
 class Game {
     public:
         Game();
@@ -15,11 +22,13 @@ class Game {
         bool checkDefeat();
         bool checkVictory();
         void displayScore();
+        void updateScore(int point);
         bool getGameOver() { return gameOver; } 
+        void testDefeatScenario();
 
     private:
         Board* board;
-        int score;
+        Score score;
         bool gameOver;
 };
 

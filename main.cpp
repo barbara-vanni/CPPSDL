@@ -10,16 +10,17 @@ int main() {
     // creation of the game
     Game game;
 
+    // game.testDefeatScenario();
+
     game.start();
 
 
     while (game.getGameOver() == false)
     {
         game.move();
-
+        game.displayScore();
     }
 
-    game.displayScore();
 
     return 0;
 }
