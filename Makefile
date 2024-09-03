@@ -15,13 +15,14 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Board.cpp \
 	$(LOGIC_DIR)/Tiles.cpp \
 	$(LOGIC_DIR)/Game.cpp \
+	$(LOGIC_DIR)/Input.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
 
 # Object files
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Executable
-TARGET := $(OBJ_DIR)/main
+TARGET := main
 
 # Default target
 all: $(TARGET)

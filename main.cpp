@@ -1,15 +1,25 @@
 #include <iostream>
 #include "game/logic_game/HPP_files/Board.hpp"
 #include "game/logic_game/HPP_files/Tiles.hpp"
+#include "game/logic_game/HPP_files/Input.hpp"
+
 
 int main() {
+    Input input;
+    
+    while (true) {
+        int inputValue = input.getInput();  
+        if (inputValue == 27) {
+            break;
+        }
+    }
     // creation of the board
-    Board board(4);
-    // seed for random number generation base on the actual hour 
-    srand(static_cast<unsigned int>(time(0)));
+    // Board board(4);
+    // // seed for random number generation base on the actual hour 
+    // srand(static_cast<unsigned int>(time(0)));
 
-    board.boardInit();
-    board.displayBoard();
+    // board.boardInit();
+    // board.displayBoard();
 ;
 
 
