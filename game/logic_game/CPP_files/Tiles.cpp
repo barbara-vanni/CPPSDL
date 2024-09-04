@@ -1,6 +1,6 @@
 //Tiles.cpp
 
-
+#include "../HPP_files/BoardSdl.hpp"
 #include "../HPP_files/Tiles.hpp"
 #include <iostream>
 
@@ -11,10 +11,12 @@
 */
 
 // Constructor & Destructor
-Tiles::Tiles(int posX, int posY, int numberInTile) {
-    this->posX = posX;
-    this->posY = posY;
-    this->numberInTile = numberInTile;
+Tiles::Tiles(int posX, int posY, int numberInTile)
+    : GameObject(posX, posY, 100, 100), // Initialize the base class with default width and height
+      posX(posX),
+      posY(posY),
+      numberInTile(numberInTile) {
+    // Constructor body if needed
 }
 
 Tiles::~Tiles() {
@@ -22,15 +24,15 @@ Tiles::~Tiles() {
 }
 
 // Getters
-int Tiles::getPosX() {
+int Tiles::getPosX() const {
     return posX;
 }
 
-int Tiles::getPosY() {
+int Tiles::getPosY()  const {
     return posY;
 }
 
-int Tiles::getNumberInTile() {
+int Tiles::getNumberInTile()  const {
     return numberInTile;
 }
 
@@ -58,3 +60,24 @@ int Tiles::mergeTilesNumbers(Tiles* tile) {
         return this->numberInTile; 
     }
 }
+
+void Tiles::render(SDL_Renderer* renderer, int cellSize, BoardSdl* board) const {
+    SDL_Rect rect;
+    rect.x = posX * cellSize;
+    rect.y = posY * cellSize;
+    rect.w = cellSize;
+    rect.h = cellSize;
+
+    // Set tile color based on its value
+    SDL_Color tileColor = board->getTileColor(numberInTile);
+    SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
+    SDL_RenderFillRect(renderer, &rect);
+
+    // If the tile has a number, render the number as text
+    if (numberInTile > 0) {
+        // Render number in tile
+        // (Assuming you have a function to render text)
+    }
+}
+
+//Tiles.cpp

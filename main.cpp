@@ -11,8 +11,7 @@ int main(int argc, char* argv[]) {
     }
 
     BoardSdl board(4);
-    const int cellSize = 155;
-
+    const int cellSize = 150;
     bool quit = false;
     SDL_Event event;
     const int FPS = 60;
