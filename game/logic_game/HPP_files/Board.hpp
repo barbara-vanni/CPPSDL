@@ -1,28 +1,27 @@
-// #ifndef BOARD_HPP
-// #define BOARD_HPP
-// #include <iostream>
-// #include "Tiles.hpp"
-// #include <vector>
+// Board.hpp
+#ifndef BOARD_HPP
+#define BOARD_HPP
 
-// class Board {
-// public:
-//     Board(int size = 4);
-//     ~Board();
-//     void boardInit();
-//     void addRandomTile();
-//     bool moveUp();
-//     bool moveDown();
-//     bool moveLeft();
-//     bool moveRight();
-//     bool okToMove();
+#include "Tiles.hpp"
+#include <vector>
 
-//     void displayBoard();
+class Board {
+public:
+    Board(int size = 4);
+    ~Board();
+    
+    void boardInit();
+    void addRandomTile();
+    bool moveUp();
+    bool moveDown();
+    bool moveLeft();
+    bool moveRight();
+    bool okToMove();
+    void displayBoard(SDL_Renderer* renderer) const;
 
-// private:
-//     // int grid[4][4];
-//     std::vector<std::vector <Tiles*> > grid;
-//     int size = 4;
+private:
+    std::vector<std::vector<Tile*>> grid;
+    int size;
+};
 
-// };
-
-// #endif // BOARD_HPP
+#endif // BOARD_HPP

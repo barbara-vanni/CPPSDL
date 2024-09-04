@@ -1,66 +1,60 @@
-//Game.cpp
-
-
-
+// Game.cpp
+#include"../HPP_files/Input.hpp"
 #include "../HPP_files/Game.hpp"
-#include "../HPP_files/Input.hpp"  // Ensure this file exists and is correctly implemented
-#include <iostream>
+#include "../../graphic_game/HPP_files/Window.hpp"
+#include <SDL2/SDL.h>
 
-Game::Game() : board(new BoardSdl(4)), score(0), gameOver(false) {
-    // Initialization in constructor initializer list
-}
+Game::Game() : board(new Board(4)), window(new Window(400, 400)), gameOver(false) {}
 
 Game::~Game() {
-    delete board;  // Clean up dynamically allocated memory
+    delete board;
+    delete window;
 }
 
 void Game::start() {
     board->boardInit();
-    // Optionally display the initial board state if needed
 }
 
 void Game::move() {
     Input input;
-    int inputValue = input.getInput();  // Ensure Input class and getInput() method are correctly implemented
+    int inputValue = input.getInput();
+    int points = 0;
     bool moved = false;
 
-    switch (inputValue) {
-        case 72:  // Up arrow
-            moved = board->moveUp();
-            break;
-        case 80:  // Down arrow
-            moved = board->moveDown();
-            break;
-        case 75:  // Left arrow
-            moved = board->moveLeft();
-            break;
-        case 77:  // Right arrow
-            moved = board->moveRight();
-            break;
-        case 27:  // ESC key
-            gameOver = true;
-            break;
-    }
+    if (inputValue == 72) { moved = board->moveUp(); }
+    else if (inputValue == 80) { moved = board->moveDown(); }
+    else if (inputValue == 75) { moved = board->moveLeft(); }
+    else if (inputValue == 77) { moved = board->moveRight(); }
+    else if (inputValue == 27) { gameOver = true; }
 
     if (moved) {
+        updateScore(points);
         board->addRandomTile();
-        // Optionally update score here if needed
-        // board->displayBoard();  // Optionally display the board state if needed
+        window->clear();
+        board->displayBoard(window->getRenderer());
+        window->present();
     }
-}
-
-void Game::displayScore() {
-    std::cout << "Your score is: " << score << std::endl;
-    // Optionally update and display the score if needed
 }
 
 bool Game::checkDefeat() {
-    // Implement logic to check if the game is over (e.g., no valid moves left)
-    return !board->okToMove();  // This is a placeholder; modify based on actual game rules
+    if (!board->okToMove()) {
+        gameOver = true;
+        return true;
+    }
+    return false;
 }
 
-bool Game::checkVictory() {
-    // Implement logic to check if the player has won
-    // For example, checking if a tile with a certain value exists
-    return false;  // Placeholder; replace with actual victory check logic
+// void Game::displayScore() {
+//     // Display score on SDL window or console
+// }
+
+// void Game::updateScore(int points) {
+//     score.scoreActuel += points;
+//     if (score.scoreActuel > score.scoreMax) {
+//         score.scoreMax = score.scoreActuel;
+//     }
+// }
+
+void Game::testDefeatScenario() {
+    // Implement test logic here
 }

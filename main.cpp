@@ -1,67 +1,79 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
-#include "../game/graphic_game/HPP_files/Window.hpp"
-#include "../game/logic_game/HPP_files/BoardSdl.hpp"
+#include "game/graphic_game/HPP_files/Window.hpp"
+#include "game/logic_game/HPP_files/Tiles.hpp" // Changed from Tiles.hpp to Tile.hpp
+#include "game/logic_game/HPP_files/Board.hpp"
+#include "game/logic_game/HPP_files/Game.hpp"
+
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 600;
+const int CELL_SIZE = 100;
 
 int main(int argc, char* argv[]) {
-    Window window(800, 600);
-    if (window.isClosed()) {
-        std::cerr << "Failed to initialize window" << std::endl;
+    if (SDL_Init(SDL_INIT_VIDEO) < 0) {
+        std::cerr << "SDL initialization failed: " << SDL_GetError() << std::endl;
         return 1;
     }
 
-    BoardSdl board(4);
-    const int cellSize = 150;
+    if (TTF_Init() == -1) {
+        std::cerr << "SDL_ttf initialization failed: " << TTF_GetError() << std::endl;
+        SDL_Quit();
+        return 1;
+    }
 
-    bool quit = false;
+    Window window("2048 Game", WINDOW_WIDTH, WINDOW_HEIGHT);
+    if (window.isClosed()) {
+        TTF_Quit();
+        SDL_Quit();
+        return 1; // Exit if window initialization failed
+    }
+
+    Game game;
+    game.start();
+
+    bool running = true;
     SDL_Event event;
-    const int FPS = 60;
-    const int frameDelay = 1000 / FPS;
-    Uint32 frameStart;
-    int frameTime;
 
-    while (!quit) {
-        frameStart = SDL_GetTicks();
-
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                quit = true;
-            } else if (event.type == SDL_KEYDOWN) {
-                bool moved = false;
-                switch (event.key.keysym.sym) {
-                    case SDLK_UP:
-                        moved = board.moveUp();
-                        break;
-                    case SDLK_DOWN:
-                        moved = board.moveDown();
-                        break;
-                    case SDLK_LEFT:
-                        moved = board.moveLeft();
-                        break;
-                    case SDLK_RIGHT:
-                        moved = board.moveRight();
-                        break;
-                }
-                if (moved) {
-                    board.addRandomTile();
-                }
+    while (running) {
+    while (SDL_PollEvent(&event) != 0) {
+        if (event.type == SDL_QUIT) {
+            running = false;
+        }
+        else if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_UP:    board.moveUp(); break;
+                case SDLK_DOWN:  Board.moveDown(); break;
+                case SDLK_LEFT:  Board.moveLeft(); break;
+                case SDLK_RIGHT: Board.moveRight(); break;
             }
-        }
-
-        if (!board.okToMove()) {
-            std::cout << "Game Over!" << std::endl;
-            quit = true;
-        }
-
-        window.clear();  // Clear the window
-        board.renderBoard(window.getRenderer(), cellSize);  // Render the board and everything on it
-
-        // Frame rate control
-        frameTime = SDL_GetTicks() - frameStart;
-        if (frameDelay > frameTime) {
-            SDL_Delay(frameDelay - frameTime);
         }
     }
 
+    // Update game state
+    game.move();
+
+    // Clear the window
+    window.clear();
+
+    // Draw the game board
+    game.displayBoard(window.getRenderer());
+
+    // Draw the score
+    game.displayScore(); // Ensure this method updates the renderer
+
+    // Present the renderer
+    SDL_RenderPresent(window.getRenderer());
+
+    // Check if the game is over
+    if (game.getGameOver()) {
+        running = false;
+    }
+
+    SDL_Delay(100); // Adjust the delay for desired game speed
+}
+
+    TTF_Quit();
+    SDL_Quit();
     return 0;
 }

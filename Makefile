@@ -15,7 +15,8 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Game.cpp \
 	$(LOGIC_DIR)/Input.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
-	$(LOGIC_DIR)/BoardSdl.cpp
+	$(LOGIC_DIR)/BoardSdl.cpp \
+	$(GRAPHIC_DIR)/GameObject.cpp
 
 # Convert source file paths to object file paths in the obj directory
 OBJ_FILES := $(SRC_FILES:%.cpp=$(OBJ_DIR)/%.o)

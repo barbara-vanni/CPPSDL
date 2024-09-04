@@ -1,13 +1,10 @@
-// File: Game.hpp
-
-
-
+// Game.hpp
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <iostream>
-#include "BoardSdl.hpp"
-#include "Input.hpp"
+#include "Board.hpp"
+#include "Score.hpp"
+#include <SDL2/SDL.h>
 
 class Game {
 public:
@@ -19,11 +16,13 @@ public:
     bool checkDefeat();
     bool checkVictory();
     void displayScore();
-    bool getGameOver() const { return gameOver; } 
+    void updateScore(int point);
+    bool getGameOver() const { return gameOver; }
+    void displayBoard(SDL_Renderer* renderer, int cellSize) const;
 
 private:
-    BoardSdl* board;  // Changed from Board* to BoardSdl*
-    int score;
+    Board* board;
+    // Score score;
     bool gameOver;
 };
 
