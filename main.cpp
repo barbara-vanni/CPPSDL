@@ -1,26 +1,28 @@
 #include <iostream>
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
+#include "game/graphic_game/SFML/HPP_files/print.hpp"
 
 
 int main() {
     // seed for random numbers
-    srand(static_cast<unsigned int>(time(0)));
+    // srand(static_cast<unsigned int>(time(0)));
 
-    // creation of the game
-    Game game;
+    // // creation of the game
+    // Game game;
 
-    // game.testDefeatScenario();
+    // // game.testDefeatScenario();
 
-    game.start();
-
-
-    while (game.getGameOver() == false)
-    {
-        game.move();
-        game.displayScore();
-    }
+    // game.start();
 
 
-    return 0;
+    // while (game.getGameOver() == false)
+    // {
+    //     game.move();
+    //     game.displayScore();
+    // }
+
+
+    // return 0;
+    printSfml();
 }
