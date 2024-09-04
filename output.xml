@@ -1,83 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0.1 (Python 3.11.9 on win32)" generated="2024-09-03T23:00:34.961315" rpa="false" schemaversion="5">
+<robot generator="Robot 7.0.1 (Python 3.11.9 on win32)" generated="2024-09-04T17:03:59.688580" rpa="false" schemaversion="5">
 <suite id="s1" name="Move" source="c:\Users\walid\OneDrive\Bureau\la-plateforme\B2\devoirs\C++\CPPSDL\game\test\move.robot">
-<test id="s1-t1" name="Run Project and Simulate Key Presses in Parallel" line="30">
-<kw name="Start Process" owner="Process">
-<msg time="2024-09-03T23:00:35.015699" level="INFO">Starting process:
-./main</msg>
-<arg>./main</arg>
-<arg>cwd=C:\\Users\\walid\\OneDrive\\Bureau\\la-plateforme\\B2\\devoirs\\C++\\CPPSDL</arg>
-<arg>stdout=game\\test\\moveTest</arg>
-<arg>stderr=game\\test\\error.log</arg>
-<arg>alias=MainProcess</arg>
-<doc>Starts a new process on background.</doc>
-<status status="PASS" start="2024-09-03T23:00:35.013303" elapsed="0.008648"/>
+<test id="s1-t1" name="Run Project and Simulate Key Presses in Parallel" line="15">
+<kw name="Run Process" owner="Process">
+<msg time="2024-09-04T17:03:59.744415" level="INFO">Starting process:
+python game/test/run_game.py</msg>
+<msg time="2024-09-04T17:03:59.752562" level="INFO">Waiting for process to complete.</msg>
+<msg time="2024-09-04T17:03:59.793336" level="INFO">Process completed.</msg>
+<arg>python</arg>
+<arg>game/test/run_game.py</arg>
+<arg>cwd=c:\\Users\\walid\\OneDrive\\Bureau\\la-plateforme\\B2\\devoirs\\C++\\CPPSDL\\game\\test</arg>
+<arg>alias=RunGameProcess</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2024-09-04T17:03:59.744415" elapsed="0.048921"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-09-03T23:00:37.023413" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-09-04T17:04:01.795921" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-09-03T23:00:35.022989" elapsed="2.000424"/>
+<status status="PASS" start="2024-09-04T17:03:59.794351" elapsed="2.001570"/>
 </kw>
-<kw name="Run Process" owner="Process">
-<msg time="2024-09-03T23:00:37.024432" level="INFO">Starting process:
-python game\test\move.py</msg>
-<msg time="2024-09-03T23:00:37.030663" level="INFO">Waiting for process to complete.</msg>
-<msg time="2024-09-03T23:00:52.143970" level="INFO">Process completed.</msg>
-<msg time="2024-09-03T23:00:52.143970" level="INFO">${result} = &lt;result object with rc 1&gt;</msg>
-<var>${result}</var>
+<kw name="Start Process" owner="Process">
+<msg time="2024-09-04T17:04:01.801296" level="INFO">Starting process:
+python game/test/move.py</msg>
 <arg>python</arg>
-<arg>game\\test\\move.py</arg>
+<arg>game/test/move.py</arg>
 <arg>alias=MoveProcess</arg>
-<doc>Runs a process and waits for it to complete.</doc>
-<status status="PASS" start="2024-09-03T23:00:37.024432" elapsed="15.119538"/>
+<doc>Starts a new process on background.</doc>
+<status status="PASS" start="2024-09-04T17:04:01.800293" elapsed="0.008000"/>
 </kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2024-09-03T23:00:52.145742" level="INFO"/>
-<arg>${result.stdout}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2024-09-03T23:00:52.145742" elapsed="0.001450"/>
-</kw>
-<kw name="Wait For Process" owner="Process">
-<msg time="2024-09-03T23:00:52.148200" level="INFO">Waiting for process to complete.</msg>
-<msg time="2024-09-03T23:00:52.148200" level="INFO">Process completed.</msg>
-<arg>MoveProcess</arg>
-<doc>Waits for the process to complete or to reach the given timeout.</doc>
-<status status="PASS" start="2024-09-03T23:00:52.147192" elapsed="0.001008"/>
-</kw>
-<kw name="Terminate Process" owner="Process">
-<msg time="2024-09-03T23:00:52.150299" level="INFO">Gracefully terminating process.</msg>
-<msg time="2024-09-03T23:00:52.251926" level="INFO">Process completed.</msg>
-<arg>MainProcess</arg>
-<doc>Stops the process gracefully or forcefully.</doc>
-<status status="PASS" start="2024-09-03T23:00:52.149288" elapsed="0.102638"/>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-04T17:04:02.811552" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-04T17:04:01.810306" elapsed="1.001246"/>
 </kw>
 <kw name="Get Process Result" owner="Process">
-<msg time="2024-09-03T23:00:52.254941" level="INFO">${main_output} = &lt;result object with rc 3221225786&gt;</msg>
+<msg time="2024-09-04T17:04:02.812581" level="INFO">${main_output} = &lt;result object with rc 2&gt;</msg>
 <var>${main_output}</var>
-<arg>MainProcess</arg>
+<arg>RunGameProcess</arg>
 <doc>Returns the specified `result object` or some of its attributes.</doc>
-<status status="PASS" start="2024-09-03T23:00:52.253941" elapsed="0.001000"/>
+<status status="PASS" start="2024-09-04T17:04:02.812581" elapsed="0.001072"/>
 </kw>
 <kw name="Log" owner="BuiltIn">
-<msg time="2024-09-03T23:00:52.255940" level="INFO">Board constructor called
----------------------
-|    |    |    |    |
----------------------
-| 2  |    |    |    |
----------------------
-|    | 2  |    |    |
----------------------
-|    |    |    |    |
----------------------
-Constructor called</msg>
+<msg time="2024-09-04T17:04:02.815005" level="INFO"/>
 <arg>${main_output.stdout}</arg>
 <doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2024-09-03T23:00:52.255940" elapsed="0.001220"/>
+<status status="PASS" start="2024-09-04T17:04:02.813653" elapsed="0.001352"/>
 </kw>
-<status status="PASS" start="2024-09-03T23:00:35.012101" elapsed="17.245059"/>
+<kw name="Get File" owner="OperatingSystem">
+<msg time="2024-09-04T17:04:02.816098" level="INFO" html="true">Getting file '&lt;a href="file://C:\Users\walid\OneDrive\Bureau\la-plateforme\B2\devoirs\C++\CPPSDL\game\test\error.log"&gt;C:\Users\walid\OneDrive\Bureau\la-plateforme\B2\devoirs\C++\CPPSDL\game\test\error.log&lt;/a&gt;'.</msg>
+<msg time="2024-09-04T17:04:02.817343" level="INFO">${stderr} = </msg>
+<var>${stderr}</var>
+<arg>game/test/error.log</arg>
+<doc>Returns the contents of a specified file.</doc>
+<status status="PASS" start="2024-09-04T17:04:02.815005" elapsed="0.002338"/>
+</kw>
+<kw name="Should Be Empty" owner="BuiltIn">
+<msg time="2024-09-04T17:04:02.818354" level="INFO">Length is 0.</msg>
+<arg>${stderr}</arg>
+<doc>Verifies that the given item is empty.</doc>
+<status status="PASS" start="2024-09-04T17:04:02.818354" elapsed="0.000000"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2024-09-04T17:04:02.820543" level="INFO">"Pas d'erreurs dans le jeu."</msg>
+<arg>"Pas d'erreurs dans le jeu."</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2024-09-04T17:04:02.820543" elapsed="0.000000"/>
+</kw>
+<status status="PASS" start="2024-09-04T17:03:59.743255" elapsed="3.078778"/>
 </test>
-<status status="PASS" start="2024-09-03T23:00:34.967496" elapsed="17.292015"/>
+<status status="PASS" start="2024-09-04T17:03:59.695116" elapsed="3.128930"/>
 </suite>
 <statistics>
 <total>
