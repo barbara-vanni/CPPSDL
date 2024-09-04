@@ -1,21 +1,18 @@
-//Game.cpp
-
-
-
+// Game.cpp
+#include"../HPP_files/Input.hpp"
 #include "../HPP_files/Game.hpp"
-#include "../HPP_files/Board.hpp"
-#include "../HPP_files/Score.hpp"
-#include <iostream>
+#include "../../graphic_game/HPP_files/Window.hpp"
+#include <SDL2/SDL.h>
 
-Game::Game() {
-    board = new Board(4);
-    Score score;
-    gameOver = false;
+Game::Game() : board(new Board(4)), window(new Window(400, 400)), gameOver(false) {}
+
+Game::~Game() {
+    delete board;
+    delete window;
 }
 
 void Game::start() {
     board->boardInit();
-    // Optionally display the initial board state if needed
 }
 
 void Game::move() {
@@ -24,92 +21,40 @@ void Game::move() {
     int points = 0;
     bool moved = false;
 
-    if (inputValue == 72) {
-        moved = board->moveUp(points);
-    } else if (inputValue == 80) {
-        moved = board->moveDown(points);
-    } else if (inputValue == 75) {
-        moved = board->moveLeft(points);
-    } else if (inputValue == 77) {
-        moved = board->moveRight(points);
-    } else if (inputValue == 27) {
-        gameOver = true;
-    }        
+    if (inputValue == 72) { moved = board->moveUp(); }
+    else if (inputValue == 80) { moved = board->moveDown(); }
+    else if (inputValue == 75) { moved = board->moveLeft(); }
+    else if (inputValue == 77) { moved = board->moveRight(); }
+    else if (inputValue == 27) { gameOver = true; }
 
     if (moved) {
         updateScore(points);
         board->addRandomTile();
-        board->displayBoard();
+        window->clear();
+        board->displayBoard(window->getRenderer());
+        window->present();
     }
 }
 
 bool Game::checkDefeat() {
-    if (board->okToMove() == false) {
+    if (!board->okToMove()) {
         gameOver = true;
         return true;
     }
-    else {
-        return false;
-    }
+    return false;
 }
 
-void Game::displayScore() {
-    std::cout << "Your score is: " << score.scoreActuel << std::endl;
-    std::cout << "Your best score is: " << score.scoreMax << std::endl;
-}
+// void Game::displayScore() {
+//     // Display score on SDL window or console
+// }
 
-void Game::updateScore(int points)
-{
-    
-    score.scoreActuel += points;
-
-    if (score.scoreActuel > score.scoreMax)
-    {
-        score.scoreMax = score.scoreActuel;
-    }
-}
-
-bool Game::checkDefeat() {
-    // Implement logic to check if the game is over (e.g., no valid moves left)
-    return !board->okToMove();  // This is a placeholder; modify based on actual game rules
-}
-
-
-/* TEST */
+// void Game::updateScore(int points) {
+//     score.scoreActuel += points;
+//     if (score.scoreActuel > score.scoreMax) {
+//         score.scoreMax = score.scoreActuel;
+//     }
+// }
 
 void Game::testDefeatScenario() {
-
-    auto& grid = board->getGrid();
-
-    board->boardInit();
-
-
-    grid[0][0] = new Tiles(0, 0, 2);
-    grid[0][1] = new Tiles(0, 1, 4);
-    grid[0][2] = new Tiles(0, 2, 2);
-    grid[0][3] = new Tiles(0, 3, 4);
-
-    grid[1][0] = new Tiles(1, 0, 4);
-    grid[1][1] = new Tiles(1, 1, 2);
-    grid[1][2] = new Tiles(1, 2, 4);
-    grid[1][3] = new Tiles(1, 3, 2);
-
-    grid[2][0] = new Tiles(2, 0, 2);
-    grid[2][1] = new Tiles(2, 1, 4);
-    grid[2][2] = new Tiles(2, 2, 2);
-    grid[2][3] = new Tiles(2, 3, 4);
-
-    grid[3][0] = new Tiles(3, 0, 4);
-    grid[3][1] = new Tiles(3, 1, 2);
-    grid[3][2] = new Tiles(3, 2, 4);
-    grid[3][3] = new Tiles(3, 3, 2);
-
-    board->displayBoard();
-
-    // check if the game is over when no moves are possible
-    if (checkDefeat()) {
-        std::cout << "Test passed: Game Over detected." << std::endl;
-    } else {
-        std::cout << "Test failed: Game Over not detected." << std::endl;
-    }
+    // Implement test logic here
 }

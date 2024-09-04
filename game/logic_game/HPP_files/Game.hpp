@@ -1,39 +1,29 @@
-// File: Game.hpp
-
-
-
+// Game.hpp
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <iostream>
-#include "BoardSdl.hpp"
-#include "Input.hpp"
-
-
-struct Score
-{
-    int scoreActuel = 0;
-    int scoreMax = 0;
-};
+#include "Board.hpp"
+#include "Score.hpp"
+#include <SDL2/SDL.h>
 
 class Game {
 public:
     Game();
     ~Game();
 
-        void start();
-        void move();
-        bool checkDefeat();
-        bool checkVictory();
-        void displayScore();
-        void updateScore(int point);
-        bool getGameOver() { return gameOver; } 
-        void testDefeatScenario();
+    void start();
+    void move();
+    bool checkDefeat();
+    bool checkVictory();
+    void displayScore();
+    void updateScore(int point);
+    bool getGameOver() const { return gameOver; }
+    void displayBoard(SDL_Renderer* renderer, int cellSize) const;
 
-    private:
-        Board* board;
-        Score score;
-        bool gameOver;
+private:
+    Board* board;
+    // Score score;
+    bool gameOver;
 };
 
 #endif // GAME_HPP
