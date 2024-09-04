@@ -3,15 +3,14 @@
 
 
 #include "../HPP_files/Game.hpp"
-#include "../HPP_files/Input.hpp"  // Ensure this file exists and is correctly implemented
+#include "../HPP_files/Board.hpp"
+#include "../HPP_files/Score.hpp"
 #include <iostream>
 
-Game::Game() : board(new BoardSdl(4)), score(0), gameOver(false) {
-    // Initialization in constructor initializer list
-}
-
-Game::~Game() {
-    delete board;  // Clean up dynamically allocated memory
+Game::Game() {
+    board = new Board(4);
+    Score score;
+    gameOver = false;
 }
 
 void Game::start() {
@@ -21,37 +20,53 @@ void Game::start() {
 
 void Game::move() {
     Input input;
-    int inputValue = input.getInput();  // Ensure Input class and getInput() method are correctly implemented
+    int inputValue = input.getInput();
+    int points = 0;
     bool moved = false;
 
-    switch (inputValue) {
-        case 72:  // Up arrow
-            moved = board->moveUp();
-            break;
-        case 80:  // Down arrow
-            moved = board->moveDown();
-            break;
-        case 75:  // Left arrow
-            moved = board->moveLeft();
-            break;
-        case 77:  // Right arrow
-            moved = board->moveRight();
-            break;
-        case 27:  // ESC key
-            gameOver = true;
-            break;
-    }
+    if (inputValue == 72) {
+        moved = board->moveUp(points);
+    } else if (inputValue == 80) {
+        moved = board->moveDown(points);
+    } else if (inputValue == 75) {
+        moved = board->moveLeft(points);
+    } else if (inputValue == 77) {
+        moved = board->moveRight(points);
+    } else if (inputValue == 27) {
+        gameOver = true;
+    }        
 
     if (moved) {
+        updateScore(points);
         board->addRandomTile();
-        // Optionally update score here if needed
-        // board->displayBoard();  // Optionally display the board state if needed
+        board->displayBoard();
+    }
+}
+
+bool Game::checkDefeat() {
+    if (board->okToMove() == false) {
+        gameOver = true;
+        return true;
+    }
+    else {
+        return false;
     }
 }
 
 void Game::displayScore() {
-    std::cout << "Your score is: " << score << std::endl;
-    // Optionally update and display the score if needed
+    std::cout << "Your score is: " << score.scoreActuel << std::endl;
+    std::cout << "Your best score is: " << score.scoreMax << std::endl;
+}
+
+void Game::updateScore(int points)
+{
+    
+    score.scoreActuel += points;
+
+    if (score.scoreActuel > score.scoreMax)
+    {
+        score.scoreMax = score.scoreActuel;
+    }
 }
 
 bool Game::checkDefeat() {
@@ -59,8 +74,42 @@ bool Game::checkDefeat() {
     return !board->okToMove();  // This is a placeholder; modify based on actual game rules
 }
 
-bool Game::checkVictory() {
-    // Implement logic to check if the player has won
-    // For example, checking if a tile with a certain value exists
-    return false;  // Placeholder; replace with actual victory check logic
+
+/* TEST */
+
+void Game::testDefeatScenario() {
+
+    auto& grid = board->getGrid();
+
+    board->boardInit();
+
+
+    grid[0][0] = new Tiles(0, 0, 2);
+    grid[0][1] = new Tiles(0, 1, 4);
+    grid[0][2] = new Tiles(0, 2, 2);
+    grid[0][3] = new Tiles(0, 3, 4);
+
+    grid[1][0] = new Tiles(1, 0, 4);
+    grid[1][1] = new Tiles(1, 1, 2);
+    grid[1][2] = new Tiles(1, 2, 4);
+    grid[1][3] = new Tiles(1, 3, 2);
+
+    grid[2][0] = new Tiles(2, 0, 2);
+    grid[2][1] = new Tiles(2, 1, 4);
+    grid[2][2] = new Tiles(2, 2, 2);
+    grid[2][3] = new Tiles(2, 3, 4);
+
+    grid[3][0] = new Tiles(3, 0, 4);
+    grid[3][1] = new Tiles(3, 1, 2);
+    grid[3][2] = new Tiles(3, 2, 4);
+    grid[3][3] = new Tiles(3, 3, 2);
+
+    board->displayBoard();
+
+    // check if the game is over when no moves are possible
+    if (checkDefeat()) {
+        std::cout << "Test passed: Game Over detected." << std::endl;
+    } else {
+        std::cout << "Test failed: Game Over not detected." << std::endl;
+    }
 }
