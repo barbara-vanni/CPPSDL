@@ -17,6 +17,7 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Tiles.cpp \
 	$(LOGIC_DIR)/Game.cpp \
 	$(LOGIC_DIR)/Input.cpp \
+	$(LOGIC_DIR)/BoardSdl.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/print.cpp \
 
