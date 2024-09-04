@@ -17,6 +17,12 @@ void Board::boardInit()
 
     addRandomTile();
     addRandomTile();
+
+}
+
+std::vector<std::vector<Tiles *>>& Board::getGrid()
+{
+    return grid;
 }
 
 void Board::addRandomTile()
@@ -51,7 +57,7 @@ void Board::addRandomTile()
     grid[x][y] = newTile;
 }
 
-bool Board::moveUp()
+bool Board::moveUp(int& newPoint)
 {
     bool moved = false;
 
@@ -72,7 +78,9 @@ bool Board::moveUp()
                 }
                 if (k > 0 && grid[k - 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
                 {
-                    grid[k - 1][j]->setNumberInTile(grid[k - 1][j]->getNumberInTile() * 2);
+                    int valuePoint = grid[k - 1][j]->getNumberInTile() * 2;
+                    grid[k - 1][j]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[k][j] = nullptr;
                     moved = true;
                 }
@@ -83,7 +91,7 @@ bool Board::moveUp()
     return moved;
 }
 
-bool Board::moveRight()
+bool Board::moveRight(int& newPoint)
 {
 
     bool moved = false;
@@ -108,7 +116,9 @@ bool Board::moveRight()
 
                 if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
                 {
-                    grid[i][k + 1]->setNumberInTile(grid[i][k + 1]->getNumberInTile() * 2);
+                    int valuePoint = grid[i][k + 1]->getNumberInTile() * 2;
+                    grid[i][k + 1]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[i][k] = nullptr;
                     moved = true;
                 }
@@ -119,9 +129,8 @@ bool Board::moveRight()
     return moved;
 }
 
-bool Board::moveLeft()
+bool Board::moveLeft(int& newPoint)
 {
-
     bool moved = false;
 
     for (int i = 0; i < 4; i++)
@@ -144,7 +153,9 @@ bool Board::moveLeft()
 
                 if (k > 0 && grid[i][k - 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
                 {
-                    grid[i][k - 1]->setNumberInTile(grid[i][k - 1]->getNumberInTile() * 2);
+                    int valuePoint = grid[i][k - 1]->getNumberInTile() * 2;
+                    grid[i][k - 1]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[i][k] = nullptr;
                     moved = true;
                 }
@@ -154,7 +165,7 @@ bool Board::moveLeft()
     return moved;
 }
 
-bool Board::moveDown(){
+bool Board::moveDown(int& newPoint){
 
     bool moved = false;
 
@@ -175,7 +186,9 @@ bool Board::moveDown(){
                 }
                 if (k < 3 && grid[k + 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
                 {
-                    grid[k + 1][j]->setNumberInTile(grid[k + 1][j]->getNumberInTile() * 2);
+                    int valuePoint = grid[k + 1][j]->getNumberInTile() * 2;
+                    grid[k + 1][j]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[k][j] = nullptr;
                     moved = true;
                 }
@@ -186,27 +199,35 @@ bool Board::moveDown(){
     return moved;
 }
 
-// bool Board::okToMove(){
-//     for (int i = 0; i < 4; i++)
-//     {
-//         for (int j = 0; j < 4; j++)
-//         {
-//             if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0)
-//             {
-//                 return true;
-//             }
-//             if (i != 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
-//             {
-//                 return true;
-//             }
-//             if (j != 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
-//             {
-//                 return true;
-//             }
-//         }
-//     }
-//     return false;
-// }
+bool Board::okToMove(){
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] == nullptr)
+            {
+                return true;
+            }
+            if (i > 0 && grid[i][j]->getNumberInTile() == grid[i - 1][j]->getNumberInTile())
+            {
+                return true;
+            }
+            if (i < 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
+            {
+                return true;
+            }
+            if (j > 0 && grid[i][j]->getNumberInTile() == grid[i][j - 1]->getNumberInTile())
+            {
+                return true;
+            }
+            if (j < 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
 void Board::displayBoard()
 {
