@@ -9,9 +9,9 @@ class Background : public GameObject {
         ~Background();
 
 
-        double posX(double x) override;
-        double posY(double y) override;
-        int size(int size) override;
+        double setPosX(double x) override;
+        double setPosY(double y) override;
+        int setCellSize(int size) override;
 
 
 
