@@ -1,8 +1,8 @@
-#ifndef PRINT_HPP
-#define PRINT_HPP
+// #ifndef PRINT_HPP
+// #define PRINT_HPP
 
-#include "../../src/include/SFML/Graphics.hpp"
+// #include "../../src/include/SFML/Graphics.hpp"
 
-int printSfml();
+// int printSfml();
 
-#endif
+// #endif

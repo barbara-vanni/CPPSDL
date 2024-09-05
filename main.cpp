@@ -1,85 +1,42 @@
+#include "../game/graphic_game/HPP_files/Window.hpp"
+#include "../game/graphic_game/HPP_files/Background.hpp"
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "../game/graphic_game/HPP_files/Window.hpp"
-#include "../game/logic_game/HPP_files/BoardSdl.hpp"
-#include "game/logic_game/HPP_files/Game.hpp"
-#include "game/logic_game/HPP_files/Input.hpp"
-#include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
-
 
 int main(int argc, char* argv[]) {
-    int choix = 0;
-    std::cout << "Choisissez une option:" << std::endl;
-    std::cout << "1. Afficher avec SFML" << std::endl;
-    std::cout << "2. Lancer le jeu avec SDL" << std::endl;
-    std::cin >> choix;
+    // Initialize Window with title "2048" and dimensions 800x600
+    Window window("2048", 800, 600);
 
-    switch (choix) {
-        case 1:
-            #include "../game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
-            WindowSfml window(600, 800, "SFML Window");
+    // Initialize background
+    Background background;
 
-            // printSfml();
-            break;
+    // Get the renderer from the window object
+    SDL_Renderer* renderer = window.getRenderer();
 
-        case 2: {
-            // Initialisation de SDL
-            Window window(800, 800);
-            if (window.isClosed()) {
-                std::cerr << "Failed to initialize window" << std::endl;
-                return 1;
+    // Main loop control variable
+    bool running = true;
+
+    // SDL Event for handling input
+    SDL_Event event;
+
+    // Main game loop
+    while (running) {
+        // Event handling loop
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                running = false;  // Exit loop if the window is closed
             }
-
-            BoardSdl board(4);
-            const int cellSize = 200; // Ajustez cette taille en fonction de la taille de la fenêtre et du plateau
-
-            bool quit = false;
-            SDL_Event event;
-
-            while (!quit) {
-                while (SDL_PollEvent(&event)) {
-                    if (event.type == SDL_QUIT) {
-                        quit = true;
-                    } else if (event.type == SDL_KEYDOWN) {
-                        bool moved = false;
-                        switch (event.key.keysym.sym) {
-                            case SDLK_UP:
-                                moved = board.moveUp();
-                                break;
-                            case SDLK_DOWN:
-                                moved = board.moveDown();
-                                break;
-                            case SDLK_LEFT:
-                                moved = board.moveLeft();
-                                break;
-                            case SDLK_RIGHT:
-                                moved = board.moveRight();
-                                break;
-                        }
-                        if (moved) {
-                            board.addRandomTile();
-                        }
-                    }
-                }
-
-                if (!board.okToMove()) {
-                    std::cout << "Game Over!" << std::endl;
-                    quit = true;
-                }
-
-                window.clear();
-                board.renderBoard(window.getRenderer(), cellSize);
-                SDL_Delay(100); // Ajustez ce délai si nécessaire
-            }
-
-            break;
         }
 
-        default:
-            std::cout << "Choix invalide." << std::endl;
-            break;
+        // Drawing the background using the renderer
+        background.draw(renderer);
+
+        // Present the renderer (updates the screen with the latest render)
+        SDL_RenderPresent(renderer);
     }
+
+    // Cleanup before exit (Window destructor will handle it automatically)
+    SDL_Quit();
 
     return 0;
 }
-
