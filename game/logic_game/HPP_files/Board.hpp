@@ -1,7 +1,7 @@
 // #ifndef BOARD_HPP
 // #define BOARD_HPP
 // #include <iostream>
-// #include "Tiles.hpp"
+// #include "../../graphic_game/HPP_files/Tiles.hpp"
 // #include <vector>
 
 // class Board

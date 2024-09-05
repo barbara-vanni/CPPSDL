@@ -53,7 +53,7 @@
 //     int tileValue = (rand() % 10 < 9) ? 2 : 4;
 
 //     // grid[x][y] = tileValue;
-//     Tiles *newTile = new Tiles(x, y, tileValue);
+//     Tiles *newTile = new Tile(x, y, tileValue);
 //     grid[x][y] = newTile;
 // }
 
@@ -68,7 +68,7 @@
 //             if (grid[i][j] != nullptr)
 //             {
 //                 int k = i;
-//                 while (k > 0 && (grid[k - 1][j] == nullptr || grid[k - 1][j]->getNumberInTile() == 0))
+//                 while (k > 0 && (grid[k - 1][j] == nullptr || grid[k - 1][j]->getValue() == 0))
 //                 {
 //                     grid[k - 1][j] = grid[k][j];
 //                     grid[k][j] = nullptr;
@@ -76,10 +76,10 @@
 //                     moved = true;
 //                     k--;
 //                 }
-//                 if (k > 0 && grid[k - 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
+//                 if (k > 0 && grid[k - 1][j]->getValue() == grid[k][j]->getValue())
 //                 {
-//                     int valuePoint = grid[k - 1][j]->getNumberInTile() * 2;
-//                     grid[k - 1][j]->setNumberInTile(valuePoint);
+//                     int valuePoint = grid[k - 1][j]->getValue() * 2;
+//                     grid[k - 1][j]->setValue(valuePoint);
 //                     newPoint += valuePoint;
 //                     grid[k][j] = nullptr;
 //                     moved = true;
@@ -114,10 +114,10 @@
 //                     k++;
 //                 }
 
-//                 if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
+//                 if (k < 3 && grid[i][k + 1]->getValue() == grid[i][k]->getValue())
 //                 {
-//                     int valuePoint = grid[i][k + 1]->getNumberInTile() * 2;
-//                     grid[i][k + 1]->setNumberInTile(valuePoint);
+//                     int valuePoint = grid[i][k + 1]->getValue() * 2;
+//                     grid[i][k + 1]->setValue(valuePoint);
 //                     newPoint += valuePoint;
 //                     grid[i][k] = nullptr;
 //                     moved = true;
@@ -151,10 +151,10 @@
 //                     k--;
 //                 }
 
-//                 if (k > 0 && grid[i][k - 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
+//                 if (k > 0 && grid[i][k - 1]->getValue() == grid[i][k]->getValue())
 //                 {
-//                     int valuePoint = grid[i][k - 1]->getNumberInTile() * 2;
-//                     grid[i][k - 1]->setNumberInTile(valuePoint);
+//                     int valuePoint = grid[i][k - 1]->getValue() * 2;
+//                     grid[i][k - 1]->setValue(valuePoint);
 //                     newPoint += valuePoint;
 //                     grid[i][k] = nullptr;
 //                     moved = true;
@@ -176,7 +176,7 @@
 //             if (grid[i][j] != nullptr)
 //             {
 //                 int k = i;
-//                 while (k < 3 && (grid[k + 1][j] == nullptr || grid[k + 1][j]->getNumberInTile() == 0))
+//                 while (k < 3 && (grid[k + 1][j] == nullptr || grid[k + 1][j]->getValue() == 0))
 //                 {
 //                     grid[k + 1][j] = grid[k][j];
 //                     grid[k][j] = nullptr;
@@ -184,10 +184,10 @@
 //                     moved = true;
 //                     k++;
 //                 }
-//                 if (k < 3 && grid[k + 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
+//                 if (k < 3 && grid[k + 1][j]->getValue() == grid[k][j]->getValue())
 //                 {
-//                     int valuePoint = grid[k + 1][j]->getNumberInTile() * 2;
-//                     grid[k + 1][j]->setNumberInTile(valuePoint);
+//                     int valuePoint = grid[k + 1][j]->getValue() * 2;
+//                     grid[k + 1][j]->setValue(valuePoint);
 //                     newPoint += valuePoint;
 //                     grid[k][j] = nullptr;
 //                     moved = true;
@@ -208,19 +208,19 @@
 //             {
 //                 return true;
 //             }
-//             if (i > 0 && grid[i][j]->getNumberInTile() == grid[i - 1][j]->getNumberInTile())
+//             if (i > 0 && grid[i][j]->getValue() == grid[i - 1][j]->getValue())
 //             {
 //                 return true;
 //             }
-//             if (i < 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
+//             if (i < 3 && grid[i][j]->getValue() == grid[i + 1][j]->getValue())
 //             {
 //                 return true;
 //             }
-//             if (j > 0 && grid[i][j]->getNumberInTile() == grid[i][j - 1]->getNumberInTile())
+//             if (j > 0 && grid[i][j]->getValue() == grid[i][j - 1]->getValue())
 //             {
 //                 return true;
 //             }
-//             if (j < 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
+//             if (j < 3 && grid[i][j]->getValue() == grid[i][j + 1]->getValue())
 //             {
 //                 return true;
 //             }
@@ -243,7 +243,7 @@
 //             }
 //             else
 //             {
-//                 std::cout << " " << grid[i][j]->getNumberInTile() << "  |";
+//                 std::cout << " " << grid[i][j]->getValue() << "  |";
 //             }
 //         }
 //         std::cout << std::endl;

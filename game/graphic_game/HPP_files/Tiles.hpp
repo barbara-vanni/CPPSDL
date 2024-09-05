@@ -2,7 +2,10 @@
 
 #include<SDL2/SDL.h>
 #include "GameObject.hpp"
-#include "Grid.hpp"
+
+
+
+class Grid;
 
 
 class Tiles : public GameObject {
@@ -13,16 +16,18 @@ class Tiles : public GameObject {
 
 
 
-        double posX(double x) override;
-        double posY(double y) override;
-        int size(int size) override;
+        double setPosX(double x) override;
+        double setPosY(double y) override;
+        int setCellSize(int size) override;
 
+
+        
         int getValue();
         void setValue(int value);
         
 
-        void mergeTiles(SDL_Renderer* renderer, int** grid, int direction);
-        void displayTiles(SDL_Renderer* renderer, int** grid, const Grid& gridObject);
+        int mergeTiles(Tiles* tile);
+        void displayTiles(SDL_Renderer* renderer, const std::vector<std::vector<Tiles*>>& grid, const Grid& gridObject);
         void moveTiles(SDL_Renderer* renderer, int** grid, int direction);
     
     private:
