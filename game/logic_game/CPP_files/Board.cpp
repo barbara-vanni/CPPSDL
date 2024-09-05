@@ -1,49 +1,63 @@
-// Board.cpp
 #include "../HPP_files/Board.hpp"
+#include "../HPP_files/Tiles.hpp"
+#include "../HPP_files/Input.hpp"
+#include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
+#include <vector>
 
-Board::Board(int size) : size(size) {
-    grid.resize(size, std::vector<Tile*>(size, nullptr));
-    boardInit();
+Board::Board(int size) : size(size)
+{
+    std::cout << "Board constructor called" << std::endl;
 }
 
-Board::~Board() {
-    for (auto& row : grid) {
-        for (auto& tile : row) {
-            delete tile;
-        }
-    }
-}
+void Board::boardInit()
+{
+    grid.resize(4, std::vector<Tiles *>(4, nullptr));
 
-void Board::boardInit() {
     addRandomTile();
     addRandomTile();
+
 }
 
-void Board::addRandomTile() {
+std::vector<std::vector<Tiles *>>& Board::getGrid()
+{
+    return grid;
+}
+
+void Board::addRandomTile()
+{
     std::vector<std::pair<int, int>> emptyTiles;
-    for (int i = 0; i < size; i++) {
-        for (int j = 0; j < size; j++) {
-            if (grid[i][j] == nullptr) {
-                emptyTiles.emplace_back(i, j);
+
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] == nullptr || grid[i][j]->getNumberInTile() == 0)
+            {
+                emptyTiles.push_back(std::make_pair(i, j));
             }
         }
     }
-    
-    if (emptyTiles.empty()) return;
 
+    // if there are no empty tiles, return false
+    if (emptyTiles.empty())
+        return;
+
+    // generate a random index to place the tile
     int randIndex = rand() % emptyTiles.size();
     int x = emptyTiles[randIndex].first;
     int y = emptyTiles[randIndex].second;
 
+    // generate a 2 with 90% of chance, else generate a 4
     int tileValue = (rand() % 10 < 9) ? 2 : 4;
-    grid[x][y] = new Tile(x, y, tileValue);
+
+    // grid[x][y] = tileValue;
+    Tiles *newTile = new Tiles(x, y, tileValue);
+    grid[x][y] = newTile;
 }
 
-
-bool Board::moveUp()
+bool Board::moveUp(int& newPoint)
 {
     bool moved = false;
 
@@ -64,7 +78,9 @@ bool Board::moveUp()
                 }
                 if (k > 0 && grid[k - 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
                 {
-                    grid[k - 1][j]->setNumberInTile(grid[k - 1][j]->getNumberInTile() * 2);
+                    int valuePoint = grid[k - 1][j]->getNumberInTile() * 2;
+                    grid[k - 1][j]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[k][j] = nullptr;
                     moved = true;
                 }
@@ -75,7 +91,7 @@ bool Board::moveUp()
     return moved;
 }
 
-bool Board::moveRight()
+bool Board::moveRight(int& newPoint)
 {
 
     bool moved = false;
@@ -100,7 +116,9 @@ bool Board::moveRight()
 
                 if (k < 3 && grid[i][k + 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
                 {
-                    grid[i][k + 1]->setNumberInTile(grid[i][k + 1]->getNumberInTile() * 2);
+                    int valuePoint = grid[i][k + 1]->getNumberInTile() * 2;
+                    grid[i][k + 1]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[i][k] = nullptr;
                     moved = true;
                 }
@@ -111,9 +129,8 @@ bool Board::moveRight()
     return moved;
 }
 
-bool Board::moveLeft()
+bool Board::moveLeft(int& newPoint)
 {
-
     bool moved = false;
 
     for (int i = 0; i < 4; i++)
@@ -136,7 +153,9 @@ bool Board::moveLeft()
 
                 if (k > 0 && grid[i][k - 1]->getNumberInTile() == grid[i][k]->getNumberInTile())
                 {
-                    grid[i][k - 1]->setNumberInTile(grid[i][k - 1]->getNumberInTile() * 2);
+                    int valuePoint = grid[i][k - 1]->getNumberInTile() * 2;
+                    grid[i][k - 1]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[i][k] = nullptr;
                     moved = true;
                 }
@@ -146,7 +165,7 @@ bool Board::moveLeft()
     return moved;
 }
 
-bool Board::moveDown(){
+bool Board::moveDown(int& newPoint){
 
     bool moved = false;
 
@@ -167,7 +186,9 @@ bool Board::moveDown(){
                 }
                 if (k < 3 && grid[k + 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
                 {
-                    grid[k + 1][j]->setNumberInTile(grid[k + 1][j]->getNumberInTile() * 2);
+                    int valuePoint = grid[k + 1][j]->getNumberInTile() * 2;
+                    grid[k + 1][j]->setNumberInTile(valuePoint);
+                    newPoint += valuePoint;
                     grid[k][j] = nullptr;
                     moved = true;
                 }
@@ -208,39 +229,27 @@ bool Board::okToMove(){
     return false;
 }
 
-// void Board::displayBoard()
-// {
-//     std::cout << "---------------------" << std::endl;
-//     for (int i = 0; i < 4; i++)
-//     {
-//         std::cout << "|";
-//         for (int j = 0; j < 4; j++)
-//         {
-//             if (grid[i][j] == 0)
-//             {
-//                 std::cout << "    |";
-//             }
-//             else
-//             {
-//                 std::cout << " " << grid[i][j]->getNumberInTile() << "  |";
-//             }
-//         }
-//         std::cout << std::endl;
-//         std::cout << "---------------------" << std::endl;
-//     }
-// }
-
-
-void Board::displayBoard(SDL_Renderer* renderer) const {
-    for (auto& row : grid) {
-        for (auto& tile : row) {
-            if (tile) {
-                tile->draw(renderer);
+void Board::displayBoard()
+{
+    std::cout << "---------------------" << std::endl;
+    for (int i = 0; i < 4; i++)
+    {
+        std::cout << "|";
+        for (int j = 0; j < 4; j++)
+        {
+            if (grid[i][j] == 0)
+            {
+                std::cout << "    |";
+            }
+            else
+            {
+                std::cout << " " << grid[i][j]->getNumberInTile() << "  |";
             }
         }
+        std::cout << std::endl;
+        std::cout << "---------------------" << std::endl;
     }
 }
-
 
 Board::~Board()
 {

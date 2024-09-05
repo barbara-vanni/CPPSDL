@@ -1,11 +1,6 @@
-//input.cpp
-
-
-
-
 #include "../HPP_files/Input.hpp"
 #include <stdio.h>
-#include <ncurses.h>
+#include <curses.h>
 #include <iostream>
 
 Input::Input() {

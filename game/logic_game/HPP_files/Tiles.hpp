@@ -1,30 +1,33 @@
-// Tile.hpp
-#ifndef TILE_HPP
-#define TILE_HPP
 
-#include "../../graphic_game/HPP_files/GameObject.hpp"
+#ifndef TILES_HPP
+#define TILES_HPP
 
-class Tile : public GameObject {
-public:
-    Tile(int posX, int posY, int numberInTile);
-    ~Tile();
-
-    int getPosX() const;
-    int getPosY() const;
-    int getNumberInTile() const;
-    void setPosX(int posX);
-    void setPosY(int posY);
-    void setNumberInTile(int numberInTile);
-    
-
-    void draw(SDL_Renderer* renderer) const override;
-
-private:
+#include <iostream>
+class Tiles {
+    private:
+    int tileHeight = 145;
+    int tileWidth = 145;
     int posX;
     int posY;
     int numberInTile;
 
+public:
+    Tiles(int posX, int posY, int numberInTile);
+    ~Tiles();
+
+    // Getters
+    int getPosX();
+    int getPosY();
+    int getNumberInTile();
+
+    // Setters
+    void setPosX(int posX);
+    void setPosY(int posY);
+    void setNumberInTile(int numberInTile);
+
+    // Other methods
+    int mergeTilesNumbers(Tiles* tile);
 
 };
 
-#endif // TILE_HPP
+#endif

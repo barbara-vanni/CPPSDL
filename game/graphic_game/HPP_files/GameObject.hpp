@@ -4,10 +4,11 @@
 
 #include <SDL2/SDL.h>
 
+
 class GameObject {
 public:
-    virtual void draw(SDL_Renderer* renderer) const = 0;
-    virtual ~GameObject() = default;
+    virtual void render(SDL_Renderer* renderer) = 0;
+    virtual ~GameObject() {}
 };
 
 #endif // GAMEOBJECT_HPP
