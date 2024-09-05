@@ -1,6 +1,5 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Board.hpp"
-#include "../HPP_files/Score.hpp"
 #include <iostream>
 
 Game::Game() {
