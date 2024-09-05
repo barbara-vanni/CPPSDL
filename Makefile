@@ -18,8 +18,8 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Game.cpp \
 	$(LOGIC_DIR)/Input.cpp \
 	$(LOGIC_DIR)/BoardSdl.cpp \
-	$(GRAPHIC_DIR)/Window.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
+	$(GRAPHIC_DIR)/Window.cpp \
 
 # Object files
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))

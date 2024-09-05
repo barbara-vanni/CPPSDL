@@ -1,26 +1,32 @@
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "../game/graphic_game/HPP_files/Window.hpp"
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
 #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
+#include "../game/graphic_game/HPP_files/Window.hpp"
 
 
 int main(int argc, char* argv[]) {
-    int choix = 0;
+    int choice = 0;
     std::cout << "Choisissez une option:" << std::endl;
     std::cout << "1. Afficher avec SFML" << std::endl;
     std::cout << "2. Lancer le jeu avec SDL" << std::endl;
-    std::cin >> choix;
+    std::cin >> choice;
 
-    switch (choix) {
-        case 1:
-            #include "../game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
-            WindowSfml window(600, 800, "SFML Window");
-
-            // printSfml();
+    switch (choice) {
+        case 1: {
+            // Blocs ajoutés pour éviter l'erreur d'initialisation contournée
+            WindowSfml window;
+                
+            // Boucle principale pour afficher la fenêtre SFML
+            while (!window.isClosed()) {
+                window.clear();
+                // Ajoutez ici le code pour dessiner d'autres éléments si nécessaire
+                window.getWindowSfml()->display();
+            }
             break;
+        }
 
         case 2: {
             // Initialisation de SDL
