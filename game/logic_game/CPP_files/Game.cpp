@@ -17,12 +17,18 @@ Game::Game() {
     // Add two initial tiles to the grid
     grid->addRandomTile();
     grid->addRandomTile();
+
+    // Initialize background and tiles
+    background = new Background();
+    tiles = new Tiles();
 }
 
 Game::~Game() {
     // Cleanup dynamically allocated memory
     delete grid;
     delete window;
+    delete background;
+    delete tiles;
 }
 
 void Game::start() {
