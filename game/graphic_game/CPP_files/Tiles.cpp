@@ -44,10 +44,17 @@ void Tiles::setValue(int value){
     this->value = value;
 }
 
-// void Tiles::mergeTiles(SDL_Renderer* renderer,){
-//     grid[i][j] = grid[i][j] * 2;
-//     grid[i2][j2] = 0;
-// }
+int Tiles::mergeTiles(Tiles* tile) {
+    if (this->value == tile->getValue()) {
+        this->value += tile->getValue();
+        tile->setValue(0);  
+        return this->value;
+    } else {
+        std::cout << "Tiles cannot merged" << std::endl;
+        return this->value; 
+    }
+}
+
 
 
 void Tiles::displayTiles(SDL_Renderer* renderer, int** grid, const Grid& gridObject) {

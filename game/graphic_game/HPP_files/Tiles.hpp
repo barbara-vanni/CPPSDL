@@ -21,7 +21,7 @@ class Tiles : public GameObject {
         void setValue(int value);
         
 
-        void mergeTiles(SDL_Renderer* renderer, int** grid, int direction);
+        int mergeTiles(Tiles* tile);
         void displayTiles(SDL_Renderer* renderer, int** grid, const Grid& gridObject);
         void moveTiles(SDL_Renderer* renderer, int** grid, int direction);
     
