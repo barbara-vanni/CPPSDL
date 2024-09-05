@@ -7,7 +7,7 @@ class Tile : public GameObject {
 public:
     int value;
     SDL_Rect position;
-    SDL_Color color;
+
 
     Tile(int x, int y, int val);
     ~Tile();
@@ -25,7 +25,10 @@ public:
     int merge(Tile* tile);
 
     void render(SDL_Renderer* renderer) override;
+    SDL_Color getTileColor (int value);
     
+
+
 };
 
 

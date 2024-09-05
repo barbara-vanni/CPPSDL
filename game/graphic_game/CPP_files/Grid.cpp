@@ -1,59 +1,65 @@
 #include "../HPP_files/Grid.hpp"
 #include "../HPP_files/TilesObject.hpp"
 #include <iostream>
-
+#include <ctime>
 
 Grid::Grid(int size) : size(size) {
+    srand(static_cast<unsigned>(time(0))); // Seed the RNG
     for (int i = 0; i < size; ++i) {
         std::vector<Tile*> row;
         for (int j = 0; j < size; ++j) {
-            row.push_back(new Tile(i * 70, j * 70, 0));  // TILE_SIZE = 100
+            row.push_back(new Tile(i * 70, j * 70, 0));  // TILE_SIZE = 70
         }
         grid.push_back(row);
     }
 }
 
 void Grid::render(SDL_Renderer* renderer) {
-    for (auto& row : grid) {
-        for (auto& tile : row) {
-            tile->render(renderer);
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            grid[i][j]->render(renderer);
         }
     }
+    SDL_RenderPresent(renderer); 
 }
 
 void Grid::addNewTiles() {
-    // add new tiles to the grid 
-    for (int i = 0; i < size; ++i) {
-         for (int j = 0; j < size; ++j) {
+    std::vector<std::pair<int, int>> emptyTiles;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             if (grid[i][j]->getValue() == 0) {
-                delete grid[i][j];
-                grid[i][j] = new Tile(i * 70, j * 70, 0);  // TILE_SIZE = 100
+                emptyTiles.push_back(std::make_pair(i, j));
             }
         }
     }
+    if (emptyTiles.empty()) {
+        return;
+    }
+    int randIndex = rand() % emptyTiles.size();
+    int x = emptyTiles[randIndex].first;
+    int y = emptyTiles[randIndex].second;
+    int tileValue = (rand() % 10 < 9) ? 2 : 4;
+    grid[x][y]->setValue(tileValue);
 }
 
 
 bool Grid::moveUp(int& newPoint) {
     // move all tiles up
     bool moved = false;
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
+    for (int j = 0; j < size; j++) {
+        for (int i = 0; i < size; i++) {
             if (grid[i][j]->getValue() != 0) {
-                int k = j;
-                while (k > 0 && grid[i][k - 1]->getValue() == 0) {
-                    --k;
+                int k = i;
+                while (k > 0 && (grid[k - 1][j]->getValue() == 0)) {
+                    grid[k - 1][j]->setValue(grid[k][j]->getValue());
+                    grid[k][j]->setValue(0);
+                    moved = true;
+                    k--;
                 }
-                if (k != j) {
-                    if (grid[i][k]->getValue() == grid[i][j]->getValue()) {
-                        grid[i][k]->setValue(grid[i][k]->getValue() * 2);
-                        newPoint += grid[i][k]->getValue();
-                        grid[i][j]->setValue(0);
-                        moved = true;
-                    } else {
-                        grid[i][k]->setValue(grid[i][j]->getValue());
-                        grid[i][j]->setValue(0);
-                    }
+                if (k > 0 && grid[k - 1][j]->getValue() == grid[k][j]->getValue()) {
+                    grid[k - 1][j]->setValue(grid[k - 1][j]->getValue() * 2);
+                    grid[k][j]->setValue(0);
+                    moved = true;
                 }
             }
         }
@@ -61,26 +67,23 @@ bool Grid::moveUp(int& newPoint) {
     return moved;
 }
 
+
 bool Grid::moveDown(int& newPoint) {
-    // move all tiles down
     bool moved = false;
-    for (int i = 0; i < size; ++i) {
-        for (int j = size - 1; j >= 0; --j) {
+    for (int j = 0; j < size; j++) {
+        for (int i = size - 1; i >= 0; i--) {
             if (grid[i][j]->getValue() != 0) {
-                int k = j;
-                while (k < size - 1 && grid[i][k + 1]->getValue() == 0) {
-                    ++k;
+                int k = i;
+                while (k < size - 1 && (grid[k + 1][j]->getValue() == 0)) {
+                    grid[k + 1][j]->setValue(grid[k][j]->getValue());
+                    grid[k][j]->setValue(0);
+                    moved = true;
+                    k++;
                 }
-                if (k != j) {
-                    if (grid[i][k]->getValue() == grid[i][j]->getValue()) {
-                        grid[i][k]->setValue(grid[i][k]->getValue() * 2);
-                        newPoint += grid[i][k]->getValue();
-                        grid[i][j]->setValue(0);
-                        moved = true;
-                    } else {
-                        grid[i][k]->setValue(grid[i][j]->getValue());
-                        grid[i][j]->setValue(0);
-                    }
+                if (k < size - 1 && grid[k + 1][j]->getValue() == grid[k][j]->getValue()) {
+                    grid[k + 1][j]->setValue(grid[k + 1][j]->getValue() * 2);
+                    grid[k][j]->setValue(0);
+                    moved = true;
                 }
             }
         }
@@ -90,25 +93,21 @@ bool Grid::moveDown(int& newPoint) {
 
 
 bool Grid::moveLeft(int& newPoint) {
-    // move all tiles left
-    bool moved = false;
-    for (int j = 0; j < size; ++j) {
-        for (int i = 0; i < size; ++i) {
+   bool moved = false;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             if (grid[i][j]->getValue() != 0) {
-                int k = i;
-                while (k > 0 && grid[k - 1][j]->getValue() == 0) {
-                    --k;
+                int k = j;
+                while (k > 0 && (grid[i][k - 1]->getValue() == 0)) {
+                    grid[i][k - 1]->setValue(grid[i][k]->getValue());
+                    grid[i][k]->setValue(0);
+                    moved = true;
+                    k--;
                 }
-                if (k != i) {
-                    if (grid[k][j]->getValue() == grid[i][j]->getValue()) {
-                        grid[k][j]->setValue(grid[k][j]->getValue() * 2);
-                        newPoint += grid[k][j]->getValue();
-                        grid[i][j]->setValue(0);
-                        moved = true;
-                    } else {
-                        grid[k][j]->setValue(grid[i][j]->getValue());
-                        grid[i][j]->setValue(0);
-                    }
+                if (k > 0 && grid[i][k - 1]->getValue() == grid[i][k]->getValue()) {
+                    grid[i][k - 1]->setValue(grid[i][k - 1]->getValue() * 2);
+                    grid[i][k]->setValue(0);
+                    moved = true;
                 }
             }
         }
@@ -119,23 +118,20 @@ bool Grid::moveLeft(int& newPoint) {
 bool Grid::moveRight(int& newPoint) {
     // move all tiles right
     bool moved = false;
-    for (int j = 0; j < size; ++j) {
-        for (int i = size - 1; i >= 0; --i) {
+    for (int i = 0; i < size; i++) {
+        for (int j = size - 1; j >= 0; j--) {
             if (grid[i][j]->getValue() != 0) {
-                int k = i;
-                while (k < size - 1 && grid[k + 1][j]->getValue() == 0) {
-                    ++k;
+                int k = j;
+                while (k < size - 1 && (grid[i][k + 1]->getValue() == 0)) {
+                    grid[i][k + 1]->setValue(grid[i][k]->getValue());
+                    grid[i][k]->setValue(0);
+                    moved = true;
+                    k++;
                 }
-                if (k != i) {
-                    if (grid[k][j]->getValue() == grid[i][j]->getValue()) {
-                        grid[k][j]->setValue(grid[k][j]->getValue() * 2);
-                        newPoint += grid[k][j]->getValue();
-                        grid[i][j]->setValue(0);
-                        moved = true;
-                    } else {
-                        grid[k][j]->setValue(grid[i][j]->getValue());
-                        grid[i][j]->setValue(0);
-                    }
+                if (k < size - 1 && grid[i][k + 1]->getValue() == grid[i][k]->getValue()) {
+                    grid[i][k + 1]->setValue(grid[i][k + 1]->getValue() * 2);
+                    grid[i][k]->setValue(0);
+                    moved = true;
                 }
             }
         }
@@ -145,8 +141,8 @@ bool Grid::moveRight(int& newPoint) {
 
 bool Grid::okToMove() {
     // check if there are any possible moves left
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
             if (grid[i][j]->getValue() == 0) {
                 return true;
             }
