@@ -1,37 +1,32 @@
-// #ifndef GAME_HPP
-// #define GAME_HPP
+#ifndef GAME_HPP
+#define GAME_HPP
 
-// #include <iostream>
-// #include "Board.hpp"
-// #include "Input.hpp"
+#include "../../graphic_game/HPP_files/Background.hpp"  
+#include "../../graphic_game/HPP_files/Grid.hpp"
+#include "../../graphic_game/HPP_files/Tiles.hpp"
+#include "../../graphic_game/HPP_files/Window.hpp"
+#include <SDL2/SDL.h>
 
+class Game {
+public:
+    Game(const std::string& title, int width, int height);
+    ~Game();
 
-// struct Score
-// {
-//     int scoreActuel = 0;
-//     int scoreMax = 0;
-// };
+    void run();
 
-// class Game {
-//     public:
-//         Game();
-//         ~Game();
+private:
+    Window window;
+    Background background;
+    Grid grid;
+    Tiles tiles;
+    SDL_Renderer* renderer;
+    int** gridData;
 
-//         void start();
-//         void move();
-//         bool checkDefeat();
-//         bool checkVictory();
-//         void displayScore();
-//         void updateScore(int point);
-//         bool getGameOver() { return gameOver; } 
-//         void testDefeatScenario();
+    void initializeGrid();
+    void handleEvents();
+    void update();
+    void render();
+    void cleanup();
+};
 
-//     private:
-//         Board* board;
-//         Score score;
-//         bool gameOver;
-// };
-
-
-
-// #endif // GAME_HPP
+#endif // GAME_HPP

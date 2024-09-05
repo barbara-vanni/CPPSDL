@@ -1,109 +1,79 @@
-// #include "../HPP_files/Game.hpp"
-// #include "../HPP_files/Board.hpp"
-// #include <iostream>
+#include "../HPP_files/Game.hpp"
+#include <iostream>
+#include <ctime>  // For seeding rand()
 
-// Game::Game() {
-//     board = new Board(4);
-//     Score score;
-//     gameOver = false;
-// }
+Game::Game(const std::string& title, int width, int height) 
+    : window(title, width, height), renderer(window.getRenderer()) {
+    if (window.isClosed()) {
+        std::cerr << "Window initialization failed!" << std::endl;
+        throw std::runtime_error("Window initialization failed");
+    }
 
-// void Game::start() {
-//     board->boardInit();
-//     board->displayBoard();
-// }
+    // Initialize grid data
+    initializeGrid();
 
-// void Game::move() {
-//     Input input;
-//     int inputValue = input.getInput();
-//     int points = 0;
-//     bool moved = false;
+    // Seed the random number generator
+    srand(static_cast<unsigned int>(time(0)));
 
-//     if (inputValue == 72) {
-//         moved = board->moveUp(points);
-//     } else if (inputValue == 80) {
-//         moved = board->moveDown(points);
-//     } else if (inputValue == 75) {
-//         moved = board->moveLeft(points);
-//     } else if (inputValue == 77) {
-//         moved = board->moveRight(points);
-//     } else if (inputValue == 27) {
-//         gameOver = true;
-//     }        
+    // Add the first two random tiles to start the game
+    grid.addNewTile(renderer, gridData);
+    grid.addNewTile(renderer, gridData);
+}
 
-//     if (moved) {
-//         updateScore(points);
-//         board->addRandomTile();
-//         board->displayBoard();
-//     }
-// }
+Game::~Game() {
+    cleanup();
+}
 
-// bool Game::checkDefeat() {
-//     if (board->okToMove() == false) {
-//         gameOver = true;
-//         return true;
-//     }
-//     else {
-//         return false;
-//     }
-// }
+void Game::initializeGrid() {
+    gridData = new int*[4];
+    for (int i = 0; i < 4; i++) {
+        gridData[i] = new int[4]{0};  // Initialize each row to all 0s
+    }
+}
 
-// void Game::displayScore() {
-//     std::cout << "Your score is: " << score.scoreActuel << std::endl;
-//     std::cout << "Your best score is: " << score.scoreMax << std::endl;
-// }
+void Game::handleEvents() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            window.isClosed();  // Mark the window as closed
+        }
+        // Example: Handle key presses here to move tiles
+        // You would also want to add logic to handle movement and tile merging
+    }
+}
 
-// void Game::updateScore(int points)
-// {
-    
-//     score.scoreActuel += points;
+void Game::update() {
+    // Add game logic updates here, such as moving tiles
+    // This function will be called in the game loop to process the game state
+}
 
-//     if (score.scoreActuel > score.scoreMax)
-//     {
-//         score.scoreMax = score.scoreActuel;
-//     }
-// }
+void Game::render() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);  // Black background
+    SDL_RenderClear(renderer);
 
-// Game::~Game() {
-//     delete board;
-// }
+    background.draw(renderer);
+    grid.displayGrid(renderer);
+    tiles.displayTiles(renderer, gridData, grid);
 
+    SDL_RenderPresent(renderer);
+}
 
-// /* TEST */
+void Game::cleanup() {
+    for (int i = 0; i < 4; i++) {
+        delete[] gridData[i];
+    }
+    delete[] gridData;
 
-// void Game::testDefeatScenario() {
+    // Cleanup is handled by Window destructor, no need to call SDL_Quit() explicitly
+}
 
-//     auto& grid = board->getGrid();
-
-//     board->boardInit();
-
-
-//     grid[0][0] = new Tiles(0, 0, 2);
-//     grid[0][1] = new Tiles(0, 1, 4);
-//     grid[0][2] = new Tiles(0, 2, 2);
-//     grid[0][3] = new Tiles(0, 3, 4);
-
-//     grid[1][0] = new Tiles(1, 0, 4);
-//     grid[1][1] = new Tiles(1, 1, 2);
-//     grid[1][2] = new Tiles(1, 2, 4);
-//     grid[1][3] = new Tiles(1, 3, 2);
-
-//     grid[2][0] = new Tiles(2, 0, 2);
-//     grid[2][1] = new Tiles(2, 1, 4);
-//     grid[2][2] = new Tiles(2, 2, 2);
-//     grid[2][3] = new Tiles(2, 3, 4);
-
-//     grid[3][0] = new Tiles(3, 0, 4);
-//     grid[3][1] = new Tiles(3, 1, 2);
-//     grid[3][2] = new Tiles(3, 2, 4);
-//     grid[3][3] = new Tiles(3, 3, 2);
-
-//     board->displayBoard();
-
-//     // check if the game is over when no moves are possible
-//     if (checkDefeat()) {
-//         std::cout << "Test passed: Game Over detected." << std::endl;
-//     } else {
-//         std::cout << "Test failed: Game Over not detected." << std::endl;
-//     }
-// }
+void Game::run() {
+    bool running = true;
+    while (running) {
+        handleEvents();
+        update();
+        render();
+        SDL_Delay(1000);  // Delay for 1 second
+        running = !window.isClosed();  // Continue running while the window is open
+    }
+}
