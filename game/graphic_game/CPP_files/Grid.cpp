@@ -5,13 +5,15 @@
 
 Grid::Grid(int size) : size(size) {
     srand(static_cast<unsigned>(time(0))); // Seed the RNG
+    grid.resize(size);
     for (int i = 0; i < size; ++i) {
-        std::vector<Tile*> row;
+        grid[i].resize(size);
         for (int j = 0; j < size; ++j) {
-            row.push_back(new Tile(i * 70, j * 70, 0));  // TILE_SIZE = 70
+            grid[i][j] = new Tile(i * 70, j * 70, 0);  // TILE_SIZE = 70
         }
-        grid.push_back(row);
     }
+    addNewTiles(); // Initialize with 2 tiles
+    addNewTiles();
 }
 
 void Grid::render(SDL_Renderer* renderer) {
@@ -22,6 +24,8 @@ void Grid::render(SDL_Renderer* renderer) {
     }
     SDL_RenderPresent(renderer); 
 }
+
+
 
 void Grid::addNewTiles() {
     std::vector<std::pair<int, int>> emptyTiles;
