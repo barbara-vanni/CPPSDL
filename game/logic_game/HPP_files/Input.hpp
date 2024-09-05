@@ -1,14 +1,14 @@
-// #ifndef INPUT_HPP
-// #define INPUT_HPP
+#ifndef INPUT_HPP
+#define INPUT_HPP
 
-// #include <iostream>
+#include <iostream>
 
-// class Input {
-//     public:
-//         Input();
-//         ~Input();
+class Input {
+    public:
+        Input();
+        ~Input();
 
-//         int getInput();
-// };
+        int getInput();
+};
 
-// #endif 
+#endif 

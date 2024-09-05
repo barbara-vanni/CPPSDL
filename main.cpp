@@ -1,5 +1,6 @@
 #include "../game/graphic_game/HPP_files/Window.hpp"
 #include "../game/graphic_game/HPP_files/Background.hpp"
+#include "../game/graphic_game/HPP_files/Grid.hpp"
 #include <SDL2/SDL.h>
 #include <iostream>
 
@@ -9,6 +10,7 @@ int main(int argc, char* argv[]) {
 
     // Initialize background
     Background background;
+    Grid grid;
 
     // Get the renderer from the window object
     SDL_Renderer* renderer = window.getRenderer();
@@ -30,6 +32,8 @@ int main(int argc, char* argv[]) {
 
         // Drawing the background using the renderer
         background.draw(renderer);
+        // Drawing the grid using the renderer
+        grid.displayGrid(renderer);
 
         // Present the renderer (updates the screen with the latest render)
         SDL_RenderPresent(renderer);
