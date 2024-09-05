@@ -1,8 +1,7 @@
 #ifndef WindowSFML_HPP
 #define WindowSFML_HPP
-#include <../../src/include/SFML/Graphics/RenderWindow.hpp>
-#include <../../src/include/SFML/Graphics/RectangleShape.hpp>
-#include <../../src/include/SFML/Window/Event.hpp>
+#include "../../src/include/SFML/Graphics.hpp"
+#include "../../src/include/SFML/Window/Event.hpp"
 #include <iostream>
 #include <memory>
 

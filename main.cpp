@@ -4,6 +4,8 @@
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
 #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/GraphicTiles.hpp"
 #include "../game/graphic_game/HPP_files/Window.hpp"
 
 
@@ -15,14 +17,31 @@ int main(int argc, char* argv[]) {
     std::cin >> choice;
 
     switch (choice) {
+
         case 1: {
-            // Blocs ajoutés pour éviter l'erreur d'initialisation contournée
             WindowSfml window;
-                
-            // Boucle principale pour afficher la fenêtre SFML
-            while (!window.isClosed()) {
+
+            if (window.isClosed()) {
+                std::cerr << "Failed to initialize window" << std::endl;
+                return 1;
+            }
+
+            GridSfml grid;
+
+            bool isRunning = true;
+
+            while (isRunning) {
+                sf::Event event;
+                while (window.getWindowSfml()->pollEvent(event)) {
+                    if (event.type == sf::Event::Closed) {
+                        isRunning = false; 
+                    }
+                }
+
                 window.clear();
-                // Ajoutez ici le code pour dessiner d'autres éléments si nécessaire
+
+                grid.displayGrid(window.getWindowSfml());
+                // grid.drawTile(window.getWindowSfml(), new Tiles(2, 0, 0));
                 window.getWindowSfml()->display();
             }
             break;
