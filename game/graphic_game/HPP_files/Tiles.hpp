@@ -1,7 +1,8 @@
 #pragma once 
 
-#include< SDL2/SDL.h>
+#include<SDL2/SDL.h>
 #include "GameObject.hpp"
+#include "Grid.hpp"
 
 
 class Tiles : public GameObject {
@@ -20,8 +21,8 @@ class Tiles : public GameObject {
         void setValue(int value);
         
 
-        void mergeTiles(SDL_Renderer* renderer, int** grid, int i, int j, int i2, int j2);
-        void displayTiles(SDL_Renderer* renderer, int** grid);
+        void mergeTiles(SDL_Renderer* renderer, int** grid, int direction);
+        void displayTiles(SDL_Renderer* renderer, int** grid, const Grid& gridObject);
         void moveTiles(SDL_Renderer* renderer, int** grid, int direction);
     
     private:

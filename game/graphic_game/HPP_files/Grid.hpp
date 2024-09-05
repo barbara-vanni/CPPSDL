@@ -21,9 +21,9 @@ class Grid : public GameObject {
         void okToMove(SDL_Renderer* renderer, int** grid);
 
 
+        SDL_Rect rect;
 
     private :
-        SDL_Rect rect;
         SDL_Color color;
 
 
