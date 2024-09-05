@@ -1,7 +1,8 @@
 #include "../HPP_files/Input.hpp"
 #include <stdio.h>
-#include <curses.h>
+#include <ncurses.h>
 #include <iostream>
+#include <SDL2/SDL_events.h>
 
 Input::Input() {
     std::cout << "Constructor called" << std::endl;
@@ -12,32 +13,32 @@ Input::~Input() {
 }
 
 int Input::getInput() {
-    char input = getch();
-
-    if (input == 27) {  
-        std::cout << "Exit" << std::endl;
-        return 27;
-    } else if (input == -32) { 
-        input = getch();
-        switch (input) {
-        case 72:
-            std::cout << "Up" << std::endl;
-            break;
-        case 80:
-            std::cout << "Down" << std::endl;
-            break;
-        case 75:
-            std::cout << "Left" << std::endl;
-            break;
-        case 77:
-            std::cout << "Right" << std::endl;
-            break;
-        default:
-            std::cout << "Press arrow keys to move the tiles or ESC to quit" << std::endl;
-            break;
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_QUIT) {
+            return 27;  // ESC key to quit
         }
-    } else {
-        std::cout << "Press arrow keys to move the tiles or ESC to quit" << std::endl;
+        if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
+                case SDLK_UP:
+                    std::cout << "Up" << std::endl;
+                    return SDLK_UP;
+                case SDLK_DOWN:
+                    std::cout << "Down" << std::endl;
+                    return SDLK_DOWN;
+                case SDLK_LEFT:
+                    std::cout << "Left" << std::endl;
+                    return SDLK_LEFT;
+                case SDLK_RIGHT:
+                    std::cout << "Right" << std::endl;
+                    return SDLK_RIGHT;
+                case SDLK_ESCAPE:
+                    return 27;  // ESC key to quit
+                default:
+                    std::cout << "Press arrow keys to move the tiles or ESC to quit" << std::endl;
+                    break;
+            }
+        }
     }
-    return input;
+    return -1;  // No valid input
 }

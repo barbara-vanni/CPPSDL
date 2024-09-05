@@ -10,8 +10,22 @@ public:
     SDL_Color color;
 
     Tile(int x, int y, int val);
+    ~Tile();
+
+    int getX();
+    int getY();
+    int getValue();
+
+
+    void setX(int x);
+    void setY(int y);
+    void setValue(int val);
+
+
+    int merge(Tile* tile);
 
     void render(SDL_Renderer* renderer) override;
+    
 };
 
 

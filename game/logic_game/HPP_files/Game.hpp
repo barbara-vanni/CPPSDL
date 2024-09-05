@@ -1,24 +1,8 @@
-#ifndef INPUT_HPP
-#define INPUT_HPP
-
-#include <iostream>
-
-class Input {
-    public:
-        Input();
-        ~Input();
-
-        int getInput();
-};
-
-#endif 
-
-
 #ifndef GAME_HPP
 #define GAME_HPP
 
 #include <iostream>
-#include "Board.hpp"
+#include "../../graphic_game/HPP_files/Grid.hpp"
 #include "Input.hpp"
 
 
@@ -40,10 +24,11 @@ class Game {
         void displayScore();
         void updateScore(int point);
         bool getGameOver() { return gameOver; } 
-        void testDefeatScenario();
+        // Board* getBoard() { return board; }
+        // void testDefeatScenario();
 
     private:
-        Board* board;
+        Grid* grid;
         Score score;
         bool gameOver;
 };
