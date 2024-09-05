@@ -4,7 +4,7 @@
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
-#include "game/graphic_game/SFML/HPP_files/print.hpp"
+#include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
 
 
 int main(int argc, char* argv[]) {
@@ -16,7 +16,10 @@ int main(int argc, char* argv[]) {
 
     switch (choix) {
         case 1:
-            printSfml();
+            #include "../game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
+            WindowSfml window(600, 800, "SFML Window");
+
+            // printSfml();
             break;
 
         case 2: {
