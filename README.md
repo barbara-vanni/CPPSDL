@@ -65,7 +65,7 @@ The project was divided in 3 parts for lunching the game:
 3/ With SFML librairy 
 
 
-<img src="assets/diagram_class.png" alt="UML_diagram" width="900" height="250">
+<img src="assets/diagram_class.png" alt="UML_diagram" width="900" height="550">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
