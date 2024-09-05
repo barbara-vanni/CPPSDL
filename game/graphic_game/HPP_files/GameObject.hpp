@@ -5,9 +5,8 @@
 
 class GameObject {
 public:
-    virtual double setPosX(double x ) = 0 ;
-    virtual double setPosY(double y)  = 0 ;
-    virtual int setCellSize(int size)  = 0 ;
+    virtual double posX(double x ) = 0 ;
+    virtual double posY(double y)  = 0 ;
+    virtual int size(int size)  = 0 ;
     virtual ~GameObject() {}
 };
-

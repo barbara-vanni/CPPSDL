@@ -20,19 +20,17 @@ Tiles::~Tiles()
 }
 
 
-
-
-double Tiles::setPosX(double x){
+double Tiles::posX(double x){
     rect.x = x;
     return rect.x;
 }
 
-double Tiles::setPosY(double y){
+double Tiles::posY(double y){
     rect.y = y;
     return rect.y;
 }
 
-int Tiles::setCellSize(int size){
+int Tiles::size(int size){
     rect.w = size;
     rect.h = size;
     return rect.w;
@@ -46,63 +44,58 @@ void Tiles::setValue(int value){
     this->value = value;
 }
 
-int Tiles::mergeTiles(Tiles* tile) {
-    if (this->value == tile->getValue()) {
-        this->value += tile->getValue();
-        tile->setValue(0);  
-        return this->value;
-    } else {
-        std::cout << "Tiles cannot merged" << std::endl;
-        return this->value; 
-    }
-}
+// void Tiles::mergeTiles(SDL_Renderer* renderer,){
+//     grid[i][j] = grid[i][j] * 2;
+//     grid[i2][j2] = 0;
+// }
 
 
-
-
-void Tiles::displayTiles(SDL_Renderer* renderer, const std::vector<std::vector<Tiles*>>& grid, const Grid& gridObject) {
-    // Iterate over each cell in the grid
-    for (int i = 0; i < grid.size(); i++) {
-        for (int j = 0; j < grid[i].size(); j++) {
-            Tiles* tile = grid[i][j];
-            int tileValue = tile->getValue(); // Get the value of the tile
-
-            if (tileValue != 0) {
+void Tiles::displayTiles(SDL_Renderer* renderer, int** grid, const Grid& gridObject) {
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (grid[i][j] != 0) {
                 // Set tile color based on the value
-                SDL_Color color;
-                switch (tileValue) {
-                    case 2: color = {255, 255, 255, 255}; break; // White for 2
-                    case 4: color = {255, 255, 0, 255}; break;   // Yellow for 4
-                    case 8: color = {255, 0, 255, 255}; break;   // Magenta for 8
-                    case 16: color = {0, 255, 255, 255}; break;  // Cyan for 16
-                    case 32: color = {255, 0, 0, 255}; break;    // Red for 32
-                    case 64: color = {0, 255, 0, 255}; break;    // Green for 64
-                    case 128: color = {0, 0, 255, 255}; break;   // Blue for 128
-                    case 256: color = {255, 255, 255, 255}; break; // White for 256
-                    case 512: color = {255, 255, 0, 255}; break; // Yellow for 512
-                    case 1024: color = {255, 0, 255, 255}; break; // Magenta for 1024
-                    case 2048: color = {0, 255, 255, 255}; break; // Cyan for 2048
-                    default: color = {255, 0, 0, 255}; break;   // Red for > 2048
+                if (grid[i][j] == 2) {
+                    color = {255, 255, 255, 255};  // White for 2
+                } else if (grid[i][j] == 4) {
+                    color = {255, 255, 0, 255};    // Yellow for 4
+                } else if (grid[i][j] == 8) {
+                    color = {255, 0, 255, 255};    // Magenta for 8
+                } else if (grid[i][j] == 16) {
+                    color = {0, 255, 255, 255};    // Cyan for 16
+                } else if (grid[i][j] == 32) {
+                    color = {255, 0, 0, 255};      // Red for 32
+                } else if (grid[i][j] == 64) {
+                    color = {0, 255, 0, 255};      // Green for 64
+                } else if (grid[i][j] == 128) {
+                    color = {0, 0, 255, 255};      // Blue for 128
+                } else if (grid[i][j] == 256) {
+                    color = {255, 255, 255, 255};  // White for 256
+                } else if (grid[i][j] == 512) {
+                    color = {255, 255, 0, 255};    // Yellow for 512
+                } else if (grid[i][j] == 1024) {
+                    color = {255, 0, 255, 255};    // Magenta for 1024
+                } else if (grid[i][j] == 2048) {
+                    color = {0, 255, 255, 255};    // Cyan for 2048
+                } else if (grid[i][j] > 2048) {
+                    color = {255, 0, 0, 255};      // Red for > 2048
                 }
 
                 // Set the tile's position based on the grid position
-                SDL_Rect rect;
                 rect.x = gridObject.rect.x + j * gridObject.rect.w;
                 rect.y = gridObject.rect.y + i * gridObject.rect.h;
+
+                // Set tile size (same as grid cell size)
                 rect.w = gridObject.rect.w;
                 rect.h = gridObject.rect.h;
 
                 // Draw the tile
                 SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
                 SDL_RenderFillRect(renderer, &rect);
-
-                // Optionally, render the tile value as text here
-                // This part requires additional code for rendering text, such as using SDL_ttf
             }
         }
     }
 }
-
 
 
 
@@ -172,4 +165,3 @@ void Tiles::moveTiles(SDL_Renderer* renderer, int** grid, int direction){
         }
     }
 }
-

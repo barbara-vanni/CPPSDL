@@ -11,17 +11,17 @@ Background::Background() {
 Background::~Background() {
 }
 
-double Background::setPosX(double x) {
+double Background::posX(double x) {
     rect.x = x;
     return rect.x;
 }
 
-double Background::setPosY(double y) {
+double Background::posY(double y) {
     rect.y = y;
     return rect.y;
 }
 
-int Background::setCellSize(int size) {
+int Background::size(int size) {
     rect.w = size;
     rect.h = size;
     return rect.w;

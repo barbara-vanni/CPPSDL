@@ -1,35 +1,30 @@
 #pragma once
 #include <SDL2/SDL.h>
-#include <vector>
 #include "GameObject.hpp"
-#include "Tiles.hpp"
+// #include "game/logic_game/HPP_files/Input.hpp"
+
 
 class Grid : public GameObject {
-public:
-    Grid(int gridSize); // Constructor with size parameter
-    ~Grid(); // Destructor
+    public:
+        Grid();
+        ~Grid();
 
-    double setPosX(double x) override;
-    double setPosY(double y) override;
-    int setCellSize(int size) override; // Renamed from `size` to `setCellSize`
 
-    void renderGrid(SDL_Renderer* renderer, int cellSize); // Changed from displayGrid to renderGrid
-    bool moveUp(); // Handle moving tiles up
-    bool moveDown(); // Handle moving tiles down
-    bool moveLeft(); // Handle moving tiles left
-    bool moveRight(); // Handle moving tiles right
-    bool okToMove(); // Check if a move is possible
-    void addRandomTile(); // Add a new random tile
-    void boardInit(); // Initialize the board
-    SDL_Color getTileColor(int value); // Get color for tile based on value
+        double posX(double x) override;
+        double posY(double y) override;
+        int size(int size) override;
 
-    // New method to get the grid
-    std::vector<std::vector<Tiles*>>& getGrid(); // Returns a reference to the grid
 
-    SDL_Rect rect; // For positioning and sizing
+        void displayGrid(SDL_Renderer* renderer);
+        void checkDefeat(SDL_Renderer* renderer, int** grid);
+        void addNewTile(SDL_Renderer* renderer, int** grid);
+        void okToMove(SDL_Renderer* renderer, int** grid);
 
-private:
-    int gridSize; // Size of the grid
-    std::vector<std::vector<Tiles*>> grid; // 2D grid of tiles
-    SDL_Color color;
+
+        SDL_Rect rect;
+
+    private :
+        SDL_Color color;
+
+
 };

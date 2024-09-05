@@ -6,35 +6,29 @@
 #include "../../graphic_game/HPP_files/Window.hpp"
 #include "../../graphic_game/HPP_files/Background.hpp"
 #include "../../graphic_game/HPP_files/Tiles.hpp"
-#include "Board.hpp"
-#include "Input.hpp"
 #include <SDL2/SDL.h>
 
-struct Score {
-    int scoreActuel = 0;
-    int scoreMax = 0;
-}; // Assuming Input.hpp defines the Input class
 
 class Game {
 public:
-    Game();
+    Game(const std::string& title, int width, int height);
     ~Game();
-    void start();
-    
+
+    void run();
+
 private:
-    void move();
-    bool checkDefeat();
-    void displayScore();
-    void updateScore(int points);
-    void render();
-    
-    Grid* grid;
-    Window* window;
+    Window window;
+    Background background;
+    Grid grid;
+    Tiles tiles;
     SDL_Renderer* renderer;
-    bool gameOver;
-    Score score;
-    Background* background;
-    Tiles* tiles; // Assumed to be used for displaying tile values
+    int** gridData;
+
+    void initializeGrid();
+    void handleEvents();
+    void update();
+    void render();
+    void cleanup();
 };
 
 #endif // GAME_HPP
