@@ -1,6 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include "game/graphic_game/HPP_files/Grid.hpp"
+#include "game/graphic_game/HPP_files/GridSdl.hpp"
 #include "game/graphic_game/HPP_files/Background.hpp"
 #include "game/graphic_game/HPP_files/Window.hpp"
 #include <iostream>
@@ -17,7 +17,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    SDL_Window* window = SDL_CreateWindow("Grid Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 625, SDL_WINDOW_SHOWN);
+    SDL_Window* window = SDL_CreateWindow("Grid Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 600, 800, SDL_WINDOW_SHOWN);
     if (!window) {
         std::cerr << "Error creating window: " << SDL_GetError() << std::endl;
         TTF_Quit();
@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    Grid grid(93, 13, 600, 600, 4, 4);
+    Grid grid(20, 200, 560, 560, 4, 4);
 
     bool running = true;
     SDL_Event e;

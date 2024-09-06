@@ -1,4 +1,4 @@
-#include "../HPP_files/Grid.hpp"
+#include "../HPP_files/GridSdl.hpp"
 #include <iostream>
 #include <SDL2/SDL.h>
 
