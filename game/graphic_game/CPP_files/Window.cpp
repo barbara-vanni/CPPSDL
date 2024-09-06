@@ -46,7 +46,7 @@ bool Window::init() {
 
     // Initialize background and grid
     background = new Background(0, 0, width, height);
-    grid = new Grid(20, 200, width - 40, height - 240, 4, 4);
+    grid = new Grid(20, 200, 560, 560, 4, 4);
 
     return true;
 }

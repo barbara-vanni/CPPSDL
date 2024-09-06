@@ -15,9 +15,9 @@ public:
     void run();  // This will handle the main loop
 
 private:
+    void render();
     bool init();
     void handleEvents();
-    void render();
 
     SDL_Window* window;
     SDL_Renderer* renderer;

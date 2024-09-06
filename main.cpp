@@ -1,7 +1,8 @@
-#include "game/graphic_game/HPP_files/Window.hpp"
+#include "game/GameLoop.hpp"
 
-int main(int argc, char* argv[]) {
-    Window window(600, 800);
-    window.run();  // The window handles everything (loop, rendering, etc.)
+int main() {
+    GameLoop gameLoop("2048 Game", 600, 800);
+    gameLoop.run();
     return 0;
 }
+
