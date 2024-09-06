@@ -17,7 +17,8 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
 	$(GRAPHIC_DIR)/GridSdl.cpp \
 	$(GRAPHIC_DIR)/Background.cpp\
-	$(GRAPHIC_DIR)/TilesSdl.cpp
+	$(GRAPHIC_DIR)/TilesSdl.cpp\
+	$(LOGIC_DIR)/GameLoop.cpp\
 
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 

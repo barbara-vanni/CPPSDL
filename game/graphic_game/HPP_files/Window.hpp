@@ -13,6 +13,7 @@ public:
     ~Window();
 
     void run();  // This will handle the main loop
+    bool closed;
 
 private:
     void render();
@@ -24,7 +25,6 @@ private:
     int width;
     int height;
     std::string title;
-    bool closed;
 
     Background* background;
     Grid* grid;

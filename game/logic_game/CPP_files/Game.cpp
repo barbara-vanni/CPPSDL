@@ -11,7 +11,7 @@ Game::Game() {
 
 void Game::start() {
     board->boardInit();
-    board->displayBoard();
+    // board->displayBoard();
 }
 
 void Game::move() {
