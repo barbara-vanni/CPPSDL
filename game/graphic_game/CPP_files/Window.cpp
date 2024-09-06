@@ -1,14 +1,15 @@
 #include "../HPP_files/Window.hpp"
 #include <iostream>
 
-Window::Window(int w, int h) : width(w), height(h), title("Game Window"), closed(false) {
+Window::Window(int w, int h)
+    : width(w), height(h), title("Grid Game"), closed(false), background(nullptr), grid(nullptr) {
     if (!init()) {
         closed = true;
     }
 }
 
-Window::Window(const std::string &title, int width, int height) 
-    : title(title), width(width), height(height), closed(false) {
+Window::Window(const std::string &title, int width, int height)
+    : title(title), width(width), height(height), closed(false), background(nullptr), grid(nullptr) {
     if (!init()) {
         closed = true;
     }
@@ -20,45 +21,68 @@ bool Window::init() {
         return false;
     }
 
-    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
+    if (TTF_Init() < 0) {
+        std::cerr << "TTF initialization failed: " << TTF_GetError() << std::endl;
+        SDL_Quit();
+        return false;
+    }
+
+    window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
+    if (!window) {
         std::cerr << "Window creation failed: " << SDL_GetError() << std::endl;
-        SDL_Quit();  // Clean up SDL before returning
+        TTF_Quit();
+        SDL_Quit();
         return false;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    if (renderer == nullptr) {
+    if (!renderer) {
         std::cerr << "Renderer creation failed: " << SDL_GetError() << std::endl;
-        SDL_DestroyWindow(window);  // Clean up the window
-        SDL_Quit();  // Clean up SDL
+        SDL_DestroyWindow(window);
+        TTF_Quit();
+        SDL_Quit();
         return false;
     }
+
+    // Initialize background and grid
+    background = new Background(0, 0, width, height);
+    grid = new Grid(20, 200, width - 40, height - 240, 4, 4);
 
     return true;
 }
 
 Window::~Window() {
+    delete grid;
+    delete background;
+    
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
+    
+    TTF_Quit();
     SDL_Quit();
 }
 
-void Window::clear() const {
-    SDL_RenderClear(renderer);
-    SDL_RenderPresent(renderer);
-}
+void Window::run() {
+    SDL_Event e;
+    bool running = true;
 
-bool Window::isClosed() const {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
-            return true;
+    while (running) {
+        while (SDL_PollEvent(&e)) {
+            if (e.type == SDL_QUIT) {
+                running = false;
+            }
         }
+
+        render();
     }
-    return closed;
 }
 
-SDL_Renderer* Window::getRenderer() const {
-    return renderer; // Provide access to the renderer
+void Window::render() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    background->draw(renderer);
+    grid->draw(renderer);
+
+    SDL_RenderPresent(renderer);
 }
