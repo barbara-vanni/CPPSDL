@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
                     if (event.type == sf::Event::Closed) {
                         isRunning = false; 
                     } else if (event.type == sf::Event::KeyPressed) {
-                        game.move(event.key.code);  // Passe la touche pressée à Game::move()
+                        game.moveSfml(event.key.code);  // Passe la touche pressée à Game::move()
                     }
                 }
 

@@ -16,31 +16,32 @@ void Game::start() {
     board->displayBoard();
 }
 
-// void Game::move() {
-//     Input input;
-//     int inputValue = input.getInput();
-//     int points = 0;
-//     bool moved = false;
+void Game::move() {
+    Input input;
+    int inputValue = input.getInput();
+    int points = 0;
+    bool moved = false;
 
-//     if (inputValue == 72) {
-//         moved = board->moveUp(points);
-//     } else if (inputValue == 80) {
-//         moved = board->moveDown(points);
-//     } else if (inputValue == 75) {
-//         moved = board->moveLeft(points);
-//     } else if (inputValue == 77) {
-//         moved = board->moveRight(points);
-//     } else if (inputValue == 27) {
-//         gameOver = true;
-//     }        
+    if (inputValue == 72) {
+        moved = board->moveUp(points);
+    } else if (inputValue == 80) {
+        moved = board->moveDown(points);
+    } else if (inputValue == 75) {
+        moved = board->moveLeft(points);
+    } else if (inputValue == 77) {
+        moved = board->moveRight(points);
+    } else if (inputValue == 27) {
+        gameOver = true;
+    }        
 
-//     if (moved) {
-//         updateScore(points);
-//         board->addRandomTile();
-//         board->displayBoard();
-//     }
-// }
-void Game::move(int inputValue) {
+    if (moved) {
+        updateScore(points);
+        board->addRandomTile();
+        board->displayBoard();
+    }
+}
+
+void Game::moveSfml(int inputValue) {
     int points = 0;
     bool moved = false;
 

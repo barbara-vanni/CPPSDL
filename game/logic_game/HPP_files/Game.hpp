@@ -18,7 +18,8 @@ class Game {
         ~Game();
 
         void start();
-        void move(int inputValue);
+        void move();
+        void moveSfml(int inputValue);
         bool checkDefeat();
         // bool checkVictory();
         void displayScore();
