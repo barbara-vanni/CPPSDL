@@ -19,7 +19,6 @@ int main(int argc, char* argv[]) {
     switch (choice) {
 
         case 1: {
-            // Initialisation du jeu et de la fenêtre SFML
             Game game;
             WindowSfml window(600, 800);
             GridSfml grid(game);
@@ -29,7 +28,6 @@ int main(int argc, char* argv[]) {
                 return 1;
             }
 
-            // Initialiser le jeu
             game.start();
 
             bool isRunning = true;
@@ -40,13 +38,12 @@ int main(int argc, char* argv[]) {
                     if (event.type == sf::Event::Closed) {
                         isRunning = false; 
                     } else if (event.type == sf::Event::KeyPressed) {
-                        game.moveSfml(event.key.code);  // Passe la touche pressée à Game::move()
+                        game.moveSfml(event.key.code); 
                     }
                 }
 
                 window.clear();
 
-                // Afficher la grille mise à jour après les mouvements
                 grid.drawGrid(window.getWindowSfml());
                 window.getWindowSfml()->display();
             }

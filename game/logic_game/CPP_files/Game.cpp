@@ -60,7 +60,7 @@ void Game::moveSfml(int inputValue) {
     if (moved) {
         updateScore(points);
         board->addRandomTile();
-        board->displayBoard(); // Cela peut être retiré si vous gérez l'affichage dans GridSfml
+        board->displayBoard();
     }
 }
 
