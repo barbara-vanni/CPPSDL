@@ -15,7 +15,7 @@ Tiles::Tiles(int posX, int posY, int numberInTile) {
 }
 
 Tiles::~Tiles() {
-    std::cout << "Destructor called" << std::endl;
+    // std::cout << "Destructor called" << std::endl;
 }
 
 // Getters

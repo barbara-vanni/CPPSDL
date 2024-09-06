@@ -1,17 +1,18 @@
 #include "../HPP_files/GraphicTiles.hpp"
 #include <iostream>
 
-
+GraphicTiles::GraphicTiles(){
+}
 
 GraphicTiles::~GraphicTiles(){
 }
 
 double GraphicTiles::posX(){
-    return tile.getPosX();
+    return 0;
 }
 
 double GraphicTiles::posY(){
-    return tile.getPosY();
+    return 0;
 }
 
 double GraphicTiles::width(){
@@ -22,12 +23,25 @@ double GraphicTiles::height(){
     return tileHeight;
 }
 
-void GraphicTiles::drawTile(sf::RenderWindow* window, Tiles* tile){
+// void GraphicTiles::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY){
+//     sf::RectangleShape rectangle(sf::Vector2f(tileWidth, tileHeight));
+//     rectangle.setPosition(tile->getPosX() * tileWidth + gridPosX, tile->getPosY() * tileHeight + gridPosY);
+//     rectangle.setFillColor(getTileColor(tile->getNumberInTile()));
+//     window->draw(rectangle);
+// }
+
+void GraphicTiles::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY) {
     sf::RectangleShape rectangle(sf::Vector2f(tileWidth, tileHeight));
-    rectangle.setPosition(tile->getPosX(), tile->getPosY());
+    // Utilisation des positions de la tuile pour calculer sa position finale dans la fenêtre SFML
+    rectangle.setPosition(tile->getPosX() * tileWidth + gridPosX, tile->getPosY() * tileHeight + gridPosY);
     rectangle.setFillColor(getTileColor(tile->getNumberInTile()));
+    rectangle.setOutlineThickness(2);  // Ajouter un contour
+    rectangle.setOutlineColor(sf::Color::Black);  // Couleur du contour
     window->draw(rectangle);
 }
+
+
+
 
 sf::Color GraphicTiles::getTileColor(int value){
     switch (value)

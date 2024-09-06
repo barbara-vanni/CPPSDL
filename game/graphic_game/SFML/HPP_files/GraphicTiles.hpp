@@ -8,13 +8,13 @@
 
 class GraphicTiles : public GameObject {
     private:
-        Tiles tile;
         int tileWidth = 140;
         int tileHeight = 140;
 
     public:
-        Tiles* getTile();
-        GraphicTiles() : tile(0, 0, 0) {};
+        // Tiles* getTile();
+
+        GraphicTiles();
         ~GraphicTiles();
 
         double posX() override;
@@ -22,7 +22,7 @@ class GraphicTiles : public GameObject {
         double width() override;
         double height() override;
 
-        void drawTile(sf::RenderWindow* window, Tiles* tile);
+        void drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY);
         sf::Color getTileColor(int value);
 };
 

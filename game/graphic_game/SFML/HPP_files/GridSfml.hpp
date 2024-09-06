@@ -17,7 +17,7 @@ class GridSfml : public GameObject {
         int gridPosX = 20;
         int gridPosY = 200;
         // int cellSize = 140;
-        int grid[4][4];
+        Tiles* grid[4][4];
 
     public:
         GridSfml();
@@ -39,7 +39,5 @@ class GridSfml : public GameObject {
         bool moveLeft();
         bool moveRight();     
 };
-
-
 
 #endif

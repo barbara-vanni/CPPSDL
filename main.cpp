@@ -27,25 +27,49 @@ int main(int argc, char* argv[]) {
             }
 
             GridSfml grid;
-
+            Board board;
             bool isRunning = true;
 
+            board.boardInit();
+            board.displayBoard();
             while (isRunning) {
                 sf::Event event;
                 while (window.getWindowSfml()->pollEvent(event)) {
                     if (event.type == sf::Event::Closed) {
                         isRunning = false; 
+                    } else if (event.type == sf::Event::KeyPressed) {
+                        bool moved = false;
+
+                        switch (event.key.code) {
+                            case sf::Keyboard::Up:
+                                moved = grid.moveUp();
+                                break;
+                            case sf::Keyboard::Down:
+                                moved = grid.moveDown();
+                                break;
+                            case sf::Keyboard::Left:
+                                moved = grid.moveLeft();
+                                break;
+                            case sf::Keyboard::Right:
+                                moved = grid.moveRight();
+                                break;
+                        }
+                        // Si un mouvement a eu lieu, ajouter une nouvelle tuile
+                        if (moved) {
+                            grid.okToMove(); // Ajoute une nouvelle tuile aléatoire
+                        }
                     }
                 }
 
                 window.clear();
 
+                // Afficher la grille mise à jour après les mouvements
                 grid.displayGrid(window.getWindowSfml());
-                // grid.drawTile(window.getWindowSfml(), new Tiles(2, 0, 0));
                 window.getWindowSfml()->display();
             }
             break;
         }
+
 
         case 2: {
             // Initialisation de SDL
