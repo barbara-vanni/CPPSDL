@@ -1,30 +1,29 @@
 #pragma once
+#include "../GameObject.hpp"
+#include "../../logic_game/HPP_files/Tiles.hpp"
+#include "TilesSdl.hpp"
+#include "../../logic_game/HPP_files/Board.hpp"
 #include <SDL2/SDL.h>
-#include "GameObject.hpp"
-// #include "game/logic_game/HPP_files/Input.hpp"
-
+#include <vector>
 
 class Grid : public GameObject {
-    public:
-        Grid();
-        ~Grid();
+public:
+    Board *board;                     // The board holds the logic for the tiles
+    std::vector<TilesSdl*> tiles;     // Vector to hold SDL representations of tiles
+    Grid(double x, double y, double w, double h, int rows, int cols);
+    double posX() override;
+    double posY() override;
+    double width() override;
+    double height() override;
+    void draw(SDL_Renderer* renderer);
+    ~Grid() override;
 
-
-        double posX(double x) override;
-        double posY(double y) override;
-        int size(int size) override;
-
-
-        void displayGrid(SDL_Renderer* renderer);
-        void checkDefeat(SDL_Renderer* renderer, int** grid);
-        void addNewTile(SDL_Renderer* renderer, int** grid);
-        void okToMove(SDL_Renderer* renderer, int** grid);
-
-
-        SDL_Rect rect;
-
-    private :
-        SDL_Color color;
-
-
+private:
+    SDL_Color color;
+    double x;
+    double y;
+    double w;
+    double h;
+    int rows;
+    int cols;
 };

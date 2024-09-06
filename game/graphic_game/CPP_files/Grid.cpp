@@ -2,77 +2,73 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
+Grid::Grid(double x, double y, double w, double h, int rows, int cols) {
+    this->x = x;
+    this->y = y;
+    this->w = w;
+    this->h = h;
+    this->rows = rows;
+    this->cols = cols;
+    color = {187, 173, 160, 255};
 
+    // Initialize the board
+    board = new Board(rows);
+    board->boardInit();
 
-Grid::Grid(){
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 150; // CELL SIZE
-    rect.h = 150; // CELL SIZE
-    color = {255,255,255,255};
+    // Check if the board was initialized correctly
+    if (!board) {
+        std::cerr << "Board initialization failed" << std::endl;
+        return;
+    }
+
+    // Create the individual TilesSdl objects
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            int tileX = static_cast<int>(x + j * (w / cols));
+            int tileY = static_cast<int>(y + i * (h / rows));
+            // Ensure the tile is valid
+            int number = (board->getGrid()[i][j]) ? board->getGrid()[i][j]->getNumberInTile() : 0;
+
+            // Create SDL representation of the tile
+            tiles.push_back(new TilesSdl(tileX, tileY, w / cols, h / rows, number));
+        }
+    }
 }
 
-Grid::~Grid(){
+double Grid::posX() {
+    return x;
 }
 
-double Grid::posX(double x){
-    rect.x = x;
-    return rect.x;
+double Grid::posY() {
+    return y;
 }
 
-double Grid::posY(double y){
-    rect.y = y;
-    return rect.y;
+double Grid::width() {
+    return w;
 }
 
-int Grid::size(int size){
-    rect.w = size;
-    rect.h = size;
-    return rect.w;
+double Grid::height() {
+    return h;
 }
 
-void Grid::displayGrid(SDL_Renderer* renderer){
+void Grid::draw(SDL_Renderer* renderer) {
+    // Draw the grid's background
+    SDL_Rect gridRect = {static_cast<int>(x), static_cast<int>(y), static_cast<int>(w), static_cast<int>(h)};
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    for (int i = 0; i < 5; i++){
-        SDL_RenderDrawLine(renderer, rect.x + i * rect.w, rect.y, rect.x + i * rect.w, rect.y + rect.h * 4);
-        SDL_RenderDrawLine(renderer, rect.x, rect.y + i * rect.h, rect.x + rect.w * 4, rect.y + i * rect.h);
+    SDL_RenderFillRect(renderer, &gridRect);
+
+    // Draw each tile (TilesSdl) in the grid
+    for (auto& tileSdl : tiles) {
+        tileSdl->draw(renderer);  // Assuming TilesSdl has its own draw method
     }
 }
 
-void Grid::checkDefeat(SDL_Renderer* renderer, int** grid){
-    int count = 0;
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 4; j++){
-            if (grid[i][j] == 0){
-                count++;
-            }
-        }
-    }
-    if (count == 0){
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-        SDL_RenderDrawLine(renderer, rect.x, rect.y, rect.x + rect.w * 4, rect.y + rect.h * 4);
-        SDL_RenderDrawLine(renderer, rect.x + rect.w * 4, rect.y, rect.x, rect.y + rect.h * 4);
-    }
-}
-
-void Grid::addNewTile(SDL_Renderer* renderer, int** grid){
-    int x = rand() % 4;
-    int y = rand() % 4;
-    while (grid[x][y] != 0){
-        x = rand() % 4;
-        y = rand() % 4;
-    }
-    grid[x][y] = 2;
-}
-
-void Grid::okToMove(SDL_Renderer* renderer, int** grid){
-    int count = 0;
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 4; j++){
-            if (grid[i][j] == 0){
-                count++;
-            }
-        }
+Grid::~Grid() {
+    // Clean up the SDL tiles
+    for (auto& tile : tiles) {
+        delete tile;
     }
 
+    // Clean up the board
+    delete board;
 }

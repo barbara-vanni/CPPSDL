@@ -1,33 +1,40 @@
 #include "../HPP_files/Background.hpp"
+#include <iostream>
+#include <SDL2/SDL.h>
 
-Background::Background() {
-    color = {187, 173, 160, 255};  // Background color of 2048
-    rect.x = 0;
-    rect.y = 0;
-    rect.w = 800;
-    rect.h = 600;
+
+Background::Background(double x, double y, double w, double h) {
+    this->x = x;
+    this->y = y;
+    this->w = w;
+    this->h = h;
+    color = {187, 173, 160, 255};
 }
 
-Background::~Background() {
+double Background::posX() {
+    return x;
 }
 
-double Background::posX(double x) {
-    rect.x = x;
-    return rect.x;
+double Background::posY() {
+    return y;
 }
 
-double Background::posY(double y) {
-    rect.y = y;
-    return rect.y;
+double Background::width() {
+    return w;
 }
 
-int Background::size(int size) {
-    rect.w = size;
-    rect.h = size;
-    return rect.w;
+double Background::height() {
+    return h;
 }
 
 void Background::draw(SDL_Renderer* renderer) {
     SDL_SetRenderDrawColor(renderer, color.r, color.g, color.b, color.a);
-    SDL_RenderFillRect(renderer, &rect);
+    SDL_RenderClear(renderer);
 }
+
+
+Background::~Background() {
+    std::cout << "Background destroyed" << std::endl;
+}
+
+

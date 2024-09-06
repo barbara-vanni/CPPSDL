@@ -1,19 +1,22 @@
-#pragma once 
 #include "../GameObject.hpp"
+#include "../../logic_game/HPP_files/Tiles.hpp"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
-
-class Background : public GameObject {
+class TilesSdl : public GameObject {
 public:
-    Background(double x, double y, double w, double h);
+    Tiles *tiles;
+    TilesSdl(double x, double y, double w, double h, int numberInTile);
     double posX() override;
     double posY() override;
     double width() override;
     double height() override;
     void draw(SDL_Renderer* renderer);
-    ~Background() override;
+    ~TilesSdl() override;
+
 private:
     SDL_Color color;
+    TTF_Font* font; // For font management
     double x;
     double y;
     double w;
