@@ -1,6 +1,8 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Board.hpp"
 #include "../HPP_files/Score.hpp"
+#include "../src/include/SFML/Window.hpp"
+
 #include <iostream>
 
 Game::Game() {
@@ -14,30 +16,54 @@ void Game::start() {
     board->displayBoard();
 }
 
-void Game::move() {
-    Input input;
-    int inputValue = input.getInput();
+// void Game::move() {
+//     Input input;
+//     int inputValue = input.getInput();
+//     int points = 0;
+//     bool moved = false;
+
+//     if (inputValue == 72) {
+//         moved = board->moveUp(points);
+//     } else if (inputValue == 80) {
+//         moved = board->moveDown(points);
+//     } else if (inputValue == 75) {
+//         moved = board->moveLeft(points);
+//     } else if (inputValue == 77) {
+//         moved = board->moveRight(points);
+//     } else if (inputValue == 27) {
+//         gameOver = true;
+//     }        
+
+//     if (moved) {
+//         updateScore(points);
+//         board->addRandomTile();
+//         board->displayBoard();
+//     }
+// }
+void Game::move(int inputValue) {
     int points = 0;
     bool moved = false;
 
-    if (inputValue == 72) {
-        moved = board->moveUp(points);
-    } else if (inputValue == 80) {
-        moved = board->moveDown(points);
-    } else if (inputValue == 75) {
+    if (inputValue == sf::Keyboard::Up) {
         moved = board->moveLeft(points);
-    } else if (inputValue == 77) {
+    } else if (inputValue == sf::Keyboard::Down) {
         moved = board->moveRight(points);
-    } else if (inputValue == 27) {
+    } else if (inputValue == sf::Keyboard::Left) {
+        moved = board->moveUp(points);
+    } else if (inputValue == sf::Keyboard::Right) {
+        moved = board->moveDown(points);
+    } else if (inputValue == sf::Keyboard::Escape) {
         gameOver = true;
     }        
 
     if (moved) {
         updateScore(points);
         board->addRandomTile();
-        board->displayBoard();
+        board->displayBoard(); // Cela peut être retiré si vous gérez l'affichage dans GridSfml
     }
 }
+
+
 
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {

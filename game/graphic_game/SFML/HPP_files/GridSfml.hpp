@@ -1,43 +1,30 @@
 #ifndef GRIDSFML_HPP
 #define GRIDSFML_HPP
 
-#include "GraphicTiles.hpp"
+#include "TilesSfml.hpp"
 #include "../../GameObject.hpp"
-#include "../../../../src/include/SFML/Graphics/Color.hpp"
 #include "../../../../src/include/SFML/Graphics.hpp"
 #include "../../../logic_game/HPP_files/Board.hpp"
+#include "../../../logic_game/HPP_files/Game.hpp"
 #include <iostream>
 #include <vector>
 
 class GridSfml : public GameObject {
-
     private:
-        Board board;
-        int gridSize = 560;
-        int gridPosX = 20;
-        int gridPosY = 200;
-        // int cellSize = 140;
-        Tiles* grid[4][4];
+        Game& game;
+        int gridSize;
+        int gridPosX;
+        int gridPosY;
 
     public:
-        GridSfml();
+        GridSfml(Game& game);
         ~GridSfml();
 
         double posX() override;
         double posY() override;
         double width() override;
         double height() override;
-
-        void displayGrid(sf::RenderWindow* window);
-        void drawTile(sf::RenderWindow* window, Tiles* tile);
-
-        void checkDefeat(Board* board);
-        void okToMove();   
-
-        bool moveUp();
-        bool moveDown();
-        bool moveLeft();
-        bool moveRight();     
+        void drawGrid(sf::RenderWindow* window);
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "game/logic_game/HPP_files/Input.hpp"
 #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
-#include "game/graphic_game/SFML/HPP_files/GraphicTiles.hpp"
+#include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
 #include "../game/graphic_game/HPP_files/Window.hpp"
 
 
@@ -19,54 +19,38 @@ int main(int argc, char* argv[]) {
     switch (choice) {
 
         case 1: {
-            WindowSfml window;
+            // Initialisation du jeu et de la fenêtre SFML
+            Game game;
+            WindowSfml window(600, 800);
+            GridSfml grid(game);
 
-            if (window.isClosed()) {
+            if (!window.getWindowSfml()->isOpen()) {
                 std::cerr << "Failed to initialize window" << std::endl;
                 return 1;
             }
 
-            GridSfml grid;
-            Board board;
+            // Initialiser le jeu
+            game.start();
+
             bool isRunning = true;
 
-            board.boardInit();
-            board.displayBoard();
             while (isRunning) {
                 sf::Event event;
                 while (window.getWindowSfml()->pollEvent(event)) {
                     if (event.type == sf::Event::Closed) {
                         isRunning = false; 
                     } else if (event.type == sf::Event::KeyPressed) {
-                        bool moved = false;
-
-                        switch (event.key.code) {
-                            case sf::Keyboard::Up:
-                                moved = grid.moveUp();
-                                break;
-                            case sf::Keyboard::Down:
-                                moved = grid.moveDown();
-                                break;
-                            case sf::Keyboard::Left:
-                                moved = grid.moveLeft();
-                                break;
-                            case sf::Keyboard::Right:
-                                moved = grid.moveRight();
-                                break;
-                        }
-                        // Si un mouvement a eu lieu, ajouter une nouvelle tuile
-                        if (moved) {
-                            grid.okToMove(); // Ajoute une nouvelle tuile aléatoire
-                        }
+                        game.move(event.key.code);  // Passe la touche pressée à Game::move()
                     }
                 }
 
                 window.clear();
 
                 // Afficher la grille mise à jour après les mouvements
-                grid.displayGrid(window.getWindowSfml());
+                grid.drawGrid(window.getWindowSfml());
                 window.getWindowSfml()->display();
             }
+
             break;
         }
 

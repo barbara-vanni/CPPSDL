@@ -1,28 +1,29 @@
-#ifndef GRAPHICTILES_HPP
-#define GRAPHICTILES_HPP
+#ifndef TILESsfml_HPP
+#define TILESsfml_HPP
 
 #include "../../GameObject.hpp"
 #include "../../../logic_game/HPP_files/Tiles.hpp"
+#include "../../../logic_game/HPP_files/Game.hpp"
 #include "../../../../src/include/SFML/Graphics.hpp"
 
 
-class GraphicTiles : public GameObject {
+class TilesSfml : public GameObject {
     private:
-        int tileWidth = 140;
-        int tileHeight = 140;
+        Game& game;
+        int tileWidth;
+        int tileHeight;
 
     public:
-        // Tiles* getTile();
-
-        GraphicTiles();
-        ~GraphicTiles();
+        TilesSfml(Game& game);
+        ~TilesSfml();
 
         double posX() override;
         double posY() override;
         double width() override;
         double height() override;
-
         void drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY);
+
+    private:
         sf::Color getTileColor(int value);
 };
 
