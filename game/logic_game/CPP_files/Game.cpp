@@ -46,13 +46,13 @@ void Game::moveSfml(int inputValue) {
     bool moved = false;
 
     if (inputValue == sf::Keyboard::Up) {
-        moved = board->moveLeft(points);
-    } else if (inputValue == sf::Keyboard::Down) {
-        moved = board->moveRight(points);
-    } else if (inputValue == sf::Keyboard::Left) {
         moved = board->moveUp(points);
-    } else if (inputValue == sf::Keyboard::Right) {
+    } else if (inputValue == sf::Keyboard::Down) {
         moved = board->moveDown(points);
+    } else if (inputValue == sf::Keyboard::Left) {
+        moved = board->moveLeft(points);
+    } else if (inputValue == sf::Keyboard::Right) {
+        moved = board->moveRight(points);
     } else if (inputValue == sf::Keyboard::Escape) {
         gameOver = true;
     }        

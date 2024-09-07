@@ -10,8 +10,13 @@
 class TilesSfml : public GameObject {
     private:
         Game& game;
+        Tiles* currentTile;
         int tileWidth;
         int tileHeight;
+        int gridSize;
+        int gridPosX;
+        int gridPosY;
+        sf::Color getTileColor(int value);
 
     public:
         TilesSfml(Game& game);
@@ -21,10 +26,8 @@ class TilesSfml : public GameObject {
         double posY() override;
         double width() override;
         double height() override;
-        void drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY);
-
-    private:
-        sf::Color getTileColor(int value);
+        void drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY, int gridSize);
+        void setTile(Tiles* tile, int gridSize);
 };
 
 #endif

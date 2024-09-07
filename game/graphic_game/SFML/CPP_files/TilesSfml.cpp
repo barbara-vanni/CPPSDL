@@ -1,17 +1,31 @@
 #include "../HPP_files/TilesSfml.hpp"
 #include <iostream>
 
-TilesSfml::TilesSfml(Game& game) : game(game), tileWidth(140), tileHeight(140) {
+TilesSfml::TilesSfml(Game& game) : game(game), tileWidth(140), tileHeight(140), currentTile(nullptr), gridPosX(20), gridPosY(200) {
 }
 
 TilesSfml::~TilesSfml() {
 }
 
+void TilesSfml::setTile(Tiles* tile, int gridSize) {
+    currentTile = tile;
+}
+
 double TilesSfml::posX() {
+    if (currentTile) {
+        double x = gridPosX + currentTile->getPosY() * tileWidth; 
+        // std::cout << "posX: " << x << std::endl;  // Debugging
+        return x;
+    }
     return 0;
 }
 
 double TilesSfml::posY() {
+    if (currentTile) {
+        double y = gridPosY + currentTile->getPosX() * tileHeight;
+        // std::cout << "posY: " << y << std::endl;  // Debugging
+        return y;
+    }
     return 0;
 }
 
@@ -23,9 +37,10 @@ double TilesSfml::height() {
     return tileHeight;
 }
 
-void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY) {
+void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY, int gridSize) {
+    setTile(tile, gridSize);
     sf::RectangleShape rectangle(sf::Vector2f(tileWidth, tileHeight));
-    rectangle.setPosition(tile->getPosX() * tileWidth + gridPosX, tile->getPosY() * tileHeight + gridPosY);
+    rectangle.setPosition(posX(), posY());
     rectangle.setFillColor(getTileColor(tile->getNumberInTile()));
     window->draw(rectangle);
 }
