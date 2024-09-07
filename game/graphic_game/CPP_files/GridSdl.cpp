@@ -22,15 +22,33 @@ Grid::Grid(double x, double y, double w, double h, int rows, int cols) {
     }
 
     // Create the individual TilesSdl objects
+    auto& grid = board->getGrid();
     for (int i = 0; i < rows; ++i) {
         for (int j = 0; j < cols; ++j) {
-            int tileX = static_cast<int>(x + j * (w / cols));
-            int tileY = static_cast<int>(y + i * (h / rows));
-            // Ensure the tile is valid
-            int number = (board->getGrid()[i][j]) ? board->getGrid()[i][j]->getNumberInTile() : 0;
+            double tileX = x + j * (w / cols);
+            double tileY = y + i * (h / rows);
 
-            // Create SDL representation of the tile
-            tiles.push_back(new TilesSdl(tileX, tileY, w / cols, h / rows, number));
+            // Ensure grid[i][j] is not null before accessing
+            if (grid[i][j] != nullptr) {
+                int number = grid[i][j]->getNumberInTile();  // Assuming Tiles has a getNumber method
+                tiles.push_back(new TilesSdl(tileX, tileY, w / cols, h / rows, number));
+            }
+        }
+    }
+
+    // Add initial random tile
+    board->addRandomTile();
+
+    // Add the new tile to SDL representation
+    auto& newGrid = board->getGrid();
+    for (int i = 0; i < rows; ++i) {
+        for (int j = 0; j < cols; ++j) {
+            if (newGrid[i][j] != nullptr && std::find_if(tiles.begin(), tiles.end(), 
+                        [&](const TilesSdl* tile) { return tile->get() == std::make_pair(tileX, tileY); }) == tiles.end()) {
+                double sdlTileX = x + j * (w / cols);
+                double sdlTileY = y + i * (h / rows);
+                tiles.push_back(new TilesSdl(sdlTileX, sdlTileY, w / cols, h / rows, newGrid[i][j]->getNumber()));
+            }
         }
     }
 }

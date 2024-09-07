@@ -8,7 +8,9 @@
 
 class Grid : public GameObject {
 public:
-    Board *board;                     // The board holds the logic for the tiles
+    Board *board;
+    Tiles *tile;      
+
     std::vector<TilesSdl*> tiles;     // Vector to hold SDL representations of tiles
     Grid(double x, double y, double w, double h, int rows, int cols);
     double posX() override;

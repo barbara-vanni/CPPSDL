@@ -1,8 +1,3 @@
-#include "../GameObject.hpp"
-#include "../../logic_game/HPP_files/Tiles.hpp"
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-
 class TilesSdl : public GameObject {
 public:
     Tiles *tiles;
@@ -13,6 +8,9 @@ public:
     double height() override;
     void draw(SDL_Renderer* renderer);
     ~TilesSdl() override;
+
+    double getX() const { return x; }
+    double getY() const { return y; }
 
 private:
     SDL_Color color;
