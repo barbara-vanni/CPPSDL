@@ -57,7 +57,7 @@ int main(int argc, char* argv[]) {
 
         case 2: {
             // Initialize SDL and create a window
-            Window window(800, 800);  // Window dimensions
+            Window window(600, 800);  // Window dimensions
             if (window.isClosed()) {
                 std::cerr << "Failed to initialize window" << std::endl;
                 return 1;

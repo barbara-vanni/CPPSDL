@@ -15,8 +15,7 @@ Game::Game() {
 void Game::start() {
     board->boardInit();
     board->displayBoard();
-    board->addRandomTile();
-    board->addRandomTile();
+    
 }
 
 // void Game::move() {
