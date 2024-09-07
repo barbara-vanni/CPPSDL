@@ -5,10 +5,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
+#include <ctime>  // Include to use time(0)
 
-Board::Board(int size) : size(size)
-{
+// Constructor
+Board::Board(int size) : size(size) {
     std::cout << "Board constructor called" << std::endl;
+    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
 }
 
 void Board::boardInit()
