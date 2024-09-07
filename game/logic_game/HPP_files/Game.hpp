@@ -19,17 +19,22 @@ class Game {
 
         void start();
         void move();
+        void moveSdl(int inputValue);
         bool checkDefeat();
-        bool checkVictory();
+        // bool checkVictory();
         void displayScore();
         void updateScore(int point);
         bool getGameOver() { return gameOver; } 
         void testDefeatScenario();
 
+
+        Board* getBoard() const { return board; }
+
     private:
         Board* board;
         Score score;
         bool gameOver;
+        int inputValue;
 };
 
 

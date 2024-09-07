@@ -1,22 +1,33 @@
+#ifndef TILESSdl_HPP
+#define TILESSdl_HPP
+
+#include "../GameObject.hpp"
+#include "../../logic_game/HPP_files/Tiles.hpp"
+#include "../../logic_game/HPP_files/Game.hpp"
+#include <SDL2/SDL.h>
+
 class TilesSdl : public GameObject {
+private:
+    Game& game;
+    Tiles* currentTile;
+    int tileWidth;
+    int tileHeight;
+    int gridSize;
+    int gridPosX;
+    int gridPosY;
+
+    SDL_Color getTileColor(int value);
+
 public:
-    Tiles *tiles;
-    TilesSdl(double x, double y, double w, double h, int numberInTile);
+    TilesSdl(Game& game);
+    ~TilesSdl();
+
     double posX() override;
     double posY() override;
     double width() override;
     double height() override;
-    void draw(SDL_Renderer* renderer);
-    ~TilesSdl() override;
-
-    double getX() const { return x; }
-    double getY() const { return y; }
-
-private:
-    SDL_Color color;
-    TTF_Font* font; // For font management
-    double x;
-    double y;
-    double w;
-    double h;
+    void drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int gridPosY, int gridSize);
+    void setTile(Tiles* tile, int gridSize);
 };
+
+#endif

@@ -2,6 +2,9 @@
 #include "../HPP_files/Board.hpp"
 // #include "../HPP_files/Score.hpp"
 #include <iostream>
+#include <SDL2/SDL.h>
+#include "../HPP_files/Game.hpp"
+#include "../HPP_files/Input.hpp"
 
 Game::Game() {
     board = new Board(4);
@@ -11,35 +14,67 @@ Game::Game() {
 
 void Game::start() {
     board->boardInit();
-    // board->displayBoard();
+    board->displayBoard();
+    board->addRandomTile();
+    board->addRandomTile();
 }
 
-void Game::move() {
-    Input input;
-    int inputValue = input.getInput();
+// void Game::move() {
+//     Input input;
+//     int inputValue = input.getInput();
+//     int points = 0;
+//     bool moved = false;
+
+//     if (inputValue == 72) {
+//         moved = board->moveUp(points);
+//     } else if (inputValue == 80) {
+//         moved = board->moveDown(points);
+//     } else if (inputValue == 75) {
+//         moved = board->moveLeft(points);
+//     } else if (inputValue == 77) {
+//         moved = board->moveRight(points);
+//     } else if (inputValue == 27) {
+//         gameOver = true;
+//     }        
+
+//     if (moved) {
+//         updateScore(points);
+//         board->addRandomTile();
+//         board->displayBoard();
+//     }
+// }
+
+void Game::moveSdl(int inputValue)
+{
     int points = 0;
     bool moved = false;
 
-    if (inputValue == 72) {
+    // Compare the input directly to SDL key constants
+    if (inputValue == SDLK_UP) {
         moved = board->moveUp(points);
-    } else if (inputValue == 80) {
+    }
+    else if (inputValue == SDLK_DOWN) {
         moved = board->moveDown(points);
-    } else if (inputValue == 75) {
+    }
+    else if (inputValue == SDLK_LEFT) {
         moved = board->moveLeft(points);
-    } else if (inputValue == 77) {
+    }
+    else if (inputValue == SDLK_RIGHT) {
         moved = board->moveRight(points);
-    } else if (inputValue == 27) {
+    }
+    else if (inputValue == SDLK_ESCAPE) {
         gameOver = true;
-    }        
+    }
 
+    // Update score and board if moved
     if (moved) {
         updateScore(points);
         board->addRandomTile();
         board->displayBoard();
     }
 }
-
-bool Game::checkDefeat() {
+bool Game::checkDefeat()
+{
     if (board->okToMove() == false) {
         gameOver = true;
         return true;

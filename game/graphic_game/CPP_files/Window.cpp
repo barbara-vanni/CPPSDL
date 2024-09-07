@@ -1,18 +1,17 @@
 #include "../HPP_files/Window.hpp"
 #include <iostream>
 
-Window::Window(int w, int h)
-    : width(w), height(h), title("Grid Game"), closed(false), background(nullptr), grid(nullptr) {
+Window::Window(int width, int height)
+    : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {
     if (!init()) {
         closed = true;
     }
 }
 
-Window::Window(const std::string &title, int width, int height)
-    : title(title), width(width), height(height), closed(false), background(nullptr), grid(nullptr) {
-    if (!init()) {
-        closed = true;
-    }
+Window::~Window() {
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 bool Window::init() {
@@ -21,16 +20,9 @@ bool Window::init() {
         return false;
     }
 
-    if (TTF_Init() < 0) {
-        std::cerr << "TTF initialization failed: " << TTF_GetError() << std::endl;
-        SDL_Quit();
-        return false;
-    }
-
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     if (!window) {
         std::cerr << "Window creation failed: " << SDL_GetError() << std::endl;
-        TTF_Quit();
         SDL_Quit();
         return false;
     }
@@ -39,50 +31,22 @@ bool Window::init() {
     if (!renderer) {
         std::cerr << "Renderer creation failed: " << SDL_GetError() << std::endl;
         SDL_DestroyWindow(window);
-        TTF_Quit();
         SDL_Quit();
         return false;
     }
 
-    // Initialize background and grid
-    background = new Background(0, 0, width, height);
-    grid = new Grid(20, 200, 560, 560, 4, 4);
-
     return true;
 }
 
-Window::~Window() {
-    delete grid;
-    delete background;
-    
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    
-    TTF_Quit();
-    SDL_Quit();
-}
-
-void Window::run() {
-    SDL_Event e;
-    bool running = true;
-
-    while (running) {
-        while (SDL_PollEvent(&e)) {
-            if (e.type == SDL_QUIT) {
-                running = false;
-            }
-        }
-
-        render();
-    }
-}
-
-void Window::render() {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+void Window::clear() {
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);  // Black background
     SDL_RenderClear(renderer);
+}
 
-    background->draw(renderer);
-    grid->draw(renderer);
+bool Window::isClosed() const {
+    return closed;
+}
 
-    SDL_RenderPresent(renderer);
+SDL_Renderer* Window::getRenderer() const {
+    return renderer;
 }

@@ -12,22 +12,20 @@ public:
     Window(const std::string &title, int width, int height);
     ~Window();
 
-    void run();  // This will handle the main loop
-    bool closed;
+    void clear();  // Clears the renderer
+    bool isClosed() const;
+    SDL_Renderer* getRenderer() const;  // To get the renderer for drawing
 
 private:
     void render();
     bool init();
-    void handleEvents();
+    bool closed;
 
     SDL_Window* window;
     SDL_Renderer* renderer;
     int width;
     int height;
     std::string title;
-
-    Background* background;
-    Grid* grid;
 };
 
 #endif // WINDOW_HPP
