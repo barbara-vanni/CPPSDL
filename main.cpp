@@ -3,16 +3,13 @@
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
-// #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
-// #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
-// #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
 #include "../game/graphic_game/HPP_files/Window.hpp"
 #include "../game/graphic_game/HPP_files/GridSdl.hpp"
 #include "../game/graphic_game/HPP_files/TilesSdl.hpp"
 
 #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
-#include "../game/graphic_game/HPP_files/Window.hpp"
+#include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
 
 
 int main(int argc, char* argv[]) {

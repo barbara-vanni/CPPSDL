@@ -35,7 +35,6 @@ class Game {
         Score score;
         bool gameOver;
         int inputValue;
-        int inputValue;
 };
 
 
