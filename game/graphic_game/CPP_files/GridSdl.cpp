@@ -21,8 +21,9 @@ double GridSdl::height() {
 }
 
 void GridSdl::drawGrid(SDL_Renderer* renderer) {
+    
     // Set the background color for the grid
-    SDL_SetRenderDrawColor(renderer, 140, 140, 140, 255);
+    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
 
     // Create the background rectangle for the grid
     SDL_Rect gridBackground = { gridPosX, gridPosY, gridSize, gridSize };
