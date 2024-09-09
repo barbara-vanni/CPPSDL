@@ -9,9 +9,6 @@ WindowSfml::WindowSfml(int width, int height)
 bool WindowSfml::init()
 {
     Window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
-    rectangle = std::make_unique<sf::RectangleShape>(sf::Vector2f(200.f, 100.f));
-    rectangle->setFillColor(sf::Color::Green);
-    rectangle->setPosition(300.f, 250.f);
     return true;
 }
 

@@ -19,6 +19,7 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Input.cpp \
 	$(LOGIC_DIR)/BoardSdl.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowMenu.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/GridSfml.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
