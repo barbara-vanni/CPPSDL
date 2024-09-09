@@ -23,7 +23,6 @@ double GridSfml::height() {
 }
 
 void GridSfml::drawGrid(sf::RenderWindow* window) {
-
     sf::Color gridColor = sf::Color(140, 140, 140); 
     sf::RectangleShape gridBackground(sf::Vector2f(gridSize, gridSize));
     gridBackground.setPosition(gridPosX, gridPosY);

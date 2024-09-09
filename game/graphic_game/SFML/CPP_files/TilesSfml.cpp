@@ -43,6 +43,26 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
     rectangle.setPosition(posX(), posY());
     rectangle.setFillColor(getTileColor(tile->getNumberInTile()));
     window->draw(rectangle);
+
+     if (tile->getNumberInTile() != 0) {
+        sf::Font font;
+        if (!font.loadFromFile("assets/minecraft_font.ttf")) {
+            std::cerr << "Failed to load font" << std::endl;
+            return;
+        }
+
+        sf::Text text;
+        text.setFont(font);
+        text.setString(std::to_string(tile->getNumberInTile()));
+        text.setCharacterSize(40);  
+        text.setFillColor(sf::Color::Black);  
+
+        sf::FloatRect textRect = text.getLocalBounds();
+        text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+        text.setPosition(posX() + tileWidth / 2.0f, posY() + tileHeight / 2.0f);
+
+        window->draw(text);
+    }
 }
 
 sf::Color TilesSfml::getTileColor(int value) {
