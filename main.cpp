@@ -6,7 +6,7 @@
 #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
-#include "game/graphic_game/SFML/HPP_files/Buttonsfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/ButtonSfml.hpp"
 #include "../game/graphic_game/HPP_files/Window.hpp"
 
 int main(int argc, char *argv[])
@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
         WindowSfml window(600, 800);
         GridSfml grid(game);
 
-        Buttonsfml button(100, 100, 200, 50, "Click Me");
+        ButtonSfml button(100, 100, 200, 50, "Click Me");
 
         if (!window.getWindowSfml()->isOpen())
         {

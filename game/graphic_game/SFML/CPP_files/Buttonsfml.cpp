@@ -1,8 +1,8 @@
-#include "../HPP_files/Buttonsfml.hpp"
+#include "../HPP_files/ButtonSfml.hpp"
 // #include "../../../../assets/minecraft_font.ttf"
 #include <iostream>
 
-Buttonsfml::Buttonsfml(double x, double y, double w, double h, const std::string& label) {
+ButtonSfml::ButtonSfml(double x, double y, double w, double h, const std::string& label) {
     shape.setPosition(x, y);
     shape.setSize(sf::Vector2f(w, h));
     shape.setFillColor(sf::Color::Blue);
@@ -22,29 +22,29 @@ Buttonsfml::Buttonsfml(double x, double y, double w, double h, const std::string
 }
 
 // Implémentation des méthodes de GameObject
-double Buttonsfml::posX() {
+double ButtonSfml::posX() {
     return shape.getPosition().x;
 }
 
-double Buttonsfml::posY() {
+double ButtonSfml::posY() {
     return shape.getPosition().y;
 }
 
-double Buttonsfml::width() {
+double ButtonSfml::width() {
     return shape.getSize().x;
 }
 
-double Buttonsfml::height() {
+double ButtonSfml::height() {
     return shape.getSize().y;
 }
 
 // Dessiner le bouton dans la fenêtre SFML
-void Buttonsfml::draw(sf::RenderWindow* window) {
+void ButtonSfml::draw(sf::RenderWindow* window) {
     window->draw(shape);
     window->draw(text);
 }
 
 // Vérifie si le bouton a été cliqué
-bool Buttonsfml::isClicked(const sf::Vector2i& mousePosition) {
+bool ButtonSfml::isClicked(const sf::Vector2i& mousePosition) {
     return shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition));
 }
