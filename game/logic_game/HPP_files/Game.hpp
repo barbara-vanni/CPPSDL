@@ -19,6 +19,8 @@ class Game {
 
         void start();
         void move();
+        void reset();
+        void moveSdl(int inputValue);
         void moveSfml(int inputValue);
         bool checkDefeat();
         // bool checkVictory();

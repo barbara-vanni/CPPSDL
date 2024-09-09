@@ -12,10 +12,11 @@ Tiles::Tiles(int posX, int posY, int numberInTile) {
     this->posX = posX;
     this->posY = posY;
     this->numberInTile = numberInTile;
+    std::cout << "Tiles created at (" << posX << ", " << posY << ") with value " << numberInTile << std::endl;
 }
 
 Tiles::~Tiles() {
-    // std::cout << "Destructor called" << std::endl;
+    std::cout << "Tiles destroyed at (" << posX << ", " << posY << ") with value " << numberInTile << std::endl;
 }
 
 // Getters

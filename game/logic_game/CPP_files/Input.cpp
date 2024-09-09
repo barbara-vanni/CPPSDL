@@ -1,5 +1,6 @@
 #include "../HPP_files/Input.hpp"
 #include <stdio.h>
+#include "SDL2/SDL.h"
 #include <conio.h>
 #include <iostream>
 
@@ -12,32 +13,11 @@ Input::~Input() {
 }
 
 int Input::getInput() {
-    char input = getch();
-
-    if (input == 27) {  
-        std::cout << "Exit" << std::endl;
-        return 27;
-    } else if (input == -32) { 
-        input = getch();
-        switch (input) {
-        case 72:
-            std::cout << "Up" << std::endl;
-            break;
-        case 80:
-            std::cout << "Down" << std::endl;
-            break;
-        case 75:
-            std::cout << "Left" << std::endl;
-            break;
-        case 77:
-            std::cout << "Right" << std::endl;
-            break;
-        default:
-            std::cout << "Press arrow keys to move the tiles or ESC to quit" << std::endl;
-            break;
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_KEYDOWN) {
+            return event.key.keysym.sym;  // Return the SDL key code
         }
-    } else {
-        std::cout << "Press arrow keys to move the tiles or ESC to quit" << std::endl;
     }
-    return input;
+    return 0;  // No input detected
 }

@@ -4,6 +4,10 @@
 #include "../src/include/SFML/Window.hpp"
 
 #include <iostream>
+#include <SDL2/SDL.h>
+#include "../HPP_files/Game.hpp"
+#include "../HPP_files/Input.hpp"
+
 
 Game::Game() {
     board = new Board(4);
@@ -14,6 +18,11 @@ Game::Game() {
 void Game::start() {
     board->boardInit();
     board->displayBoard();
+    
+}
+
+void Game::reset() {
+    start();
 }
 
 void Game::move() {
@@ -34,6 +43,36 @@ void Game::move() {
         gameOver = true;
     }        
 
+    if (moved) {
+        updateScore(points);
+        board->addRandomTile();
+        board->displayBoard();
+    }
+}
+
+void Game::moveSdl(int inputValue)
+{
+    int points = 0;
+    bool moved = false;
+
+    // Compare the input directly to SDL key constants
+    if (inputValue == SDLK_UP) {
+        moved = board->moveUp(points);
+    }
+    else if (inputValue == SDLK_DOWN) {
+        moved = board->moveDown(points);
+    }
+    else if (inputValue == SDLK_LEFT) {
+        moved = board->moveLeft(points);
+    }
+    else if (inputValue == SDLK_RIGHT) {
+        moved = board->moveRight(points);
+    }
+    else if (inputValue == SDLK_ESCAPE) {
+        gameOver = true;
+    }
+
+    // Update score and board if moved
     if (moved) {
         updateScore(points);
         board->addRandomTile();
@@ -69,6 +108,7 @@ void Game::moveSfml(int inputValue) {
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {
         gameOver = true;
+        std::cout << "Game Over!" << std::endl;
         return true;
     }
     else {
