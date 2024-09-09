@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include "SDL2/SDL.h"
 #include <iostream>
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 #include "game/logic_game/HPP_files/Game.hpp"
@@ -14,12 +14,11 @@
 
 int main(int argc, char* argv[]) {
     int choice = 0;
-    int choice = 0;
     std::cout << "Choisissez une option:" << std::endl;
     std::cout << "1. Afficher avec SFML" << std::endl;
     std::cout << "2. Lancer le jeu avec SDL" << std::endl;
     std::cin >> choice;
-    std::cin >> choice;
+
 
     switch (choice) {
 
