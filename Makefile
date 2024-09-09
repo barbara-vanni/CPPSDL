@@ -21,6 +21,7 @@ SRC_FILES := main.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/GridSfml.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/Buttonsfml.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
 
 # Object files
