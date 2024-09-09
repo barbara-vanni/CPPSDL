@@ -7,6 +7,7 @@
 #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/ButtonSfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/ScoreSfml.hpp"
 #include "../game/graphic_game/HPP_files/Window.hpp"
 
 int main(int argc, char *argv[])
@@ -26,7 +27,9 @@ int main(int argc, char *argv[])
         WindowSfml window(600, 800);
         GridSfml grid(game);
 
-        ButtonSfml button(100, 100, 200, 50, "Click Me");
+        ButtonSfml button(480, 90, 100, 50, "Click");
+        ScoreSfml score(game, 150, 90, "Score : 0    |     Best : 0");
+
 
         if (!window.getWindowSfml()->isOpen())
         {
@@ -35,6 +38,7 @@ int main(int argc, char *argv[])
         }
 
         game.start();
+
 
         bool isRunning = true;
 
@@ -55,7 +59,7 @@ int main(int argc, char *argv[])
                 {
                     if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml())))
                     {
-                        // Action à réaliser lorsque le bouton est cliqué
+                        
                         std::cout << "Button clicked!" << std::endl;
                     }
                 }
@@ -64,7 +68,9 @@ int main(int argc, char *argv[])
             window.clear();
             button.draw(window.getWindowSfml());
 
+            score.draw(window.getWindowSfml());
             grid.drawGrid(window.getWindowSfml());
+            score.updateScore(game.getScoreActuel());
             window.getWindowSfml()->display();
         }
 

@@ -24,6 +24,8 @@ class Game {
         // bool checkVictory();
         void displayScore();
         void updateScore(int point);
+        int getScoreActuel() { return score.scoreActuel; }
+        int getBestScore() { return score.scoreMax; }
         bool getGameOver() { return gameOver; } 
         void testDefeatScenario();
 

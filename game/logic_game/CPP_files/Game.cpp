@@ -90,6 +90,8 @@ void Game::updateScore(int points)
     {
         score.scoreMax = score.scoreActuel;
     }
+
+    
 }
 
 Game::~Game() {
