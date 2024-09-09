@@ -1,5 +1,6 @@
 #include "../HPP_files/TilesSdl.hpp"
 
+
 TilesSdl::TilesSdl(Game& game) : game(game), tileWidth(140), tileHeight(140), currentTile(nullptr), gridPosX(20), gridPosY(200) {}
 
 TilesSdl::~TilesSdl() {}
@@ -31,13 +32,61 @@ double TilesSdl::height() {
 }
 
 void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int gridPosY, int gridSize) {
+    // Set tile dimensions
     setTile(tile, gridSize);
 
+    // Draw the tile rectangle
     SDL_Rect tileRect = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
     SDL_Color tileColor = getTileColor(tile->getNumberInTile());
-
     SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
     SDL_RenderFillRect(renderer, &tileRect);
+
+    // Now render the text (number) on the tile
+    int tileNumber = tile->getNumberInTile();
+
+    if (tileNumber != 0) {
+        // Load the font (make sure this is done outside the loop in a real program)
+        TTF_Font* font = TTF_OpenFont("assets/minecraft_font.ttf", 48);  // Use appropriate font path and size
+        if (!font) {
+            std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+            return;
+        }
+
+        // Create the text surface
+        SDL_Color textColor = { 0, 0, 0, 255 };  // Black text
+        std::string tileText = std::to_string(tileNumber);
+        SDL_Surface* textSurface = TTF_RenderText_Blended(font, tileText.c_str(), textColor);
+
+        if (textSurface) {
+            // Create a texture from the text surface
+            SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+
+            if (textTexture) {
+                // Get the width and height of the text
+                int textWidth, textHeight;
+                TTF_SizeText(font, tileText.c_str(), &textWidth, &textHeight);
+
+                // Center the text within the tile
+                SDL_Rect textRect;
+                textRect.x = static_cast<int>(posX()) + (tileWidth - textWidth) / 2;
+                textRect.y = static_cast<int>(posY()) + (tileHeight - textHeight) / 2;
+                textRect.w = textWidth;
+                textRect.h = textHeight;
+
+                // Render the text onto the tile
+                SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
+
+                // Clean up the texture after rendering
+                SDL_DestroyTexture(textTexture);
+            }
+
+            // Free the text surface
+            SDL_FreeSurface(textSurface);
+        }
+
+        // Close the font after use (In a real-world scenario, manage fonts better)
+        TTF_CloseFont(font);
+    }
 }
 
 SDL_Color TilesSdl::getTileColor(int value) {

@@ -1,7 +1,7 @@
-#include "../HPP_files/ButtonSfml.hpp"
+#include "../HPP_files/ButtonsSfml.hpp"
 #include <iostream>
 
-ButtonSfml::ButtonSfml(double x, double y, double w, double h, const std::string& label) {
+ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::string& label) {
     shape.setPosition(x, y);
     shape.setSize(sf::Vector2f(w, h));
     shape.setFillColor(sf::Color::Blue);
@@ -21,29 +21,29 @@ ButtonSfml::ButtonSfml(double x, double y, double w, double h, const std::string
 }
 
 // Implémentation des méthodes de GameObject
-double ButtonSfml::posX() {
+double ButtonsSfml::posX() {
     return shape.getPosition().x;
 }
 
-double ButtonSfml::posY() {
+double ButtonsSfml::posY() {
     return shape.getPosition().y;
 }
 
-double ButtonSfml::width() {
+double ButtonsSfml::width() {
     return shape.getSize().x;
 }
 
-double ButtonSfml::height() {
+double ButtonsSfml::height() {
     return shape.getSize().y;
 }
 
 // Dessiner le bouton dans la fenêtre SFML
-void ButtonSfml::draw(sf::RenderWindow* window) {
+void ButtonsSfml::draw(sf::RenderWindow* window) {
     window->draw(shape);
     window->draw(text);
 }
 
 // Vérifie si le bouton a été cliqué
-bool ButtonSfml::isClicked(const sf::Vector2i& mousePosition) {
+bool ButtonsSfml::isClicked(const sf::Vector2i& mousePosition) {
     return shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition));
 }

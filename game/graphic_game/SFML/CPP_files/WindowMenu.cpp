@@ -1,5 +1,5 @@
 #include "../HPP_files/WindowMenu.hpp"
-#include "../HPP_files/ButtonSfml.hpp"
+#include "../HPP_files/ButtonsSfml.hpp"
 
 WindowMenu::WindowMenu(int width, int height)
     : width(width), height(height), title("2048 WindowMenu"), closed(false)
@@ -57,9 +57,9 @@ WindowMenu::MenuOption WindowMenu::drawButtons() {
     text.setPosition(windowSize / 2.0f, 140);
 
     // Define buttons
-    ButtonSfml gameButton(windowSize / 2.0f - 125, 310, 250, 80, "PLAY");
-    ButtonSfml nightModeButton(windowSize / 2.0f - 125, 450, 250, 80, "NIGHT MODE");
-    ButtonSfml howToPlayButton(windowSize / 2.0f - 125, 590, 250, 80, "HOW TO PLAY");
+    ButtonsSfml gameButton(windowSize / 2.0f - 125, 310, 250, 80, "PLAY");
+    ButtonsSfml nightModeButton(windowSize / 2.0f - 125, 450, 250, 80, "NIGHT MODE");
+    ButtonsSfml howToPlayButton(windowSize / 2.0f - 125, 590, 250, 80, "HOW TO PLAY");
 
     // Draw title and buttons
     Window->draw(text);

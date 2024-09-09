@@ -45,7 +45,7 @@ void runSfml() {
     Game game;
     WindowSfml window(600, 800);
     GridSfml grid(game);
-    ButtonSfml button(100, 100, 200, 50, "Click Me");
+    ButtonsSfml button(100, 100, 200, 50, "Click Me");
 
     if (!window.getWindowSfml()->isOpen()) {
         std::cerr << "Failed to initialize window" << std::endl;
