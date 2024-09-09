@@ -1,4 +1,4 @@
-#include "../HPP_files/WindowSfml.hpp"
+// #include "../HPP_files/WindowSfml.hpp"
 
 WindowSfml::WindowSfml(int width, int height)
     : width(width), height(height), title("Night WindowSfml"), closed(false)

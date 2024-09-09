@@ -23,4 +23,4 @@ class WindowSfml {
     sf::RenderWindow* getWindowSfml() const;
 };
 
-#endif 
+// #endif 

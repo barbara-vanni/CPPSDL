@@ -19,6 +19,7 @@ class Game {
 
         void start();
         void move();
+        void moveSdl(int inputValue);
         void moveSfml(int inputValue);
         bool checkDefeat();
         // bool checkVictory();
@@ -33,6 +34,7 @@ class Game {
         Board* board;
         Score score;
         bool gameOver;
+        int inputValue;
         int inputValue;
 };
 
