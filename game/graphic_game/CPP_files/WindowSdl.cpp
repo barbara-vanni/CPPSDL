@@ -1,20 +1,20 @@
-#include "../HPP_files/Window.hpp"
+#include "../HPP_files/WindowSdl.hpp"
 #include <iostream>
 
-Window::Window(int width, int height)
+WindowSdl::WindowSdl(int width, int height)
     : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {
     if (!init()) {
         closed = true;
     }
 }
 
-Window::~Window() {
+WindowSdl::~WindowSdl() {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-bool Window::init() {
+bool WindowSdl::init() {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         std::cerr << "SDL initialization failed: " << SDL_GetError() << std::endl;
         return false;
@@ -38,15 +38,15 @@ bool Window::init() {
     return true;
 }
 
-void Window::clear() {
-    SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);  
+void WindowSdl::clear() {
+    SDL_SetRenderDrawColor(renderer, 237, 230, 218, 255);  
     SDL_RenderClear(renderer);
 }
 
-bool Window::isClosed() const {
+bool WindowSdl::isClosed() const {
     return closed;
 }
 
-SDL_Renderer* Window::getRenderer() const {
+SDL_Renderer* WindowSdl::getRenderer() const {
     return renderer;
 }

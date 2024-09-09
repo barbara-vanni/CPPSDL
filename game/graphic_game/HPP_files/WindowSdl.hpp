@@ -6,18 +6,16 @@
 #include "Background.hpp"
 #include "GridSdl.hpp"
 
-class Window {
+class WindowSdl {
 public:
-    Window(int width, int height);
-    Window(const std::string &title, int width, int height);
-    ~Window();
+    WindowSdl(int width, int height);
+    ~WindowSdl();
 
     void clear();  // Clears the renderer
     bool isClosed() const;
     SDL_Renderer* getRenderer() const;  // To get the renderer for drawing
 
 private:
-    void render();
     bool init();
     bool closed;
 

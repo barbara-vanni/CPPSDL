@@ -8,7 +8,7 @@ Background::Background(double x, double y, double w, double h) {
     this->y = y;
     this->w = w;
     this->h = h;
-    color = {187, 173, 160, 255};
+    color = {255, 255, 255, 255};
 }
 
 double Background::posX() {

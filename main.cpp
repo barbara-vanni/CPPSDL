@@ -1,13 +1,14 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <iostream>
-#include "../game/logic_game/HPP_files/BoardSdl.hpp"
+
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
 #include "game/graphic_game/HPP_files/ButtonSdl.hpp"
 // #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
 // #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
 // #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
-#include "../game/graphic_game/HPP_files/Window.hpp"
+#include "../game/graphic_game/HPP_files/WindowSdl.hpp"
 #include "../game/graphic_game/HPP_files/GridSdl.hpp"
 #include "../game/graphic_game/HPP_files/TilesSdl.hpp"
 
@@ -57,11 +58,23 @@ int main(int argc, char* argv[]) {
 
 
         case 2: {
-            // Initialize SDL and create a window
-            Window window(600, 800);  // Window dimensions
+    // Initialize SDL and create a window
+            WindowSdl window(600, 800);  // Window dimensions
             if (window.isClosed()) {
                 std::cerr << "Failed to initialize window" << std::endl;
                 return 1;
+            }
+
+            if (TTF_Init() == -1) {
+                std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
+                return -1;
+            }
+
+            // Load the font for the button
+            TTF_Font* buttonFont = TTF_OpenFont("/Users/mathisserra/Desktop/Github/B2_Laplateforme/CPPSDL/assets/minecraft_font.ttf", 24);
+            if (!buttonFont) {
+                std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+                return -1;
             }
 
             // Create the game and grid objects
@@ -120,15 +133,20 @@ int main(int argc, char* argv[]) {
 
                 // Draw the grid and reset button
                 grid.drawGrid(window.getRenderer());
-                resetButton.drawButton(window.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
+                resetButton.drawButton(window.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight, buttonFont, "Reset");
 
                 // Update the screen
                 SDL_RenderPresent(window.getRenderer());
                 SDL_Delay(100);  // Delay for smoother frame rendering
             }
 
+            // Clean up the font after usage
+            TTF_CloseFont(buttonFont);
+            TTF_Quit();
+
             break;
         }
+
 
 
         default:
