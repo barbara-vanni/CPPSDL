@@ -3,6 +3,7 @@
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
+#include "game/graphic_game/HPP_files/ButtonSdl.hpp"
 // #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
 // #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
 // #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
@@ -66,6 +67,13 @@ int main(int argc, char* argv[]) {
             // Create the game and grid objects
             Game game;
             GridSdl grid(game);
+            ButtonSdl resetButton;
+
+            // Set the button dimensions and position (example: bottom of the window)
+            int buttonX = 480;
+            int buttonY = 70;
+            int buttonWidth = 100;
+            int buttonHeight = 30;
 
             // Start the game logic
             game.start();
@@ -81,7 +89,7 @@ int main(int argc, char* argv[]) {
                         quit = true;
                     } 
                     else if (event.type == SDL_KEYDOWN) {
-                        // Pass the correct SDL key constants to Game::moveSdl
+                        // Handle key press events
                         switch (event.key.keysym.sym) {
                             case SDLK_UP:
                                 game.moveSdl(SDLK_UP);
@@ -100,18 +108,28 @@ int main(int argc, char* argv[]) {
                                 break;
                         }
                     }
+
+                    // Check if the reset button is clicked
+                    if (resetButton.isClicked(event, buttonX, buttonY, buttonWidth, buttonHeight)) {
+                        game.reset();  // Call the reset function in the Game class
+                    }
                 }
 
-
                 // Render the window contents
-                window.clear();           // Clear the screen
-                grid.drawGrid(window.getRenderer()); // Draw the grid
-                SDL_RenderPresent(window.getRenderer());  // Update the screen
-                SDL_Delay(100);           // Delay for smoother frame rendering
+                window.clear();  // Clear the screen
+
+                // Draw the grid and reset button
+                grid.drawGrid(window.getRenderer());
+                resetButton.drawButton(window.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
+
+                // Update the screen
+                SDL_RenderPresent(window.getRenderer());
+                SDL_Delay(100);  // Delay for smoother frame rendering
             }
 
             break;
         }
+
 
         default:
             std::cout << "Choix invalide." << std::endl;

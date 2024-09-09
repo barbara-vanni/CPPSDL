@@ -1,10 +1,10 @@
 #ifndef TILESSdl_HPP
 #define TILESSdl_HPP
 
+#include <SDL2/SDL.h>
 #include "../GameObject.hpp"
 #include "../../logic_game/HPP_files/Tiles.hpp"
 #include "../../logic_game/HPP_files/Game.hpp"
-#include <SDL2/SDL.h>
 
 class TilesSdl : public GameObject {
 private:

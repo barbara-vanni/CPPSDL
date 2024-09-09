@@ -14,7 +14,21 @@ Board::Board(int size) : size(size) {
 }
 
 void Board::boardInit()
-{
+{   
+
+    if(grid.size() != 0){
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (grid[i][j] != nullptr)
+                {
+                    delete grid[i][j];
+                    grid[i][j] = nullptr;
+                }
+            }
+        }
+    }
     grid.resize(4, std::vector<Tiles *>(4, nullptr));
 
     addRandomTile();

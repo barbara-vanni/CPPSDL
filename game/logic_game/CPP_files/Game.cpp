@@ -6,6 +6,7 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Input.hpp"
 
+
 Game::Game() {
     board = new Board(4);
     Score score;
@@ -16,6 +17,10 @@ void Game::start() {
     board->boardInit();
     board->displayBoard();
     
+}
+
+void Game::reset() {
+    start();
 }
 
 // void Game::move() {
@@ -76,6 +81,7 @@ bool Game::checkDefeat()
 {
     if (board->okToMove() == false) {
         gameOver = true;
+        std::cout << "Game Over!" << std::endl;
         return true;
     }
     else {
