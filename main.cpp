@@ -7,6 +7,7 @@
 #include "game/graphic_game/SFML/HPP_files/WindowMenu.hpp"
 #include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
 #include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/Buttonsfml.hpp"
 #include "../game/graphic_game/HPP_files/Window.hpp"
 
 
@@ -124,4 +125,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
