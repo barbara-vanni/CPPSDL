@@ -7,7 +7,7 @@ ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::stri
     shape.setFillColor(sf::Color::Blue);
 
     // Chargement de la police et configuration du texte
-    if (!font.loadFromFile("assets/minecraft_font.ttf")) {
+    if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
         // std::cout << "Failed to load font" << std::endl;
     }
     text.setFont(font);

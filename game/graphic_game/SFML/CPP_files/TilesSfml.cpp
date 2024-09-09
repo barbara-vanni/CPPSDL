@@ -46,7 +46,7 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
 
      if (tile->getNumberInTile() != 0) {
         sf::Font font;
-        if (!font.loadFromFile("assets/minecraft_font.ttf")) {
+        if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
             std::cerr << "Failed to load font" << std::endl;
             return;
         }

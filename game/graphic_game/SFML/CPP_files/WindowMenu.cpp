@@ -39,7 +39,7 @@ sf::RenderWindow* WindowMenu::getWindowMenu() const
 
 WindowMenu::MenuOption WindowMenu::drawButtons() {
     sf::Font font;
-    if (!font.loadFromFile("assets/minecraft_font.ttf"))
+    if (!font.loadFromFile("assets/font/minecraft_font.ttf"))
     {
         std::cerr << "Failed to load font" << std::endl;
     }
