@@ -8,7 +8,7 @@
 
 struct Score
 {
-    int scoreActuel = 0;
+    int scoreActuel = 0; // need to modify 
     int scoreMax = 0;
 };
 
@@ -24,6 +24,8 @@ class Game {
         bool checkDefeat();
         // bool checkVictory();
         void displayScore();
+        int getScore() { return score.scoreActuel; }
+        int getBestScore() { return score.scoreMax; }
         void updateScore(int point);
         bool getGameOver() { return gameOver; } 
         void testDefeatScenario();

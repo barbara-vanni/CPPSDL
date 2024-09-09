@@ -21,6 +21,7 @@ void Game::start() {
 
 void Game::reset() {
     start();
+    score.scoreActuel = 0;
 }
 
 // void Game::move() {

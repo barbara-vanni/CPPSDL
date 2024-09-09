@@ -11,6 +11,7 @@
 #include "../game/graphic_game/HPP_files/WindowSdl.hpp"
 #include "../game/graphic_game/HPP_files/GridSdl.hpp"
 #include "../game/graphic_game/HPP_files/TilesSdl.hpp"
+#include "../game/graphic_game/HPP_files/ScoreSdl.hpp"
 
 
 
@@ -58,7 +59,7 @@ int main(int argc, char* argv[]) {
 
 
         case 2: {
-    // Initialize SDL and create a window
+            // Initialize SDL and create a window
             WindowSdl window(600, 800);  // Window dimensions
             if (window.isClosed()) {
                 std::cerr << "Failed to initialize window" << std::endl;
@@ -77,12 +78,13 @@ int main(int argc, char* argv[]) {
                 return -1;
             }
 
-            // Create the game and grid objects
+            // Create the game, grid, button, and score objects
             Game game;
             GridSdl grid(game);
             ButtonSdl resetButton;
+            ScoreSdl score(game, 1, 1);  // Initialize ScoreSdl with position
 
-            // Set the button dimensions and position (example: bottom of the window)
+            // Set the button dimensions and position
             int buttonX = 480;
             int buttonY = 70;
             int buttonWidth = 100;
@@ -128,12 +130,16 @@ int main(int argc, char* argv[]) {
                     }
                 }
 
+                // Update the score display
+                score.updateScore(); // Update the score with the current game score
+
                 // Render the window contents
                 window.clear();  // Clear the screen
 
-                // Draw the grid and reset button
+                // Draw the grid, reset button, and score
                 grid.drawGrid(window.getRenderer());
                 resetButton.drawButton(window.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight, buttonFont, "Reset");
+                score.draw(window.getRenderer()); // Draw the score
 
                 // Update the screen
                 SDL_RenderPresent(window.getRenderer());
@@ -146,6 +152,7 @@ int main(int argc, char* argv[]) {
 
             break;
         }
+
 
 
 
