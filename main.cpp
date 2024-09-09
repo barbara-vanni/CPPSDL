@@ -1,26 +1,56 @@
 #include <SDL2/SDL.h>
 #include <iostream>
-#include "../game/graphic_game/HPP_files/Window.hpp"
 #include "../game/logic_game/HPP_files/BoardSdl.hpp"
 #include "game/logic_game/HPP_files/Game.hpp"
 #include "game/logic_game/HPP_files/Input.hpp"
 #include "game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/GridSfml.hpp"
+#include "game/graphic_game/SFML/HPP_files/TilesSfml.hpp"
+#include "../game/graphic_game/HPP_files/Window.hpp"
 
 
 int main(int argc, char* argv[]) {
-    int choix = 0;
+    int choice = 0;
     std::cout << "Choisissez une option:" << std::endl;
     std::cout << "1. Afficher avec SFML" << std::endl;
     std::cout << "2. Lancer le jeu avec SDL" << std::endl;
-    std::cin >> choix;
+    std::cin >> choice;
 
-    switch (choix) {
-        case 1:
-            #include "../game/graphic_game/SFML/HPP_files/WindowSfml.hpp"
-            WindowSfml window(600, 800, "SFML Window");
+    switch (choice) {
 
-            // printSfml();
+        case 1: {
+            Game game;
+            WindowSfml window(600, 800);
+            GridSfml grid(game);
+
+            if (!window.getWindowSfml()->isOpen()) {
+                std::cerr << "Failed to initialize window" << std::endl;
+                return 1;
+            }
+
+            game.start();
+
+            bool isRunning = true;
+
+            while (isRunning) {
+                sf::Event event;
+                while (window.getWindowSfml()->pollEvent(event)) {
+                    if (event.type == sf::Event::Closed) {
+                        isRunning = false; 
+                    } else if (event.type == sf::Event::KeyPressed) {
+                        game.moveSfml(event.key.code); 
+                    }
+                }
+
+                window.clear();
+
+                grid.drawGrid(window.getWindowSfml());
+                window.getWindowSfml()->display();
+            }
+
             break;
+        }
+
 
         case 2: {
             // Initialisation de SDL

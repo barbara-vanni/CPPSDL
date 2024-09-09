@@ -1,5 +1,8 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Board.hpp"
+// #include "../HPP_files/Score.hpp"
+#include "../src/include/SFML/Window.hpp"
+
 #include <iostream>
 
 Game::Game() {
@@ -37,6 +40,31 @@ void Game::move() {
         board->displayBoard();
     }
 }
+
+void Game::moveSfml(int inputValue) {
+    int points = 0;
+    bool moved = false;
+
+    if (inputValue == sf::Keyboard::Up) {
+        moved = board->moveUp(points);
+    } else if (inputValue == sf::Keyboard::Down) {
+        moved = board->moveDown(points);
+    } else if (inputValue == sf::Keyboard::Left) {
+        moved = board->moveLeft(points);
+    } else if (inputValue == sf::Keyboard::Right) {
+        moved = board->moveRight(points);
+    } else if (inputValue == sf::Keyboard::Escape) {
+        gameOver = true;
+    }        
+
+    if (moved) {
+        updateScore(points);
+        board->addRandomTile();
+        board->displayBoard();
+    }
+}
+
+
 
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {
