@@ -1,5 +1,5 @@
 #include "../HPP_files/WindowSfml.hpp"
-#include <iostream>
+#include <memory>
 
 
 WindowSfml::WindowSfml(int width, int height)
