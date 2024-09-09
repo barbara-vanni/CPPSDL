@@ -1,40 +1,52 @@
 CXX := g++
+# Windows path
 CXXFLAGS := -I src/include -I /usr/include/SDL2 -I game
 LDFLAGS := -L src/lib
-LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer 
+LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lsfml-graphics -lsfml-window -lsfml-system
 
-# Directories
+# MacOS path
+# CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
+# LDFLAGS := -L/opt/homebrew/lib
+# LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
+
 SRC_DIR := game
+SRC_FILE := src
 GRAPHIC_DIR := $(SRC_DIR)/graphic_game/CPP_files
 LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
+OBJ_DIR := $(SRC_FILE)/obj
 
-# Source files
 SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Board.cpp \
 	$(LOGIC_DIR)/Tiles.cpp \
 	$(LOGIC_DIR)/Game.cpp \
+	$(LOGIC_DIR)/Input.cpp \
+	$(GRAPHIC_DIR)/GridSdl.cpp \
+	$(SRC_DIR)/gameloop.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowMenu.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/GridSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/ButtonsSfml.cpp \
 	$(GRAPHIC_DIR)/Window.cpp \
+	$(GRAPHIC_DIR)/Background.cpp\
+	$(GRAPHIC_DIR)/TilesSdl.cpp\
+	$(GRAPHIC_DIR)/ButtonSdl.cpp\
+	
 
-# Object files
-OBJ_FILES := $(SRC_FILES:.cpp=.o)
+OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
-# Executable
 TARGET := main
 
-# Default target
 all: $(TARGET)
 
-# Link the target executable
 $(TARGET): $(OBJ_FILES)
 	$(CXX) -o $@ $^ $(LDFLAGS) $(LIBS)
 
-# Compile source files into object files
-%.o: %.cpp
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(OBJ_DIR)/$(dir $<)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean up build files
 clean:
-	rm -f $(OBJ_FILES) $(TARGET)
+	rm -rf $(OBJ_DIR) $(TARGET)
 
-# Phony targets
 .PHONY: all clean
