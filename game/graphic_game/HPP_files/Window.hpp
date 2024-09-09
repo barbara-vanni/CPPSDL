@@ -9,7 +9,6 @@
 class Window {
 public:
     Window(int width, int height);
-    Window(const std::string &title, int width, int height);
     ~Window();
 
     void clear();  // Clears the renderer
@@ -17,7 +16,6 @@ public:
     SDL_Renderer* getRenderer() const;  // To get the renderer for drawing
 
 private:
-    void render();
     bool init();
     bool closed;
 

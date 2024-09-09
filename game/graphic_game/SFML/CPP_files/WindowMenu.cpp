@@ -37,8 +37,7 @@ sf::RenderWindow* WindowMenu::getWindowMenu() const
     return Window.get();
 }
 
-void WindowMenu::drawButtons()
-{
+WindowMenu::MenuOption WindowMenu::drawButtons() {
     sf::Font font;
     if (!font.loadFromFile("assets/minecraft_font.ttf"))
     {
@@ -57,20 +56,31 @@ void WindowMenu::drawButtons()
     text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
     text.setPosition(windowSize / 2.0f, 140);
 
-    // Game button
+    // Define buttons
     ButtonSfml gameButton(windowSize / 2.0f - 125, 310, 250, 80, "PLAY");
-    gameButton.isClicked(sf::Mouse::getPosition(*Window));    
-
-    // Night mode button
     ButtonSfml nightModeButton(windowSize / 2.0f - 125, 450, 250, 80, "NIGHT MODE");
-    nightModeButton.isClicked(sf::Mouse::getPosition(*Window));
-
-    // How to play button
     ButtonSfml howToPlayButton(windowSize / 2.0f - 125, 590, 250, 80, "HOW TO PLAY");
-    howToPlayButton.isClicked(sf::Mouse::getPosition(*Window));
 
+    // Draw title and buttons
     Window->draw(text);
     gameButton.draw(Window.get());
     nightModeButton.draw(Window.get());
     howToPlayButton.draw(Window.get());
+
+    // Check for button clicks
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+        sf::Vector2i mousePos = sf::Mouse::getPosition(*Window);
+
+        if (gameButton.isClicked(mousePos)) {
+            return MenuOption::PLAY;
+        }
+        else if (nightModeButton.isClicked(mousePos)) {
+            return MenuOption::NIGHT_MODE;
+        }
+        else if (howToPlayButton.isClicked(mousePos)) {
+            return MenuOption::HOW_TO_PLAY;
+        }
+    }
+
+    return MenuOption::NONE; 
 }

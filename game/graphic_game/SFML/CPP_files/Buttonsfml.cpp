@@ -1,5 +1,4 @@
 #include "../HPP_files/ButtonSfml.hpp"
-// #include "../../../../assets/minecraft_font.ttf"
 #include <iostream>
 
 ButtonSfml::ButtonSfml(double x, double y, double w, double h, const std::string& label) {

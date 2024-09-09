@@ -20,8 +20,9 @@ class WindowMenu {
     ~WindowMenu() = default; 
     void clear() const;
     bool isClosed();
+    enum MenuOption {NONE, PLAY, NIGHT_MODE, HOW_TO_PLAY};
+    MenuOption drawButtons();
     sf::RenderWindow* getWindowMenu() const;
-    void drawButtons();
 };
 
 #endif 
