@@ -5,14 +5,14 @@
 #include "../../../../src/include/SFML/Graphics.hpp"
 
 
-class Buttonsfml : public GameObject {
+class ButtonSfml : public GameObject {
 private:
     sf::RectangleShape shape;
     sf::Text text;
     sf::Font font;
     
 public:
-    Buttonsfml(double x, double y, double w, double h, const std::string& label);
+    ButtonSfml(double x, double y, double w, double h, const std::string& label);
 
 
     double posX() override;

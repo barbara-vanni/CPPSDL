@@ -1,4 +1,5 @@
 #include "../HPP_files/WindowMenu.hpp"
+#include "../HPP_files/ButtonSfml.hpp"
 
 WindowMenu::WindowMenu(int width, int height)
     : width(width), height(height), title("2048 WindowMenu"), closed(false)
@@ -57,38 +58,19 @@ void WindowMenu::drawButtons()
     text.setPosition(windowSize / 2.0f, 140);
 
     // Game button
-    sf::RectangleShape gameButton(sf::Vector2f(250, 80));
-    gameButton.setFillColor(sf::Color::Green);
-    gameButton.setPosition(windowSize / 2.0f - 125, 290);
-
-    // Text on game button
-    sf::Text gameText;
-    gameText.setFont(font);
-    gameText.setString("PLAY");
-    gameText.setCharacterSize(50);
-    gameText.setFillColor(sf::Color::White);
-    sf::FloatRect gameTextRect = gameText.getLocalBounds();
-    gameText.setOrigin(gameTextRect.left + gameTextRect.width / 2.0f, gameTextRect.top + gameTextRect.height / 2.0f);
-    gameText.setPosition(windowSize / 2.0f, 330);
+    ButtonSfml gameButton(windowSize / 2.0f - 125, 310, 250, 80, "PLAY");
+    gameButton.isClicked(sf::Mouse::getPosition(*Window));    
 
     // Night mode button
-    sf::RectangleShape nightModeButton(sf::Vector2f(250, 80));
-    nightModeButton.setFillColor(sf::Color::Black);
-    nightModeButton.setPosition(windowSize / 2.0f - 125, 450);
+    ButtonSfml nightModeButton(windowSize / 2.0f - 125, 450, 250, 80, "NIGHT MODE");
+    nightModeButton.isClicked(sf::Mouse::getPosition(*Window));
 
-    // Text on night mode button
-    sf::Text nightModeText;
-    nightModeText.setFont(font);
-    nightModeText.setString("NIGHT MODE");
-    nightModeText.setCharacterSize(30);
-    nightModeText.setFillColor(sf::Color::White);
-    sf::FloatRect nightModeTextRect = nightModeText.getLocalBounds();
-    nightModeText.setOrigin(nightModeTextRect.left + nightModeTextRect.width / 2.0f, nightModeTextRect.top + nightModeTextRect.height / 2.0f);
-    nightModeText.setPosition(windowSize / 2.0f, 490);
-    
+    // How to play button
+    ButtonSfml howToPlayButton(windowSize / 2.0f - 125, 590, 250, 80, "HOW TO PLAY");
+    howToPlayButton.isClicked(sf::Mouse::getPosition(*Window));
+
     Window->draw(text);
-    Window->draw(gameButton);
-    Window->draw(nightModeButton);
-    Window->draw(gameText);
-    Window->draw(nightModeText);
+    gameButton.draw(Window.get());
+    nightModeButton.draw(Window.get());
+    howToPlayButton.draw(Window.get());
 }

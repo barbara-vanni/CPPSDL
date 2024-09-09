@@ -12,11 +12,6 @@
 
 
 int main(int argc, char* argv[]) {
-    // int choice = 0;
-    // std::cout << "Choisissez une option:" << std::endl;
-    // std::cout << "1. Afficher avec SFML" << std::endl;
-    // std::cout << "2. Lancer le jeu avec SDL" << std::endl;
-    // std::cin >> choice;
 
     bool run = true;
     WindowMenu windowMenu(600, 800);
@@ -29,99 +24,135 @@ int main(int argc, char* argv[]) {
         windowMenu.getWindowMenu()->display();
     }
 
-    // switch (choice) {
 
-    //     case 1: {
-    //         Game game;
-    //         WindowSfml window(600, 800);
-    //         GridSfml grid(game);
+    // int choice = 0;
+    // std::cout << "Choisissez une option:" << std::endl;
+    // std::cout << "1. Afficher avec SFML" << std::endl;
+    // std::cout << "2. Lancer le jeu avec SDL" << std::endl;
+    // std::cin >> choice;
 
-    //         if (!window.getWindowSfml()->isOpen()) {
-    //             std::cerr << "Failed to initialize window" << std::endl;
-    //             return 1;
-    //         }
+    // switch (choice)
+    // {
 
-    //         game.start();
+    // case 1:
+    // {
+    //     Game game;
+    //     WindowSfml window(600, 800);
+    //     GridSfml grid(game);
 
-    //         bool isRunning = true;
+    //     Buttonsfml button(100, 100, 200, 50, "Click Me");
 
-    //         while (isRunning) {
-    //             sf::Event event;
-    //             while (window.getWindowSfml()->pollEvent(event)) {
-    //                 if (event.type == sf::Event::Closed) {
-    //                     isRunning = false; 
-    //                 } else if (event.type == sf::Event::KeyPressed) {
-    //                     game.moveSfml(event.key.code); 
-    //                 }
-    //             }
-
-    //             window.clear();
-
-    //             grid.drawGrid(window.getWindowSfml());
-    //             window.getWindowSfml()->display();
-    //         }
-
-    //         break;
+    //     if (!window.getWindowSfml()->isOpen())
+    //     {
+    //         std::cerr << "Failed to initialize window" << std::endl;
+    //         return 1;
     //     }
 
+    //     game.start();
 
-    //     case 2: {
-    //         // Initialisation de SDL
-    //         Window window(800, 800);
-    //         if (window.isClosed()) {
-    //             std::cerr << "Failed to initialize window" << std::endl;
-    //             return 1;
-    //         }
+    //     bool isRunning = true;
 
-    //         BoardSdl board(4);
-    //         const int cellSize = 200; // Ajustez cette taille en fonction de la taille de la fenêtre et du plateau
-
-    //         bool quit = false;
-    //         SDL_Event event;
-
-    //         while (!quit) {
-    //             while (SDL_PollEvent(&event)) {
-    //                 if (event.type == SDL_QUIT) {
-    //                     quit = true;
-    //                 } else if (event.type == SDL_KEYDOWN) {
-    //                     bool moved = false;
-    //                     switch (event.key.keysym.sym) {
-    //                         case SDLK_UP:
-    //                             moved = board.moveUp();
-    //                             break;
-    //                         case SDLK_DOWN:
-    //                             moved = board.moveDown();
-    //                             break;
-    //                         case SDLK_LEFT:
-    //                             moved = board.moveLeft();
-    //                             break;
-    //                         case SDLK_RIGHT:
-    //                             moved = board.moveRight();
-    //                             break;
-    //                     }
-    //                     if (moved) {
-    //                         board.addRandomTile();
-    //                     }
+    //     while (isRunning)
+    //     {
+    //         sf::Event event;
+    //         while (window.getWindowSfml()->pollEvent(event))
+    //         {
+    //             if (event.type == sf::Event::Closed)
+    //             {
+    //                 isRunning = false;
+    //             }
+    //             else if (event.type == sf::Event::KeyPressed)
+    //             {
+    //                 game.moveSfml(event.key.code);
+    //             }
+    //             else if (event.type == sf::Event::MouseButtonPressed)
+    //             {
+    //                 if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml())))
+    //                 {
+    //                     // Action à réaliser lorsque le bouton est cliqué
+    //                     std::cout << "Button clicked!" << std::endl;
     //                 }
     //             }
+    //         }
 
-    //             if (!board.okToMove()) {
-    //                 std::cout << "Game Over!" << std::endl;
+    //         window.clear();
+    //         button.draw(window.getWindowSfml());
+
+    //         grid.drawGrid(window.getWindowSfml());
+    //         window.getWindowSfml()->display();
+    //     }
+
+    //     break;
+    // }
+
+    // case 2:
+    // {
+    //     // Initialisation de SDL
+    //     Window window(600, 800);
+    //     if (window.isClosed())
+    //     {
+    //         std::cerr << "Failed to initialize window" << std::endl;
+    //         return 1;
+    //     }
+
+    //     BoardSdl board(4);
+    //     const int cellSize = 140; // Ajustez cette taille en fonction de la taille de la fenêtre et du plateau
+
+    //     bool quit = false;
+    //     SDL_Event event;
+
+    //     while (!quit)
+    //     {
+    //         while (SDL_PollEvent(&event))
+    //         {
+    //             if (event.type == SDL_QUIT)
+    //             {
     //                 quit = true;
     //             }
-
-    //             window.clear();
-    //             board.renderBoard(window.getRenderer(), cellSize);
-    //             SDL_Delay(100); // Ajustez ce délai si nécessaire
+    //             else if (event.type == SDL_KEYDOWN)
+    //             {
+    //                 bool moved = false;
+    //                 switch (event.key.keysym.sym)
+    //                 {
+    //                 case SDLK_UP:
+    //                     moved = board.moveUp();
+    //                     break;
+    //                 case SDLK_DOWN:
+    //                     moved = board.moveDown();
+    //                     break;
+    //                 case SDLK_LEFT:
+    //                     moved = board.moveLeft();
+    //                     break;
+    //                 case SDLK_RIGHT:
+    //                     moved = board.moveRight();
+    //                     break;
+    //                 }
+    //                 if (moved)
+    //                 {
+    //                     board.addRandomTile();
+    //                 }
+    //             }
     //         }
 
-    //         break;
+    //         if (!board.okToMove())
+    //         {
+    //             std::cout << "Game Over!" << std::endl;
+    //             quit = true;
+    //         }
+
+    //         window.clear();
+    //         board.renderBoard(window.getRenderer(), cellSize);
+    //         SDL_Delay(100); // Ajustez ce délai si nécessaire
     //     }
 
-    //     default:
-    //         std::cout << "Choix invalide." << std::endl;
-    //         break;
+    //     break;
+    // }
+
+    // default:
+    //     std::cout << "Choix invalide." << std::endl;
+    //     break;
     // }
 
     return 0;
 }
+
