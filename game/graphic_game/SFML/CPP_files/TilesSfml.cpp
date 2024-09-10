@@ -42,6 +42,8 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
     sf::RectangleShape rectangle(sf::Vector2f(tileWidth, tileHeight));
     rectangle.setPosition(posX(), posY());
     rectangle.setFillColor(getTileColor(tile->getNumberInTile()));
+    rectangle.setOutlineThickness(1);
+    rectangle.setOutlineColor(sf::Color::Black);
     window->draw(rectangle);
 
      if (tile->getNumberInTile() != 0) {
