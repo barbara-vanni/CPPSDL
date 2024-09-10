@@ -4,13 +4,13 @@
 
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "../HPP_files/Game.hpp"
 #include "../HPP_files/Input.hpp"
 
+#include <fstream>
 
 Game::Game() {
     board = new Board(4);
-    Score score;
+    score.loadScore();
     gameOver = false;
 }
 
@@ -129,7 +129,9 @@ void Game::updateScore(int points)
     if (score.scoreActuel > score.scoreMax)
     {
         score.scoreMax = score.scoreActuel;
+        score.saveScore();
     }
+  
 }
 
 Game::~Game() {

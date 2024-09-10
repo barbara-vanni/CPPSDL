@@ -214,7 +214,6 @@ bool Board::okToMove() {
         }
     }
 
-
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             if (grid[i][j] == nullptr) {
@@ -239,6 +238,8 @@ bool Board::okToMove() {
     }
     return false;
 }
+
+
 
 void Board::displayBoard()
 {

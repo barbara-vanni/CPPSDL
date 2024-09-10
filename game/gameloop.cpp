@@ -47,7 +47,12 @@ void runSfml() {
     Game game;
     WindowSfml window(600, 800);
     GridSfml grid(game);
-    ButtonsSfml button(100, 100, 200, 50, "Click Me");
+    ButtonsSfml button(480, 90, 100, 50, "Reset");
+
+    ScoreSfml actualScore(game, 160, 90, "0");
+    ScoreSfml bestScore(game, 300, 90, "0");
+
+
 
     if (!window.getWindowSfml()->isOpen()) {
         std::cerr << "Failed to initialize window" << std::endl;
@@ -66,14 +71,18 @@ void runSfml() {
                 game.moveSfml(event.key.code);
             } else if (event.type == sf::Event::MouseButtonPressed) {
                 if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
-                    std::cout << "Button clicked!" << std::endl;
+                    game.reset(); 
                 }
             }
         }
 
         window.clear();
         button.draw(window.getWindowSfml());
+        actualScore.draw(window.getWindowSfml());
+        bestScore.draw(window.getWindowSfml());
         grid.drawGrid(window.getWindowSfml());
+        actualScore.updateActualScore(game.getScoreActuel());
+        bestScore.updateBestScore(game.getBestScore());
         window.getWindowSfml()->display();
     }
 }

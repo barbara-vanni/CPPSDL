@@ -15,7 +15,7 @@ ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::stri
     text.setCharacterSize(24);
     text.setFillColor(sf::Color::White);
 
-    // Centrer le texte dans le bouton
+
     sf::FloatRect textBounds = text.getLocalBounds();
     text.setPosition(x + (w - textBounds.width) / 2, y + (h - textBounds.height) / 2);
 }

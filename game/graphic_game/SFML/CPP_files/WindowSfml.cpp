@@ -17,7 +17,7 @@ bool WindowSfml::init()
 
 void WindowSfml::clear() const
 {
-    Window->clear(sf::Color::Black);
+    Window->clear(sf::Color::White);
 }
 
 bool WindowSfml::isClosed() 
