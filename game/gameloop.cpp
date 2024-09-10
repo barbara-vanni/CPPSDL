@@ -29,7 +29,9 @@ void gameloop() {
                 break;
 
             case WindowMenu::HOW_TO_PLAY:
-                // runHowToPlay();
+                run = false;
+                windowMenu.getWindowMenu()->close();
+                runHowToPlay();
                 break;
 
             case WindowMenu::NONE:
@@ -154,5 +156,29 @@ void runSdl() {
         resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
         SDL_RenderPresent(windowsdl.getRenderer());
         SDL_Delay(100);
+    }
+}
+
+// Display the rules of the game
+void runHowToPlay() {
+    WindowRules windowRules(600, 800);
+    if (!windowRules.getWindowRules()->isOpen()) {
+        std::cerr << "Failed to initialize window" << std::endl;
+        return;
+    }
+
+    bool isRunning = true;
+    while (isRunning) {
+        sf::Event event;
+        while (windowRules.getWindowRules()->pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                isRunning = false;
+            }
+        }
+
+        windowRules.clear();
+        windowRules.drawImageRules();
+        windowRules.drawTextRules();
+        windowRules.getWindowRules()->display();
     }
 }
