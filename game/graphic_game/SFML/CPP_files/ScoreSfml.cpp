@@ -25,3 +25,4 @@ void ScoreSfml::updateScore(int score) {
     text.setString("Score: " + std::to_string(scoreActuel) + " | Best: " + std::to_string(bestScore));
 }
 
+

@@ -28,6 +28,7 @@ int main(int argc, char *argv[])
         GridSfml grid(game);
 
         ButtonSfml button(480, 90, 100, 50, "Click");
+
         ScoreSfml score(game, 150, 90, "Score : 0    |     Best : 0");
 
 
@@ -38,7 +39,6 @@ int main(int argc, char *argv[])
         }
 
         game.start();
-
 
         bool isRunning = true;
 
@@ -59,7 +59,6 @@ int main(int argc, char *argv[])
                 {
                     if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml())))
                     {
-                        
                         std::cout << "Button clicked!" << std::endl;
                     }
                 }

@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include <iostream>
+#include <fstream>
 #include "Board.hpp"
 #include "Input.hpp"
 
@@ -10,6 +11,34 @@ struct Score
 {
     int scoreActuel = 0;
     int scoreMax = 0;
+
+    void loadScore()
+    {
+        std::ifstream file("score.txt");
+        if (file.is_open())
+        {
+            file >> scoreMax;
+            file.close();
+        }
+        else
+        {
+            std::cerr << "Failed to open file" << std::endl;
+        }
+    }
+
+    void saveScore()
+    {
+        std::ofstream file("score.txt");
+        if (file.is_open())
+        {
+            file << scoreMax;
+            file.close();
+        }
+        else
+        {
+            std::cerr << "Failed to open file" << std::endl;
+        }
+    }
 };
 
 class Game {

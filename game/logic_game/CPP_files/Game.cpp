@@ -1,13 +1,13 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Board.hpp"
-// #include "../HPP_files/Score.hpp"
 #include "../src/include/SFML/Window.hpp"
 
 #include <iostream>
+#include <fstream>
 
 Game::Game() {
     board = new Board(4);
-    Score score;
+    score.loadScore();
     gameOver = false;
 }
 
@@ -89,9 +89,9 @@ void Game::updateScore(int points)
     if (score.scoreActuel > score.scoreMax)
     {
         score.scoreMax = score.scoreActuel;
+        score.saveScore();
     }
-
-    
+  
 }
 
 Game::~Game() {
