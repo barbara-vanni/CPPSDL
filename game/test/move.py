@@ -1,6 +1,13 @@
 import pyautogui
 import time
 
+# Move the mouse to the game window
+pyautogui.moveTo(960, 660, duration=0.25)
+# time.sleep(5)
+pyautogui.click(button='left', clicks=50, interval=0.20)
+
+
+# Move the character in the game
 pyautogui.press("up")
 time.sleep(1)
 print("up")
@@ -13,6 +20,7 @@ print("left")
 pyautogui.press("right")
 time.sleep(1)
 print("right")
-pyautogui.press("esc")
-time.sleep(1)
-print("esc")
+
+pyautogui.moveTo(1255, 170, duration=0.25)
+time.sleep(3)
+pyautogui.click(button='left', clicks=3, interval=0.30)

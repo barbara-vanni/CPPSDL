@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0.1 (Python 3.11.9 on win32)" generated="2024-09-10T10:35:35.024459" rpa="false" schemaversion="5">
+<suite id="s1" name="Move" source="c:\Users\walid\OneDrive\Bureau\la-plateforme\B2\devoirs\C++\CPPSDL\game\test\move.robot">
+<test id="s1-t1" name="Clean Project" line="6">
+<kw name="Run Process" owner="Process">
+<msg time="2024-09-10T10:35:35.106570" level="INFO">Starting process:
+make clean</msg>
+<msg time="2024-09-10T10:35:35.112405" level="INFO">Waiting for process to complete.</msg>
+<msg time="2024-09-10T10:35:35.186489" level="INFO">Process completed.</msg>
+<arg>make</arg>
+<arg>clean</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2024-09-10T10:35:35.105570" elapsed="0.081425"/>
+</kw>
+<status status="PASS" start="2024-09-10T10:35:35.103571" elapsed="0.084433"/>
+</test>
+<test id="s1-t2" name="Compile Project Using Make" line="10">
+<kw name="Run Process" owner="Process">
+<msg time="2024-09-10T10:35:35.191519" level="INFO">Starting process:
+make</msg>
+<msg time="2024-09-10T10:35:35.194325" level="INFO">Waiting for process to complete.</msg>
+<msg time="2024-09-10T10:35:46.961654" level="INFO">Process completed.</msg>
+<arg>make</arg>
+<doc>Runs a process and waits for it to complete.</doc>
+<status status="PASS" start="2024-09-10T10:35:35.190379" elapsed="11.771275"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-10T10:35:49.962733" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-10T10:35:46.962663" elapsed="3.001091"/>
+</kw>
+<status status="PASS" start="2024-09-10T10:35:35.189005" elapsed="14.774749"/>
+</test>
+<test id="s1-t3" name="Run Project" line="14">
+<kw name="Start Process" owner="Process">
+<msg time="2024-09-10T10:35:49.968415" level="INFO">Starting process:
+./main</msg>
+<arg>./main</arg>
+<doc>Starts a new process on background.</doc>
+<status status="PASS" start="2024-09-10T10:35:49.968415" elapsed="0.008125"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-09-10T10:35:50.978604" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-09-10T10:35:49.977533" elapsed="1.001071"/>
+</kw>
+<kw name="Start Process" owner="Process">
+<msg time="2024-09-10T10:35:50.980612" level="INFO">Starting process:
+python game/test/move.py</msg>
+<arg>python</arg>
+<arg>game/test/move.py</arg>
+<doc>Starts a new process on background.</doc>
+<status status="PASS" start="2024-09-10T10:35:50.979614" elapsed="0.003460"/>
+</kw>
+<status status="PASS" start="2024-09-10T10:35:49.966290" elapsed="1.018037"/>
+</test>
+<status status="PASS" start="2024-09-10T10:35:35.032983" elapsed="15.953783"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="Move">Move</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
