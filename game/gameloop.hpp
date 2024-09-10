@@ -10,10 +10,9 @@
 #include "graphic_game/SFML/HPP_files/GridSfml.hpp"
 #include "graphic_game/SFML/HPP_files/TilesSfml.hpp"
 #include "graphic_game/SFML/HPP_files/ButtonsSfml.hpp"
-#include "graphic_game/HPP_files/Window.hpp"
+#include "graphic_game/HPP_files/WindowSdl.hpp"
 #include "graphic_game/HPP_files/GridSdl.hpp"
 #include "graphic_game/HPP_files/TilesSdl.hpp"
-#include "logic_game/HPP_files/BoardSdl.hpp"
 #include "graphic_game/HPP_files/ButtonSdl.hpp"
 
 void gameloop();
