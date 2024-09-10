@@ -1,5 +1,7 @@
 #include "../HPP_files/TilesSdl.hpp"
-
+#include <iostream>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 
 TilesSdl::TilesSdl(Game& game) : game(game), tileWidth(140), tileHeight(140), currentTile(nullptr), gridPosX(20), gridPosY(200) {}
 
@@ -33,8 +35,10 @@ double TilesSdl::height() {
 
 void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int gridPosY, int gridSize) {
     // Set tile dimensions
+    // Set tile dimensions
     setTile(tile, gridSize);
 
+    // Draw the tile rectangle
     // Draw the tile rectangle
     SDL_Rect tileRect = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
     SDL_Color tileColor = getTileColor(tile->getNumberInTile());

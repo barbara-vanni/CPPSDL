@@ -204,29 +204,35 @@ bool Board::moveDown(int& newPoint){
     return moved;
 }
 
-bool Board::okToMove(){
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            if (grid[i][j] == nullptr)
-            {
+bool Board::okToMove() {
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (grid[i][j] == nullptr) {
                 return true;
             }
-            if (i > 0 && grid[i][j]->getNumberInTile() == grid[i - 1][j]->getNumberInTile())
-            {
+        }
+    }
+
+
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 4; j++) {
+            if (grid[i][j] == nullptr) {
+                continue;
+            }
+
+            if (i > 0 && grid[i][j]->getNumberInTile() == grid[i - 1][j]->getNumberInTile()) {
                 return true;
             }
-            if (i < 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile())
-            {
+
+            if (i < 3 && grid[i][j]->getNumberInTile() == grid[i + 1][j]->getNumberInTile()) {
                 return true;
             }
-            if (j > 0 && grid[i][j]->getNumberInTile() == grid[i][j - 1]->getNumberInTile())
-            {
+            if (j > 0 && grid[i][j]->getNumberInTile() == grid[i][j - 1]->getNumberInTile()) {
                 return true;
             }
-            if (j < 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile())
-            {
+
+            if (j < 3 && grid[i][j]->getNumberInTile() == grid[i][j + 1]->getNumberInTile()) {
                 return true;
             }
         }

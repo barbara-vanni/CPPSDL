@@ -6,10 +6,10 @@
 #include "Background.hpp"
 #include "GridSdl.hpp"
 
-class Window {
+class WindowSdl {
 public:
-    Window(int width, int height);
-    ~Window();
+    WindowSdl(int width, int height);
+    ~WindowSdl();
 
     void clear();  // Clears the renderer
     bool isClosed() const;

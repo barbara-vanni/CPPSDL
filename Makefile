@@ -20,6 +20,7 @@ SRC_FILES := main.cpp \
 	$(LOGIC_DIR)/Tiles.cpp \
 	$(LOGIC_DIR)/Game.cpp \
 	$(LOGIC_DIR)/Input.cpp \
+	$(GRAPHIC_DIR)/WindowSdl.cpp \
 	$(GRAPHIC_DIR)/GridSdl.cpp \
 	$(SRC_DIR)/gameloop.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
@@ -31,6 +32,7 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/Background.cpp\
 	$(GRAPHIC_DIR)/TilesSdl.cpp\
 	$(GRAPHIC_DIR)/ButtonSdl.cpp\
+	$(GRAPHIC_DIR)/ScoreSdl.cpp\
 	
 
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
