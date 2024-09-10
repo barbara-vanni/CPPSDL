@@ -36,15 +36,13 @@ double TilesSdl::height() {
 }
 
 void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int gridPosY, int gridSize) {
-    // Set tile dimensions based on grid size
+    // Set tile dimensions
+    // Set tile dimensions
     setTile(tile, gridSize);
 
-    // Draw a 1px black border around the tile
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_Rect tileBorder = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
-    SDL_RenderDrawRect(renderer, &tileBorder);
-
-    // Draw the tile rectangle (filled with tile color)
+    // Draw the tile rectangle
+    // Draw the tile rectangle
+    SDL_Rect tileRect = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
     SDL_Color tileColor = getTileColor(tile->getNumberInTile());
     SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
     SDL_RenderFillRect(renderer, &tileBorder);  // Filling the same rect ensures the border shows clearly

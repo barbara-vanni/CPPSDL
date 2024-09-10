@@ -22,8 +22,9 @@ public:
     double height() override;
 
     // Update the score string based on the current game score
-    void updateScore();
-    void resetScore();
+    void updateActualScore(int score);
+    void updateBestScore(int score);
+    // void resetScore();
 
     // Draw the score on the SDL renderer
     void draw(SDL_Renderer* renderer);
@@ -35,6 +36,4 @@ private:
     std::string currentLabel;  // Current text to display ("Score: X | Best: Y")
     double scorePosX;  // X position of the score display
     double scorePosY;  // Y position of the score display
-    double scoreWidth;  // Width of the score display area
-    double scoreHeight;  // Height of the score display area
 };
