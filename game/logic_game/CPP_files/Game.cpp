@@ -1,7 +1,6 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Board.hpp"
 #include "../src/include/SFML/Window.hpp"
-
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "../HPP_files/Input.hpp"
@@ -16,8 +15,7 @@ Game::Game() {
 
 void Game::start() {
     board->boardInit();
-    board->displayBoard();
-    
+    board->displayBoard(); 
 }
 
 void Game::reset() {

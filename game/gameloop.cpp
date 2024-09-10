@@ -1,6 +1,7 @@
 #include "gameloop.hpp"
 #include "graphic_game/SFML/HPP_files/WindowMenu.hpp"
 
+
 void gameloop() {
     bool run = true;
     WindowMenu windowMenu(600, 800);
@@ -48,6 +49,7 @@ void runSfml() {
     WindowSfml window(600, 800);
     GridSfml grid(game);
     ButtonsSfml button(480, 90, 100, 50, "Reset");
+    ButtonsSfml returnMenu(480, 150, 100, 50, "Menu");
 
     ScoreSfml actualScore(game, 160, 90, "0");
     ScoreSfml bestScore(game, 300, 90, "0");
@@ -73,17 +75,23 @@ void runSfml() {
                 if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
                     game.reset(); 
                 }
+                if (returnMenu.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
+                    isRunning = false;
+                    gameloop(); 
             }
         }
 
         window.clear();
         button.draw(window.getWindowSfml());
+        returnMenu.draw(window.getWindowSfml());
+
         actualScore.draw(window.getWindowSfml());
         bestScore.draw(window.getWindowSfml());
         grid.drawGrid(window.getWindowSfml());
         actualScore.updateActualScore(game.getScoreActuel());
         bestScore.updateBestScore(game.getBestScore());
         window.getWindowSfml()->display();
+    }
     }
 }
 
