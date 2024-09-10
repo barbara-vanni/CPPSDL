@@ -1,7 +1,7 @@
 #include "../HPP_files/Input.hpp"
 #include <stdio.h>
 #include "SDL2/SDL.h"
-#include <conio.h>
+#include <ncurses.h>
 #include <iostream>
 
 Input::Input() {

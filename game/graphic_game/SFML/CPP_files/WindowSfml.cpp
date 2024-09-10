@@ -1,4 +1,5 @@
 #include "../HPP_files/WindowSfml.hpp"
+#include <iostream>
 #include <memory>
 
 

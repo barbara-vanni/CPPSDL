@@ -80,8 +80,8 @@ void runSfml() {
 
 // Play the game using SDL
 void runSdl() {
-    Window window(600, 800);  
-    if (window.isClosed()) {
+    WindowSdl windowsdl(600, 800);  
+    if (windowsdl.isClosed()) {
         std::cerr << "Failed to initialize window" << std::endl;
         return;
     }
@@ -127,10 +127,10 @@ void runSdl() {
             }
         }
 
-        window.clear();
-        grid.drawGrid(window.getRenderer());
-        resetButton.drawButton(window.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
-        SDL_RenderPresent(window.getRenderer());
+        windowsdl.clear();
+        grid.drawGrid(windowsdl.getRenderer());
+        resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
+        SDL_RenderPresent(windowsdl.getRenderer());
         SDL_Delay(100);
     }
 }
