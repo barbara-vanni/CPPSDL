@@ -15,7 +15,8 @@ private:
 public:
     ScoreSfml(Game& game, double x, double y, const std::string& label);
     void draw(sf::RenderWindow* window);
-    void updateScore(int score);    
+    void updateActualScore(int score);    
+    void updateBestScore(int score);
 };
 
 #endif

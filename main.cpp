@@ -27,9 +27,10 @@ int main(int argc, char *argv[])
         WindowSfml window(600, 800);
         GridSfml grid(game);
 
-        ButtonSfml button(480, 90, 100, 50, "Click");
+        ButtonSfml button(480, 90, 100, 50, "Reset");
 
-        ScoreSfml score(game, 150, 90, "Score : 0    |     Best : 0");
+        ScoreSfml actualScore(game, 200, 90, "");
+        ScoreSfml bestScore(game, 300, 90, "");
 
 
         if (!window.getWindowSfml()->isOpen())
@@ -67,9 +68,11 @@ int main(int argc, char *argv[])
             window.clear();
             button.draw(window.getWindowSfml());
 
-            score.draw(window.getWindowSfml());
+            actualScore.draw(window.getWindowSfml());
+            bestScore.draw(window.getWindowSfml());
             grid.drawGrid(window.getWindowSfml());
-            score.updateScore(game.getScoreActuel());
+            actualScore.updateActualScore(game.getScoreActuel());
+            bestScore.updateBestScore(game.getBestScore());
             window.getWindowSfml()->display();
         }
 

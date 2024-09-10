@@ -17,12 +17,18 @@ void ScoreSfml::draw(sf::RenderWindow* window) {
     window->draw(text);
 }
 
-void ScoreSfml::updateScore(int score) {
+void ScoreSfml::updateActualScore(int score) {
 
     int scoreActuel = game.getScoreActuel();
+
+    text.setString(std::to_string(scoreActuel) );
+}
+
+void ScoreSfml::updateBestScore(int score) {
+
     int bestScore = game.getBestScore();
 
-    text.setString("Score: " + std::to_string(scoreActuel) + " | Best: " + std::to_string(bestScore));
+    text.setString( std::to_string(bestScore));
 }
 
 
