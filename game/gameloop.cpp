@@ -90,6 +90,13 @@ void runSfml() {
 // Play the game using SDL
 void runSdl() {
     WindowSdl windowsdl(600, 800);  
+
+    //     // Load the font for the button
+    // TTF_Font* buttonFont = TTF_OpenFont("assets/font/minecraft_font.ttf", 24);
+    // if (!buttonFont) {
+    //     std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+    //     return -1;
+    // }
     if (windowsdl.isClosed()) {
         std::cerr << "Failed to initialize window" << std::endl;
         return;
@@ -98,6 +105,8 @@ void runSdl() {
     Game game;
     GridSdl grid(game);
     ButtonSdl resetButton;
+    ScoreSdl Actualscore(game, 160, 90);
+    ScoreSdl Bestscore(game, 300, 90);
     int buttonX = 480;
     int buttonY = 70;
     int buttonWidth = 100;
@@ -138,6 +147,10 @@ void runSdl() {
 
         windowsdl.clear();
         grid.drawGrid(windowsdl.getRenderer());
+        Actualscore.draw(windowsdl.getRenderer());
+        Bestscore.draw(windowsdl.getRenderer());
+        Actualscore.updateActualScore(game.getScoreActuel());
+        Bestscore.updateBestScore(game.getBestScore());
         resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
         SDL_RenderPresent(windowsdl.getRenderer());
         SDL_Delay(100);

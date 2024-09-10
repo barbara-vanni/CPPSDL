@@ -20,9 +20,16 @@ bool WindowSdl::init() {
         return false;
     }
 
+    if (TTF_Init() == -1) {
+        std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
+        SDL_Quit();
+        return 1;
+    }
+
     window = SDL_CreateWindow(title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_SHOWN);
     if (!window) {
         std::cerr << "Window creation failed: " << SDL_GetError() << std::endl;
+        TTF_Quit();
         SDL_Quit();
         return false;
     }
@@ -30,6 +37,7 @@ bool WindowSdl::init() {
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
     if (!renderer) {
         std::cerr << "Renderer creation failed: " << SDL_GetError() << std::endl;
+        TTF_Quit();
         SDL_DestroyWindow(window);
         SDL_Quit();
         return false;

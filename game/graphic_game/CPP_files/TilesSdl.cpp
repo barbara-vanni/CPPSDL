@@ -49,8 +49,7 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
     int tileNumber = tile->getNumberInTile();
 
     if (tileNumber != 0) {
-        // Load the font (make sure this is done outside the loop in a real program)
-        TTF_Font* font = TTF_OpenFont("assets/font/minecraft_font.ttf", 48);  // Use appropriate font path and size
+        TTF_Font* font = TTF_OpenFont("assets/font/minecraft_font.ttf", 48); 
         if (!font) {
             std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
             return;

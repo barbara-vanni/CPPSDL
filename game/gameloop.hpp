@@ -15,6 +15,7 @@
 #include "graphic_game/HPP_files/GridSdl.hpp"
 #include "graphic_game/HPP_files/TilesSdl.hpp"
 #include "graphic_game/HPP_files/ButtonSdl.hpp"
+#include "graphic_game/HPP_files/ScoreSdl.hpp"
 
 void gameloop();
 void runSfml();
