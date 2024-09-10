@@ -3,7 +3,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-TilesSdl::TilesSdl(Game& game) : game(game), tileWidth(140), tileHeight(140), currentTile(nullptr), gridPosX(20), gridPosY(200) {}
+
+TilesSdl::TilesSdl(Game& game, int cellSize)
+    : game(game), tileWidth(cellSize), tileHeight(cellSize), currentTile(nullptr), gridPosX(20), gridPosY(200) {}
 
 TilesSdl::~TilesSdl() {}
 
@@ -34,37 +36,39 @@ double TilesSdl::height() {
 }
 
 void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int gridPosY, int gridSize) {
-    // Set tile dimensions
+    // Set tile dimensions based on grid size
     setTile(tile, gridSize);
 
-    // Draw the tile rectangle
-    SDL_Rect tileRect = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
+    // Draw a 1px black border around the tile
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_Rect tileBorder = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
+    SDL_RenderDrawRect(renderer, &tileBorder);
+
+    // Draw the tile rectangle (filled with tile color)
     SDL_Color tileColor = getTileColor(tile->getNumberInTile());
     SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
-    SDL_RenderFillRect(renderer, &tileRect);
+    SDL_RenderFillRect(renderer, &tileBorder);  // Filling the same rect ensures the border shows clearly
 
-    // Now render the text (number) on the tile
+    // Render the number inside the tile
     int tileNumber = tile->getNumberInTile();
-
     if (tileNumber != 0) {
-        // Load the font (make sure this is done outside the loop in a real program)
+        // Load the font (ensure font loading happens outside the loop for better performance)
         TTF_Font* font = TTF_OpenFont("/Users/mathisserra/Desktop/Github/B2_Laplateforme/CPPSDL/assets/minecraft_font.ttf", 48);  // Use appropriate font path and size
         if (!font) {
             std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
             return;
         }
 
-        // Create the text surface
+        // Create the text surface with the tile number
         SDL_Color textColor = { 0, 0, 0, 255 };  // Black text
         std::string tileText = std::to_string(tileNumber);
         SDL_Surface* textSurface = TTF_RenderText_Blended(font, tileText.c_str(), textColor);
 
         if (textSurface) {
-            // Create a texture from the text surface
+            // Create a texture from the surface
             SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-
             if (textTexture) {
-                // Get the width and height of the text
+                // Get the dimensions of the text
                 int textWidth, textHeight;
                 TTF_SizeText(font, tileText.c_str(), &textWidth, &textHeight);
 
@@ -86,10 +90,11 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
             SDL_FreeSurface(textSurface);
         }
 
-        // Close the font after use (In a real-world scenario, manage fonts better)
+        // Close the font after use (you might want to manage fonts better in real apps)
         TTF_CloseFont(font);
     }
 }
+
 
 
 SDL_Color TilesSdl::getTileColor(int value) {

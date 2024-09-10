@@ -21,28 +21,44 @@ double GridSdl::height() {
 }
 
 void GridSdl::drawGrid(SDL_Renderer* renderer) {
-    // Set the color for the 1px black border
+    // Set the color for the 2px black border around the entire grid
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
-    // Create the border rectangle for the grid
-    SDL_Rect gridBorder = { gridPosX - 2, gridPosY - 2, gridSize + 4, gridSize + 4 };
+    // Create and draw the black border rectangle for the grid
+    SDL_Rect gridBorder = { gridPosX - 1, gridPosY - 1, gridSize + 2, gridSize + 2 };
     SDL_RenderDrawRect(renderer, &gridBorder);
 
     // Set the background color for the grid
     SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);
 
-    // Create the background rectangle for the grid
+    // Create and fill the background rectangle for the grid
     SDL_Rect gridBackground = { gridPosX, gridPosY, gridSize, gridSize };
     SDL_RenderFillRect(renderer, &gridBackground);
 
+    // Get the grid data from the game
     auto& grid = game.getBoard()->getGrid();
+
+    // Calculate the cell size dynamically based on gridSize
+    int cellSize = gridSize / 4;
+
+    // Initialize a single instance of TilesSdl to avoid creating it in the loop
+    TilesSdl tileSdl(game, cellSize); // Pass the cellSize to the constructor
+
+    // Now draw each cell's border and contents
     for (int i = 0; i < 4; ++i) {
         for (int j = 0; j < 4; ++j) {
+            // Draw a 1px black border around each cell
+            SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+            SDL_Rect cellBorder = { gridPosX + i * cellSize, gridPosY + j * cellSize, cellSize, cellSize };
+            SDL_RenderDrawRect(renderer, &cellBorder);
+
+            // Draw the tiles if present
             if (grid[i][j] != nullptr && grid[i][j]->getNumberInTile() != 0) {
-                TilesSdl tileSdl(game);
-                tileSdl.drawTile(renderer, grid[i][j], gridPosX, gridPosY, gridSize);
+                tileSdl.drawTile(renderer, grid[i][j], gridPosX + i * cellSize, gridPosY + j * cellSize, cellSize);
             }
         }
     }
 }
+
+
 

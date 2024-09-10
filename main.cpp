@@ -81,6 +81,7 @@ int main(int argc, char* argv[]) {
             // Create the game, grid, button, and score objects
             Game game;
             GridSdl grid(game);
+            ButtonSdl returnButton; 
             ButtonSdl resetButton;
             ScoreSdl score(game, 1, 1);  // Initialize ScoreSdl with position
 
@@ -138,6 +139,7 @@ int main(int argc, char* argv[]) {
 
                 // Draw the grid, reset button, and score
                 grid.drawGrid(window.getRenderer());
+                returnButton.drawButton(window.getRenderer(), 477, 20, 110, buttonHeight, buttonFont, "Return");
                 resetButton.drawButton(window.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight, buttonFont, "Reset");
                 score.draw(window.getRenderer()); // Draw the score
 

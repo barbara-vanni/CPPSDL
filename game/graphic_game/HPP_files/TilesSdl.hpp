@@ -19,7 +19,7 @@ private:
     SDL_Color getTileColor(int value);
 
 public:
-    TilesSdl(Game& game);
+    TilesSdl(Game& game, int cellSize);
     ~TilesSdl();
 
     double posX() override;
