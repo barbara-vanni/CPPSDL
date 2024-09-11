@@ -135,6 +135,7 @@ void runSdl() {
 
     game.start();
     bool quit = false;
+    bool gameOver = false;
     SDL_Event event;
 
     while (!quit) {
@@ -168,6 +169,10 @@ void runSdl() {
                 quit = true;
                 gameloop(); 
             }
+
+            if (game.checkDefeat()) {
+                gameOver = true;
+            }
         }
 
         windowsdl.clear();
@@ -180,6 +185,10 @@ void runSdl() {
         returnMenu.drawButton(windowsdl.getRenderer(), buttonX, buttonY + 60, buttonWidth + 10, buttonHeight);
         SDL_RenderPresent(windowsdl.getRenderer());
         SDL_Delay(100);
+        
+        if (gameOver) {
+            Actualscore.drawDefeat(windowsdl.getRenderer());
+        }
     }
 }
 
