@@ -4,7 +4,9 @@
 ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::string& label) {
     shape.setPosition(x, y);
     shape.setSize(sf::Vector2f(w, h));
-    shape.setFillColor(sf::Color::Blue);
+    shape.setFillColor(sf::Color(45, 45, 45, 255));
+    shape.setOutlineColor(sf::Color(200, 200, 200, 255));
+    shape.setOutlineThickness(2);
 
     // Chargement de la police et configuration du texte
     if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {

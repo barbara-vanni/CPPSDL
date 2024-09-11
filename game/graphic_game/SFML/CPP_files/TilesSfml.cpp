@@ -43,7 +43,7 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
     rectangle.setPosition(posX(), posY());
     rectangle.setFillColor(getTileColor(tile->getNumberInTile()));
     rectangle.setOutlineThickness(1);
-    rectangle.setOutlineColor(sf::Color::Black);
+    rectangle.setOutlineColor(sf::Color::White);
     window->draw(rectangle);
 
      if (tile->getNumberInTile() != 0) {
@@ -57,7 +57,7 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
         text.setFont(font);
         text.setString(std::to_string(tile->getNumberInTile()));
         text.setCharacterSize(40);  
-        text.setFillColor(sf::Color::Black);  
+        text.setFillColor(sf::Color::White);  
 
         sf::FloatRect textRect = text.getLocalBounds();
         text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
@@ -69,17 +69,17 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
 
 sf::Color TilesSfml::getTileColor(int value) {
     switch (value) {
-        case 2: return sf::Color(238, 228, 218, 255);
-        case 4: return sf::Color(237, 224, 200, 255);
-        case 8: return sf::Color(242, 177, 121, 255);
-        case 16: return sf::Color(245, 149, 99, 255);
-        case 32: return sf::Color(246, 124, 95, 255);
-        case 64: return sf::Color(246, 94, 59, 255);
-        case 128: return sf::Color(237, 207, 114, 255);
-        case 256: return sf::Color(237, 204, 97, 255);
-        case 512: return sf::Color(237, 200, 80, 255);
-        case 1024: return sf::Color(237, 197, 63, 255);
-        case 2048: return sf::Color(237, 194, 46, 255);
-        default: return sf::Color(204, 192, 179, 255);
+        case 2: return sf::Color(45, 45, 45, 255);        
+        case 4: return sf::Color(60, 60, 60, 255);        
+        case 8: return sf::Color(99, 57, 138, 255);       
+        case 16: return sf::Color(148, 81, 255, 255);     
+        case 32: return sf::Color(198, 112, 255, 255);    
+        case 64: return sf::Color(220, 146, 230, 255);   
+        case 128: return sf::Color(184, 136, 71, 255);   
+        case 256: return sf::Color(199, 151, 84, 255);   
+        case 512: return sf::Color(217, 170, 102, 255);  
+        case 1024: return sf::Color(235, 194, 128, 255);  
+        case 2048: return sf::Color(255, 224, 153, 255); 
+        default: return sf::Color(20, 20, 20, 255);    
     }
 }

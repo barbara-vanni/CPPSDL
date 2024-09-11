@@ -15,10 +15,10 @@
 //     return true;
 // }
 
-// void WindowSfml::clear() const
-// {
-//     Window->clear(sf::Color::White);
-// }
+void WindowSfml::clear() const
+{
+    Window->clear(sf::Color (45, 45, 45, 255));
+}
 
 // bool WindowSfml::isClosed() 
 // {
