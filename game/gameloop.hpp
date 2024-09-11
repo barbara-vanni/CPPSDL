@@ -19,6 +19,7 @@
 #include "graphic_game/HPP_files/ScoreSdl.hpp"
 
 void gameloop();
+// void returnMenu();
 void runSfml();
 void runSdl();
 void runHowToPlay();

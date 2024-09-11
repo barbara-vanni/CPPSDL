@@ -43,8 +43,6 @@ void gameloop() {
     }
 }
 
-
-
 // Play the game using SFML
 void runSfml() {
     Game game;
@@ -81,6 +79,7 @@ void runSfml() {
                 }
                 if (returnMenu.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
                     isRunning = false;
+                    window.getWindowSfml()->close();
                     gameloop(); 
             }
         }
