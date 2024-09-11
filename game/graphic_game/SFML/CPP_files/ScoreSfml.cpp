@@ -9,7 +9,7 @@ ScoreSfml::ScoreSfml(Game& game, double x, double y, const std::string& label)
     text.setFont(font);
     text.setString(label);
     text.setCharacterSize(34);
-    text.setFillColor(sf::Color::Black);
+    text.setFillColor(sf::Color::White);
     text.setPosition(x, y);
 }
 
@@ -53,6 +53,7 @@ void ScoreSfml::drawGameOver(sf::RenderWindow* window) {
     sf::RectangleShape backgroundRect;
     backgroundRect.setSize(sf::Vector2f(textBounds.width + 50, textBounds.height + 50)); 
     backgroundRect.setPosition(textBounds.left - 10, textBounds.top - 10); 
+    backgroundRect.setFillColor(sf::Color(45, 45, 45, 255));
 
 
     window->draw(backgroundRect);
