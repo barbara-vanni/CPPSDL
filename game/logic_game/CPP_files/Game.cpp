@@ -184,7 +184,6 @@ void Game::testDefeatScenario() {
 
 
 void Game::playMoveSound() {
-    // Vérifier si SDL_mixer est déjà initialisé
     static bool audio_initialized = false;
     if (!audio_initialized) {
         if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
@@ -203,13 +202,11 @@ void Game::playMoveSound() {
         }
     }
 
-    // Vérifier et ajuster le volume si nécessaire
-    int volume = Mix_Volume(-1, -1); // Récupère le volume actuel
+    int volume = Mix_Volume(-1, -1); 
     if (volume == 0) {
-        Mix_Volume(-1, MIX_MAX_VOLUME); // Ajuste le volume du canal au maximum
+        Mix_Volume(-1, MIX_MAX_VOLUME); 
     }
 
-    // Jouer le son une seule fois par mouvement global
     if (Mix_PlayChannel(-1, moveSound, 0) == -1) {
         std::cerr << "Failed to play sound! SDL_mixer Error: " << Mix_GetError() << std::endl;
     }
