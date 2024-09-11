@@ -29,6 +29,7 @@ SRC_FILES := main.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/ButtonsSfml.cpp \
 	$(SRC_DIR)/graphic_game/SFML/CPP_files/ScoreSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowRules.cpp \
 	$(GRAPHIC_DIR)/Background.cpp\
 	$(GRAPHIC_DIR)/TilesSdl.cpp\
 	$(GRAPHIC_DIR)/ButtonSdl.cpp\
