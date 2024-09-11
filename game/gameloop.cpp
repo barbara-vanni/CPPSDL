@@ -26,7 +26,7 @@ void gameloop() {
             case WindowMenu::NIGHT_MODE:
                 run = false;
                 windowMenu.getWindowMenu()->close();
-                runSfml();
+                // runSfml();
                 break;
 
             case WindowMenu::HOW_TO_PLAY:
@@ -56,10 +56,10 @@ void runSfml() {
 
 
 
-    if (!window.getWindowSfml()->isOpen()) {
-        std::cerr << "Failed to initialize window" << std::endl;
-        return;
-    }
+//     if (!window.getWindowSfml()->isOpen()) {
+//         std::cerr << "Failed to initialize window" << std::endl;
+//         return;
+//     }
 
     game.start();
     bool isRunning = true;
@@ -88,9 +88,9 @@ void runSfml() {
             gameOver = true; 
         }
 
-        window.clear();
-        button.draw(window.getWindowSfml());
-        returnMenu.draw(window.getWindowSfml());
+//         window.clear();
+//         button.draw(window.getWindowSfml());
+//         returnMenu.draw(window.getWindowSfml());
 
         actualScore.draw(window.getWindowSfml());
         bestScore.draw(window.getWindowSfml());
@@ -125,6 +125,7 @@ void runSdl() {
     Game game;
     GridSdl grid(game);
     ButtonSdl resetButton;
+    ButtonSdl returnMenu;
     ScoreSdl Actualscore(game, 160, 90);
     ScoreSdl Bestscore(game, 300, 90);
     int buttonX = 480;
@@ -134,6 +135,7 @@ void runSdl() {
 
     game.start();
     bool quit = false;
+    bool gameOver = false;
     SDL_Event event;
 
     while (!quit) {
@@ -163,6 +165,14 @@ void runSdl() {
             if (resetButton.isClicked(event, buttonX, buttonY, buttonWidth, buttonHeight)) {
                 game.reset();  
             }
+            if (returnMenu.isClicked(event, buttonX, buttonY + 60, buttonWidth + 10, buttonHeight)) {
+                quit = true;
+                gameloop(); 
+            }
+
+            if (game.checkDefeat()) {
+                gameOver = true;
+            }
         }
 
         windowsdl.clear();
@@ -172,8 +182,13 @@ void runSdl() {
         Actualscore.updateActualScore(game.getScoreActuel());
         Bestscore.updateBestScore(game.getBestScore());
         resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
+        returnMenu.drawButton(windowsdl.getRenderer(), buttonX, buttonY + 60, buttonWidth + 10, buttonHeight);
         SDL_RenderPresent(windowsdl.getRenderer());
         SDL_Delay(100);
+        
+        if (gameOver) {
+            Actualscore.drawDefeat(windowsdl.getRenderer());
+        }
     }
 }
 

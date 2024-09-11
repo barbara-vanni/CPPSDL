@@ -102,3 +102,31 @@ void ScoreSdl::draw(SDL_Renderer *renderer)
     SDL_FreeSurface(surface);
 }
 
+
+void ScoreSdl::drawDefeat(SDL_Renderer *renderer)
+{
+    std::string defeat = "Game Over";
+    SDL_Color color = {0, 0, 0, 255};
+
+    SDL_Surface *surface = TTF_RenderText_Solid(font, defeat.c_str(), color);
+    if (!surface) {
+        std::cerr << "Failed to create text surface: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, surface);
+    if (!texture) {
+        std::cerr << "Failed to create texture: " << SDL_GetError() << std::endl;
+    }
+    else {
+
+        SDL_Rect scoreRect = {static_cast<int>(scorePosX), static_cast<int>(scorePosY), surface->w, surface->h};
+
+        SDL_RenderCopy(renderer, texture, NULL, &scoreRect);
+
+        SDL_DestroyTexture(texture);
+    }
+
+    SDL_FreeSurface(surface);
+}
+
