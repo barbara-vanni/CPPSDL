@@ -113,6 +113,7 @@ void runSdl() {
     Game game;
     GridSdl grid(game);
     ButtonSdl resetButton;
+    ButtonSdl returnMenu;
     ScoreSdl Actualscore(game, 160, 90);
     ScoreSdl Bestscore(game, 300, 90);
     int buttonX = 480;
@@ -160,6 +161,7 @@ void runSdl() {
         Actualscore.updateActualScore(game.getScoreActuel());
         Bestscore.updateBestScore(game.getBestScore());
         resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
+        returnMenu.drawButton(windowsdl.getRenderer(), buttonX, buttonY + 60, buttonWidth + 10, buttonHeight);
         SDL_RenderPresent(windowsdl.getRenderer());
         SDL_Delay(100);
     }
