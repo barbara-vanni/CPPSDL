@@ -26,7 +26,7 @@ void gameloop() {
             case WindowMenu::NIGHT_MODE:
                 run = false;
                 windowMenu.getWindowMenu()->close();
-                // runSfml();
+                runSfml();
                 break;
 
             case WindowMenu::HOW_TO_PLAY:
@@ -56,10 +56,10 @@ void runSfml() {
 
 
 
-//     if (!window.getWindowSfml()->isOpen()) {
-//         std::cerr << "Failed to initialize window" << std::endl;
-//         return;
-//     }
+    if (!window.getWindowSfml()->isOpen()) {
+        std::cerr << "Failed to initialize window" << std::endl;
+        return;
+    }
 
     game.start();
     bool isRunning = true;
@@ -88,9 +88,9 @@ void runSfml() {
             gameOver = true; 
         }
 
-//         window.clear();
-//         button.draw(window.getWindowSfml());
-//         returnMenu.draw(window.getWindowSfml());
+        window.clear();
+        button.draw(window.getWindowSfml());
+        returnMenu.draw(window.getWindowSfml());
 
         actualScore.draw(window.getWindowSfml());
         bestScore.draw(window.getWindowSfml());
@@ -166,8 +166,10 @@ void runSdl() {
                 game.reset();  
             }
             if (returnMenu.isClicked(event, buttonX, buttonY + 60, buttonWidth + 10, buttonHeight)) {
-                quit = true;
-                gameloop(); 
+                //destroy the window and reopens the menu
+                windowsdl.isClosed();
+                gameloop();
+
             }
 
             if (game.checkDefeat()) {

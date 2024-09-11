@@ -5,9 +5,9 @@ LDFLAGS := -L src/lib
 LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lsfml-graphics -lsfml-window -lsfml-system 
 
 # MacOS path
-CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
-LDFLAGS := -L/opt/homebrew/lib
-LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
+# CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
+# LDFLAGS := -L/opt/homebrew/lib
+# LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
 
 SRC_DIR := game
 SRC_FILE := src

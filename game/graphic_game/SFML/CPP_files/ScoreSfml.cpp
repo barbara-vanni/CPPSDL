@@ -14,7 +14,7 @@ ScoreSfml::ScoreSfml(Game& game, double x, double y, const std::string& label)
     labelText.setPosition(x, y);
 
     text.setFont(font);
-    text.setString("0"); 
+    text.setString(""); 
     text.setCharacterSize(34); 
     text.setFillColor(sf::Color::White);
     text.setPosition(x, y + 40);
