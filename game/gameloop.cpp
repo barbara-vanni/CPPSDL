@@ -137,14 +137,14 @@ void runSdl() {
     int buttonHeight = 30;
 
     game.start();  // Start the game
-    bool quit = false;
     bool gameOver = false;
     SDL_Event event;  // Event structure for handling user inputs
 
-    while (!quit) {
+    while (!windowsdl.isClosed()) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                quit = true;  // Quit if the window is closed
+                windowsdl.close();  // Close the window properly
+                break;
             } else if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
                     case SDLK_UP:
@@ -160,7 +160,7 @@ void runSdl() {
                         game.moveSdl(SDLK_RIGHT);
                         break;
                     case SDLK_ESCAPE:
-                        quit = true;  // Quit when ESC is pressed
+                        windowsdl.close();  // Quit when ESC is pressed
                         break;
                 }
             }
@@ -172,10 +172,10 @@ void runSdl() {
             }
 
             // Check if the return to menu button is clicked
-            if (returnMenu.isClicked(event, buttonX, buttonY +60, buttonWidth +10, buttonHeight)) {
-                // windowsdl.isClosed();  // Close the game window
-                // gameloop();  // Go back to the main menu
+            if (returnMenu.isClicked(event, buttonX, buttonY + 60, buttonWidth + 10, buttonHeight)) {
+                windowsdl.close();  // Close the window properly
                 std::cout << "Return to menu" << std::endl;
+                gameloop();  // Relaunch the game loop
             }
 
             // Check for game-over condition
@@ -202,6 +202,7 @@ void runSdl() {
         SDL_Delay(100);  // Control the frame rate
     }
 }
+
 
 
 // // Display the rules of the game
