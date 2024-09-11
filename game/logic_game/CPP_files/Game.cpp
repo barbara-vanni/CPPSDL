@@ -106,7 +106,7 @@ void Game::moveSfml(int inputValue) {
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {
         gameOver = true;
-        std::cout << "Game Over!" << std::endl;
+        // std::cout << "Game Over!" << std::endl;
         return true;
     }
     else {

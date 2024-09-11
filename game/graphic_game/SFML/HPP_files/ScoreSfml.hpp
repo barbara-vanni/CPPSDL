@@ -17,6 +17,8 @@ public:
     void draw(sf::RenderWindow* window);
     void updateActualScore(int score);    
     void updateBestScore(int score);
+
+    void drawGameOver(sf::RenderWindow* window);
 };
 
 #endif

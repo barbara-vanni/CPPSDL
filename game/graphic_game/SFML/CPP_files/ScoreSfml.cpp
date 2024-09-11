@@ -32,3 +32,31 @@ void ScoreSfml::updateBestScore(int score) {
 }
 
 
+void ScoreSfml::drawGameOver(sf::RenderWindow* window) {
+    sf::Text gameOverText;
+    sf::Font font;
+    if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
+        std::cerr << "Failed to load font" << std::endl;
+        return;
+    }
+
+    gameOverText.setFont(font);
+    gameOverText.setString("Game Over");
+    gameOverText.setCharacterSize(90);
+    gameOverText.setFillColor(sf::Color::Red);
+    gameOverText.setPosition(20, 400); 
+
+
+    sf::FloatRect textBounds = gameOverText.getGlobalBounds();
+
+
+    sf::RectangleShape backgroundRect;
+    backgroundRect.setSize(sf::Vector2f(textBounds.width + 50, textBounds.height + 50)); 
+    backgroundRect.setPosition(textBounds.left - 10, textBounds.top - 10); 
+
+
+    window->draw(backgroundRect);
+    window->draw(gameOverText); 
+}
+
+
