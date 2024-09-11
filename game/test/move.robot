@@ -3,10 +3,6 @@ Library  Process
 Library  OperatingSystem
 
 *** Test Cases ***
-Clean Project
-    Run Process  make  clean
-
-
 Compile Project Using Make
     Run Process  make  
     Sleep  3s
