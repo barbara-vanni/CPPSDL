@@ -102,6 +102,7 @@ void Game::moveSfml(int inputValue) {
         updateScore(points);
         board->addRandomTile();
         board->displayBoard();
+        playMoveSound();
     }
 }
 
