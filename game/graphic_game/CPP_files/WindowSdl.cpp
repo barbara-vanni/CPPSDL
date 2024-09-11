@@ -51,6 +51,21 @@ void WindowSdl::clear() {
     SDL_RenderClear(renderer);
 }
 
+void WindowSdl::close() {
+    if (renderer != nullptr) {
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
+    }
+    if (window != nullptr) {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
+    TTF_Quit();
+    SDL_Quit();
+    closed = true;
+}
+
+
 bool WindowSdl::isClosed() const {
     return closed;
 }
