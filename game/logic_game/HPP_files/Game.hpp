@@ -67,6 +67,7 @@ class Game {
         Score score;
         bool gameOver;
         int inputValue;
+        void playMoveSound();
 };
 
 
