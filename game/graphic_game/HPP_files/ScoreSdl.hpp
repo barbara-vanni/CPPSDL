@@ -28,6 +28,7 @@ public:
 
     // Draw the score on the SDL renderer
     void draw(SDL_Renderer* renderer);
+    void drawDefeat(SDL_Renderer* renderer);
 
 private:
     Game& game;  // Reference to the Game object to get score info
