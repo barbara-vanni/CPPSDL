@@ -1,13 +1,13 @@
 CXX := g++
 # Windows path
-# CXXFLAGS := -I src/include -I /usr/include/SDL2 -I game
-# LDFLAGS := -L src/lib
-# LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lsfml-graphics -lsfml-window -lsfml-system 
+CXXFLAGS := -I src/include -I /usr/include/SDL2 -I game
+LDFLAGS := -L src/lib
+LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lsfml-graphics -lsfml-window -lsfml-system 
 
 # MacOS path
-CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
-LDFLAGS := -L/opt/homebrew/lib
-LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
+# CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
+# LDFLAGS := -L/opt/homebrew/lib
+# LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
 
 SRC_DIR := game
 SRC_FILE := src
@@ -35,13 +35,7 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/TilesSdl.cpp\
 	$(GRAPHIC_DIR)/ButtonSdl.cpp\
 	$(GRAPHIC_DIR)/ScoreSdl.cpp\
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/WindowMenu.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/GridSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/ButtonsSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/ScoreSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/WindowRules.cpp \
+	
 	
 
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
