@@ -8,7 +8,12 @@
 #include <SDL2/SDL_mixer.h>
 
 #include <fstream>
-
+/* 
+The Game class is responsible for managing the game logic and controls for the 2048 game. It includes functions for starting the game, 
+resetting the game, making moves, checking for defeat, displaying the score, updating the score, playing move sounds, and testing defeat scenarios.
+It interacts with the Board class to manage the game board and tile movements. It also uses the Score class to keep track of the player's score.
+It supports different input methods, including SDL and SFML, for making moves in the game.
+ */
 Game::Game() {
     board = new Board(4);
     score.loadScore();

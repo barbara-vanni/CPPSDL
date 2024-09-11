@@ -1,7 +1,10 @@
 #include "gameloop.hpp"
 #include "graphic_game/SFML/HPP_files/WindowMenu.hpp"
 
-
+/* The function initializes the game window and menu, and continuously checks for user inputs and updates the game state accordingly.
+ It uses the SFML library to play the game and provides options to switch to SDL or view the game rules.
+ The game loop continues until the user chooses to exit the game or switch to a different mode.
+ */
 void gameloop() {
     bool run = true;
     WindowMenu windowMenu(600, 800);

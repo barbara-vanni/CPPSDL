@@ -3,6 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
+/*This class diplay the Tiles in SDL using the Tiles class form logic game*/
+
 
 TilesSdl::TilesSdl(Game& game, int cellSize)
     : game(game), tileWidth(cellSize), tileHeight(cellSize), currentTile(nullptr), gridPosX(20), gridPosY(200) {}

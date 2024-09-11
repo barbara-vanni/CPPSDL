@@ -7,6 +7,12 @@
 #include <vector>
 #include <ctime>  
 
+
+/*/**
+The Board class is responsible for managing the game board, including initializing the board, adding random tiles, and handling tile movements.
+It also provides methods to check if there are any valid moves left on the board and to display the current state of the board.
+ */
+
 Board::Board(int size) : size(size) {
     std::cout << "Board constructor called" << std::endl;
     srand(static_cast<unsigned int>(time(0)));  

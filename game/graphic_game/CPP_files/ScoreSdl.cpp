@@ -1,6 +1,7 @@
 #include "../HPP_files/ScoreSdl.hpp"
 #include <iostream>
 
+/*this class display the Score and the game over message*/
 ScoreSdl::ScoreSdl(Game &game, double x, double y, const std::string& label)
     : game(game), scorePosX(x), scorePosY(y), labelText(label), font(nullptr),
       labelSurface(nullptr), labelTexture(nullptr), scoreSurface(nullptr), scoreTexture(nullptr) {
