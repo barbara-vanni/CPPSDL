@@ -45,7 +45,7 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
     SDL_Rect tileRect = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
     SDL_Color tileColor = getTileColor(tile->getNumberInTile());
     SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
-    SDL_RenderFillRect(renderer, &tileBorder);  // Filling the same rect ensures the border shows clearly
+    SDL_RenderFillRect(renderer, &tileRect);  // Filling the same rect ensures the border shows clearly
 
     // Render the number inside the tile
     int tileNumber = tile->getNumberInTile();
