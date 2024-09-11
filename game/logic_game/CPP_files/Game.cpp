@@ -111,7 +111,11 @@ void Game::moveSfml(int inputValue) {
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {
         gameOver = true;
-        // std::cout << "Game Over!" << std::endl;
+        std::ofstream file("game/test/defeat.txt");
+        if (file.is_open()){
+            file << "true" << std::endl;
+            file.close();
+        }
         return true;
     }
     else {
