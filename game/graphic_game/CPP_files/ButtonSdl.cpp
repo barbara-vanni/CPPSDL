@@ -1,63 +1,57 @@
 #include "../HPP_files/ButtonSdl.hpp"
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 
 ButtonSdl::ButtonSdl()
-    : buttonPosX(0), buttonPosY(0), buttonWidth(0), buttonHeight(0) {}
-
-ButtonSdl::~ButtonSdl() {}
-
-double ButtonSdl::posX()  {
-    return buttonPosX;
+    : buttonPosX(0), buttonPosY(0), buttonWidth(0), buttonHeight(0), font(nullptr) {
+    initFont(); // Initialize font here
 }
 
-double ButtonSdl::posY()  {
-    return buttonPosY;
+ButtonSdl::~ButtonSdl() {
+    cleanupFont(); // Cleanup font here
 }
 
-double ButtonSdl::width()  {
-    return buttonWidth;
+void ButtonSdl::initFont() {
+    if (TTF_Init() == -1) {
+        std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    font = TTF_OpenFont("assets/font/minecraft_font.ttf", 24);
+    if (!font) {
+        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+    }
 }
 
-double ButtonSdl::height()  {
-    return buttonHeight;
+void ButtonSdl::cleanupFont() {
+    if (font) {
+        TTF_CloseFont(font);
+        font = nullptr;
+    }
+    TTF_Quit(); // Call TTF_Quit() only if it's the last class to use TTF
 }
 
-void ButtonSdl::drawButton(SDL_Renderer* renderer, int x, int y, int w, int h, TTF_Font* font, const std::string& label) {
-    // Store the button's position and size
+void ButtonSdl::drawButton(SDL_Renderer* renderer, int x, int y, int w, int h, const std::string& label) {
     buttonPosX = x;
     buttonPosY = y;
     buttonWidth = w;
     buttonHeight = h;
 
-    // Set the color for the button background
     SDL_SetRenderDrawColor(renderer, 187, 173, 160, 255);
-
-    // Draw the button rectangle
     SDL_Rect buttonRect = {x, y, w, h};
     SDL_RenderFillRect(renderer, &buttonRect);
 
-    // Render the text label on the button
     if (font && !label.empty()) {
-        SDL_Color textColor = {0, 0, 0, 255};  // Black text
+        SDL_Color textColor = {0, 0, 0, 255}; 
         SDL_Surface* textSurface = TTF_RenderText_Blended(font, label.c_str(), textColor);
-        
         if (textSurface) {
             SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-            
             if (textTexture) {
-                // Get the width and height of the text
                 int textWidth, textHeight;
                 TTF_SizeText(font, label.c_str(), &textWidth, &textHeight);
-
-                // Center the text inside the button
                 SDL_Rect textRect = {x + (w - textWidth) / 2, y + (h - textHeight) / 2, textWidth, textHeight};
                 SDL_RenderCopy(renderer, textTexture, NULL, &textRect);
-
                 SDL_DestroyTexture(textTexture);
             }
-
             SDL_FreeSurface(textSurface);
         }
     }
