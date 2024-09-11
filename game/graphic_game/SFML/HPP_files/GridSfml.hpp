@@ -16,6 +16,7 @@ class GridSfml : public GameObject {
         int gridPosX;
         int gridPosY;
 
+
     public:
         GridSfml(Game& game);
         ~GridSfml();
