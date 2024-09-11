@@ -152,6 +152,10 @@ void runSdl() {
             if (resetButton.isClicked(event, buttonX, buttonY, buttonWidth, buttonHeight)) {
                 game.reset();  
             }
+            if (returnMenu.isClicked(event, buttonX, buttonY + 60, buttonWidth + 10, buttonHeight)) {
+                quit = true;
+                gameloop(); 
+            }
         }
 
         windowsdl.clear();
