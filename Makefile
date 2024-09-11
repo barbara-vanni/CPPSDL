@@ -59,5 +59,8 @@ $(OBJ_DIR)/%.o: %.cpp
 
 clean:
 	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -f *.xml *.html
+	rm -f game/test/defeat.txt
+
 
 .PHONY: all clean

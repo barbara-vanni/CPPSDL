@@ -1,62 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0.1 (Python 3.11.9 on win32)" generated="2024-09-10T16:47:08.424655" rpa="false" schemaversion="5">
+<robot generator="Robot 7.0.1 (Python 3.11.9 on win32)" generated="2024-09-11T22:25:16.351802" rpa="false" schemaversion="5">
 <suite id="s1" name="Move" source="c:\Users\walid\OneDrive\Bureau\la-plateforme\B2\devoirs\C++\CPPSDL\game\test\move.robot">
 <test id="s1-t1" name="Clean Project" line="6">
 <kw name="Run Process" owner="Process">
-<msg time="2024-09-10T16:47:08.505975" level="INFO">Starting process:
+<msg time="2024-09-11T22:25:16.502216" level="INFO">Starting process:
 make clean</msg>
-<msg time="2024-09-10T16:47:08.510953" level="INFO">Waiting for process to complete.</msg>
-<msg time="2024-09-10T16:47:08.585639" level="INFO">Process completed.</msg>
+<msg time="2024-09-11T22:25:16.513662" level="INFO">Waiting for process to complete.</msg>
+<msg time="2024-09-11T22:25:16.692690" level="INFO">Process completed.</msg>
 <arg>make</arg>
 <arg>clean</arg>
 <doc>Runs a process and waits for it to complete.</doc>
-<status status="PASS" start="2024-09-10T16:47:08.504975" elapsed="0.080664"/>
+<status status="PASS" start="2024-09-11T22:25:16.497329" elapsed="0.196368"/>
 </kw>
-<status status="PASS" start="2024-09-10T16:47:08.501970" elapsed="0.084676"/>
+<status status="PASS" start="2024-09-11T22:25:16.492248" elapsed="0.202419"/>
 </test>
 <test id="s1-t2" name="Compile Project Using Make" line="10">
 <kw name="Run Process" owner="Process">
-<msg time="2024-09-10T16:47:08.591103" level="INFO">Starting process:
+<msg time="2024-09-11T22:25:16.702661" level="INFO">Starting process:
 make</msg>
-<msg time="2024-09-10T16:47:08.594111" level="INFO">Waiting for process to complete.</msg>
-<msg time="2024-09-10T16:47:22.000882" level="INFO">Process completed.</msg>
+<msg time="2024-09-11T22:25:16.708840" level="INFO">Waiting for process to complete.</msg>
+<msg time="2024-09-11T22:25:36.856859" level="INFO">Process completed.</msg>
 <arg>make</arg>
 <doc>Runs a process and waits for it to complete.</doc>
-<status status="PASS" start="2024-09-10T16:47:08.590595" elapsed="13.410791"/>
+<status status="PASS" start="2024-09-11T22:25:16.701645" elapsed="20.155214"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-09-10T16:47:25.002433" level="INFO">Slept 3 seconds.</msg>
+<msg time="2024-09-11T22:25:39.859505" level="INFO">Slept 3 seconds.</msg>
 <arg>3s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-09-10T16:47:22.002392" elapsed="3.000041"/>
+<status status="PASS" start="2024-09-11T22:25:36.857864" elapsed="3.002949"/>
 </kw>
-<status status="PASS" start="2024-09-10T16:47:08.589078" elapsed="16.414374"/>
+<status status="PASS" start="2024-09-11T22:25:16.697654" elapsed="23.165193"/>
 </test>
 <test id="s1-t3" name="Run Project" line="14">
 <kw name="Start Process" owner="Process">
-<msg time="2024-09-10T16:47:25.007910" level="INFO">Starting process:
+<msg time="2024-09-11T22:25:39.869336" level="INFO">Starting process:
 ./main</msg>
 <arg>./main</arg>
 <doc>Starts a new process on background.</doc>
-<status status="PASS" start="2024-09-10T16:47:25.007910" elapsed="0.007658"/>
+<status status="PASS" start="2024-09-11T22:25:39.868338" elapsed="0.011120"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-09-10T16:47:26.018022" level="INFO">Slept 1 second.</msg>
+<msg time="2024-09-11T22:25:40.883927" level="INFO">Slept 1 second.</msg>
 <arg>1s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-09-10T16:47:25.017604" elapsed="1.000418"/>
+<status status="PASS" start="2024-09-11T22:25:39.881465" elapsed="1.003724"/>
 </kw>
 <kw name="Start Process" owner="Process">
-<msg time="2024-09-10T16:47:26.020533" level="INFO">Starting process:
+<msg time="2024-09-11T22:25:40.890359" level="INFO">Starting process:
 python game/test/move.py</msg>
 <arg>python</arg>
 <arg>game/test/move.py</arg>
 <doc>Starts a new process on background.</doc>
-<status status="PASS" start="2024-09-10T16:47:26.019076" elapsed="0.004481"/>
+<status status="PASS" start="2024-09-11T22:25:40.888361" elapsed="0.018542"/>
 </kw>
-<status status="PASS" start="2024-09-10T16:47:25.005533" elapsed="1.019024"/>
+<status status="PASS" start="2024-09-11T22:25:39.866344" elapsed="1.041554"/>
 </test>
-<status status="PASS" start="2024-09-10T16:47:08.433655" elapsed="17.595902"/>
+<status status="PASS" start="2024-09-11T22:25:16.364914" elapsed="24.549806"/>
 </suite>
 <statistics>
 <total>
