@@ -166,8 +166,10 @@ void runSdl() {
                 game.reset();  
             }
             if (returnMenu.isClicked(event, buttonX, buttonY + 60, buttonWidth + 10, buttonHeight)) {
-                quit = true;
-                gameloop(); 
+                //destroy the window and reopens the menu
+                windowsdl.isClosed();
+                gameloop();
+
             }
 
             if (game.checkDefeat()) {
