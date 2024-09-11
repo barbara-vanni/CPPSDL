@@ -48,11 +48,11 @@ void runSfml() {
     Game game;
     WindowSfml window(600, 800);
     GridSfml grid(game);
-    ButtonsSfml button(480, 90, 100, 50, "Reset");
-    ButtonsSfml returnMenu(480, 150, 100, 50, "Menu");
+    ButtonsSfml button(480, 40, 100, 50, "Reset");
+    ButtonsSfml returnMenu(480, 110, 100, 50, "Menu");
 
-    ScoreSfml actualScore(game, 160, 90, "0");
-    ScoreSfml bestScore(game, 300, 90, "0");
+    ScoreSfml actualScore(game, 120, 70, "Score");
+    ScoreSfml bestScore(game, 280, 70, "Max");
 
 
 

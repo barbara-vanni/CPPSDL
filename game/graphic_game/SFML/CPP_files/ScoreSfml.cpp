@@ -6,14 +6,22 @@ ScoreSfml::ScoreSfml(Game& game, double x, double y, const std::string& label)
     if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
         std::cerr << "Failed to load font" << std::endl;
     }
+
+    labelText.setFont(font);
+    labelText.setString(label);
+    labelText.setCharacterSize(20); 
+    labelText.setFillColor(sf::Color::White);
+    labelText.setPosition(x, y);
+
     text.setFont(font);
-    text.setString(label);
-    text.setCharacterSize(34);
+    text.setString("0"); 
+    text.setCharacterSize(34); 
     text.setFillColor(sf::Color::White);
-    text.setPosition(x, y);
+    text.setPosition(x, y + 40);
 }
 
 void ScoreSfml::draw(sf::RenderWindow* window) {
+    window->draw(labelText);
     window->draw(text);
 }
 

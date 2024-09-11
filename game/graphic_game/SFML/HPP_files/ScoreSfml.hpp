@@ -11,6 +11,7 @@ class ScoreSfml
 private:
     Game& game;
     sf::Text text;
+    sf::Text labelText;
     sf::Font font;
 public:
     ScoreSfml(Game& game, double x, double y, const std::string& label);
