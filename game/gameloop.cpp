@@ -127,6 +127,7 @@ void runSdl() {
     bool gameOver = false;
     SDL_Event event;  // Event structure for handling user inputs
 
+
     while (!windowsdl.isClosed()) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
