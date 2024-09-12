@@ -56,5 +56,8 @@ clean:
 	rm -f *.xml *.html
 	rm -f game/test/defeat.txt
 
+test: clean all
+	robot game/test/move.robot
+
 
 .PHONY: all clean
