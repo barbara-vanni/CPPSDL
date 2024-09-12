@@ -186,8 +186,6 @@ void Game::testDefeatScenario() {
     }
 }
 
-
-
 void Game::playMoveSound() {
     static bool audio_initialized = false;
     if (!audio_initialized) {

@@ -58,5 +58,4 @@ clean:
 test: clean all
 	robot game/test/move.robot
 
-
 .PHONY: all clean
