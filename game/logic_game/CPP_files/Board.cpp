@@ -5,11 +5,12 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-#include <ctime>  
+#include <ctime>  // Include to use time(0)
 
+// Constructor
 Board::Board(int size) : size(size) {
     std::cout << "Board constructor called" << std::endl;
-    srand(static_cast<unsigned int>(time(0)));  
+    srand(static_cast<unsigned int>(time(0)));  // Seed the random number generator
 }
 
 void Board::boardInit()
@@ -60,10 +61,6 @@ void Board::addRandomTile() {
     Tiles *newTile = new Tiles(x, y, tileValue);
     grid[x][y] = newTile;
 }
-
-
-
-
 
 bool Board::moveUp(int& newPoint)
 {
@@ -170,7 +167,6 @@ bool Board::moveLeft(int& newPoint)
             }
         }
     }
-
     return moved;
 }
 
@@ -270,7 +266,8 @@ void Board::displayBoard()
 Board::~Board()
 {
     std::cout << "Board destructor called" << std::endl;
-    
+
+    // delete the tiles
     for (int i = 0; i < 4; ++i)
     {
         for (int j = 0; j < 4; ++j)

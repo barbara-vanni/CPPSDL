@@ -13,28 +13,30 @@ SRC_DIR := game
 SRC_FILE := src
 GRAPHIC_DIR := $(SRC_DIR)/graphic_game/CPP_files
 GRAPHIC_SFML := $(SRC_DIR)/graphic_game/SFML/CPP_files
+GRAPHIC_SFML := $(SRC_DIR)/graphic_game/SFML/CPP_files
 LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
 OBJ_DIR := $(SRC_FILE)/obj
 
 SRC_FILES := main.cpp \
-	$(LOGIC_DIR)/Board.cpp \
-	$(LOGIC_DIR)/Tiles.cpp \
-	$(LOGIC_DIR)/Game.cpp \
-	$(LOGIC_DIR)/Input.cpp \
-	$(GRAPHIC_DIR)/WindowSdl.cpp \
-	$(GRAPHIC_DIR)/GridSdl.cpp \
-	$(SRC_DIR)/gameloop.cpp \
-	$(GRAPHIC_SFML)//WindowSfml.cpp \
-	$(GRAPHIC_SFML)//WindowMenu.cpp \
-	$(GRAPHIC_SFML)//GridSfml.cpp \
-	$(GRAPHIC_SFML)//TilesSfml.cpp \
-	$(GRAPHIC_SFML)//ButtonsSfml.cpp \
-	$(GRAPHIC_SFML)//ScoreSfml.cpp \
-	$(GRAPHIC_SFML)//WindowRules.cpp \
-	$(GRAPHIC_DIR)/Background.cpp\
-	$(GRAPHIC_DIR)/TilesSdl.cpp\
-	$(GRAPHIC_DIR)/ButtonSdl.cpp\
-	$(GRAPHIC_DIR)/ScoreSdl.cpp\
+    $(LOGIC_DIR)/Board.cpp \
+    $(LOGIC_DIR)/Tiles.cpp \
+    $(LOGIC_DIR)/Game.cpp \
+    $(LOGIC_DIR)/Input.cpp \
+    $(GRAPHIC_DIR)/WindowSdl.cpp \
+    $(GRAPHIC_DIR)/GridSdl.cpp \
+    $(SRC_DIR)/gameloop.cpp \
+    $(GRAPHIC_SFML)//WindowSfml.cpp \
+    $(GRAPHIC_SFML)//WindowMenu.cpp \
+    $(GRAPHIC_SFML)//GridSfml.cpp \
+    $(GRAPHIC_SFML)//TilesSfml.cpp \
+    $(GRAPHIC_SFML)//ButtonsSfml.cpp \
+    $(GRAPHIC_SFML)//ScoreSfml.cpp \
+    $(GRAPHIC_SFML)//WindowRules.cpp \
+    $(GRAPHIC_DIR)/Background.cpp\
+    $(GRAPHIC_DIR)/TilesSdl.cpp\
+    $(GRAPHIC_DIR)/ButtonSdl.cpp\
+    $(GRAPHIC_DIR)/ScoreSdl.cpp\
+	
 	
 
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))

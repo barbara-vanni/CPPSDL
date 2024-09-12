@@ -3,9 +3,8 @@
 #include "../src/include/SFML/Window.hpp"
 #include <iostream>
 #include <SDL2/SDL.h>
-#include "../HPP_files/Input.hpp"
-#include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
+#include "../HPP_files/Input.hpp"
 
 #include <fstream>
 
@@ -55,7 +54,6 @@ void Game::moveSdl(int inputValue)
     int points = 0;
     bool moved = false;
 
-        
     // Compare the input directly to SDL key constants
     if (inputValue == SDLK_UP) {
         moved = board->moveUp(points);
@@ -123,6 +121,7 @@ bool Game::checkDefeat() {
     }
 }
 
+
 void Game::displayScore() {
     std::cout << "Your score is: " << score.scoreActuel << std::endl;
     std::cout << "Your best score is: " << score.scoreMax << std::endl;
@@ -142,7 +141,6 @@ void Game::updateScore(int points)
 }
 
 Game::~Game() {
-    Mix_CloseAudio();
     delete board;
 }
 

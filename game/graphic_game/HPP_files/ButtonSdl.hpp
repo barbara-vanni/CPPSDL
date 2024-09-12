@@ -1,26 +1,25 @@
-#pragma once 
+#ifndef BUTTONSDL_HPP
+#define BUTTONSDL_HPP
+
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>  // Include SDL_ttf for text rendering
-#include "../GameObject.hpp"
+#include <SDL2/SDL_ttf.h>
 #include <string>
 
-class ButtonSdl : public GameObject {
+class ButtonSdl {
 public:
     ButtonSdl();
     ~ButtonSdl();
-
-    double posX()  override;
-    double posY() override;
-    double width() override;
-    double height()  override;
-
-    // Updated method signature with font and label parameters
-    void drawButton(SDL_Renderer* renderer, int x, int y, int w, int h, TTF_Font* font = nullptr, const std::string& label = "");
+    
+    void drawButton(SDL_Renderer* renderer, int x, int y, int w, int h, const std::string& label);
     bool isClicked(const SDL_Event& event, int x, int y, int w, int h) const;
 
 private:
-    double buttonPosX;
-    double buttonPosY;
-    double buttonWidth;
-    double buttonHeight;
+    double buttonPosX, buttonPosY;
+    double buttonWidth, buttonHeight;
+    TTF_Font* font;
+
+    void initFont();
+    void cleanupFont();
 };
+
+#endif // BUTTONSDL_HPP
