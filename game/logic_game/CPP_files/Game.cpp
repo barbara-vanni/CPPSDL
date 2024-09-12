@@ -3,6 +3,7 @@
 #include "../src/include/SFML/Window.hpp"
 #include <iostream>
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "../HPP_files/Input.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
@@ -84,6 +85,7 @@ void Game::moveSdl(int inputValue)
         board->addRandomTile();
         board->displayBoard();
         playMoveSound();
+        playMoveSound();
     }
 }
 
@@ -108,6 +110,7 @@ void Game::moveSfml(int inputValue) {
         board->addRandomTile();
         board->displayBoard();
         playMoveSound();
+        playMoveSound();
     }
 }
 
@@ -121,12 +124,18 @@ bool Game::checkDefeat() {
             file << "true" << std::endl;
             file.close();
         }
+        std::ofstream file("game/test/defeat.txt");
+        if (file.is_open()){
+            file << "true" << std::endl;
+            file.close();
+        }
         return true;
     }
     else {
         return false;
     }
 }
+
 
 void Game::displayScore() {
     std::cout << "Your score is: " << score.scoreActuel << std::endl;
@@ -190,8 +199,6 @@ void Game::testDefeatScenario() {
         std::cout << "Test failed: Game Over not detected." << std::endl;
     }
 }
-
-
 
 void Game::playMoveSound() {
     static bool audio_initialized = false;

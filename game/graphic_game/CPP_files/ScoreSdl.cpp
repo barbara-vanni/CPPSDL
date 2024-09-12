@@ -96,4 +96,3 @@ void ScoreSdl::drawDefeat(SDL_Renderer* renderer) {
     SDL_FreeSurface(textSurface);
     SDL_DestroyTexture(textTexture);
 }
-
