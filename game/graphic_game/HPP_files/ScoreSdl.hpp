@@ -1,40 +1,36 @@
-#pragma once 
-#include <SDL2/SDL.h>   
-#include <SDL2/SDL_ttf.h>  
+#ifndef SCORESDL_HPP
+#define SCORESDL_HPP
+
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_ttf.h>
 #include <string>
-#include "../GameObject.hpp"
-#include "../../logic_game/HPP_files/Game.hpp"
- 
 
+class Game; // Forward declaration
 
-class ScoreSdl : public GameObject {
+class ScoreSdl {
 public:
-    // Constructor: Initialize the ScoreSdl with game reference and position
-    ScoreSdl(Game& game, double x, double y);
-    
-    // Destructor: Clean up resources
+    ScoreSdl(Game &game, double x, double y, const std::string& label);
     ~ScoreSdl();
-
-    // Override position and size methods from GameObject
-    double posX() override;
-    double posY() override;
-    double width() override;
-    double height() override;
-
-    // Update the score string based on the current game score
+    
     void updateActualScore(int score);
     void updateBestScore(int score);
-    // void resetScore();
-
-    // Draw the score on the SDL renderer
     void draw(SDL_Renderer* renderer);
     void drawDefeat(SDL_Renderer* renderer);
 
 private:
-    Game& game;  // Reference to the Game object to get score info
-    
-    TTF_Font* font;  // Font for rendering text
-    std::string currentLabel;  // Current text to display ("Score: X | Best: Y")
-    double scorePosX;  // X position of the score display
-    double scorePosY;  // Y position of the score display
+    Game &game;
+    double scorePosX, scorePosY;
+    std::string labelText, currentLabel;
+    TTF_Font* font;
+
+    SDL_Surface* labelSurface;
+    SDL_Texture* labelTexture;
+    SDL_Surface* scoreSurface;
+    SDL_Texture* scoreTexture;
+
+    void initFont();
+    void cleanupFont();
+    void renderText(SDL_Renderer* renderer, const std::string& text, SDL_Color color, SDL_Rect& rect, SDL_Texture*& texture, SDL_Surface*& surface);
 };
+
+#endif // SCORESDL_HPP

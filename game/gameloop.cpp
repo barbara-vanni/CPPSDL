@@ -109,39 +109,39 @@ void runSfml() {
 
 // Play the game using SDL
 void runSdl() {
-    WindowSdl windowsdl(600, 800);  
+    WindowSdl windowsdl(600, 800); // Initialize SDL window (width 600, height 800)
 
-    //     // Load the font for the button
-    // TTF_Font* buttonFont = TTF_OpenFont("assets/font/minecraft_font.ttf", 24);
-    // if (!buttonFont) {
-    //     std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
-    //     return -1;
-    // }
     if (windowsdl.isClosed()) {
         std::cerr << "Failed to initialize window" << std::endl;
         return;
     }
 
-    Game game;
-    GridSdl grid(game);
-    ButtonSdl resetButton;
-    ButtonSdl returnMenu;
-    ScoreSdl Actualscore(game, 160, 90);
-    ScoreSdl Bestscore(game, 300, 90);
+    Game game;  // Game instance
+    GridSdl grid(game);  // Grid instance to draw the game grid
+    ButtonSdl resetButton;  // Button to reset the game
+    ButtonSdl returnMenu;   // Button to return to the main menu
+
+    // Initialize score displays
+    ScoreSdl Actualscore(game, 120, 50, "Score");
+    ScoreSdl Bestscore(game, 280, 50, "Max");
+    ScoreSdl Defeat(game, 300, 400, "Game Over");
+
+    // Button properties
     int buttonX = 480;
     int buttonY = 70;
     int buttonWidth = 100;
     int buttonHeight = 30;
 
-    game.start();
-    bool quit = false;
+    game.start();  // Start the game
     bool gameOver = false;
-    SDL_Event event;
+    SDL_Event event;  // Event structure for handling user inputs
 
-    while (!quit) {
+
+    while (!windowsdl.isClosed()) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
-                quit = true;
+                windowsdl.close();  // Close the window properly
+                break;
             } else if (event.type == SDL_KEYDOWN) {
                 switch (event.key.keysym.sym) {
                     case SDLK_UP:
@@ -157,40 +157,46 @@ void runSdl() {
                         game.moveSdl(SDLK_RIGHT);
                         break;
                     case SDLK_ESCAPE:
-                        quit = true;
+                        windowsdl.close();  // Quit when ESC is pressed
                         break;
                 }
             }
 
+            // Check if the reset button is clicked
             if (resetButton.isClicked(event, buttonX, buttonY, buttonWidth, buttonHeight)) {
                 game.reset();  
+                gameOver = false;  // Reset the game-over state
             }
+
+            // Check if the return to menu button is clicked
             if (returnMenu.isClicked(event, buttonX, buttonY + 60, buttonWidth + 10, buttonHeight)) {
-                //destroy the window and reopens the menu
-                windowsdl.isClosed();
-                gameloop();
-
+                windowsdl.close();  // Close the window properly
+                std::cout << "Return to menu" << std::endl;
+                gameloop();  // Relaunch the game loop
             }
 
+            // Check for game-over condition
             if (game.checkDefeat()) {
                 gameOver = true;
             }
         }
 
-        windowsdl.clear();
-        grid.drawGrid(windowsdl.getRenderer());
-        Actualscore.draw(windowsdl.getRenderer());
-        Bestscore.draw(windowsdl.getRenderer());
-        Actualscore.updateActualScore(game.getScoreActuel());
-        Bestscore.updateBestScore(game.getBestScore());
-        resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight);
-        returnMenu.drawButton(windowsdl.getRenderer(), buttonX, buttonY + 60, buttonWidth + 10, buttonHeight);
-        SDL_RenderPresent(windowsdl.getRenderer());
-        SDL_Delay(100);
-        
+        windowsdl.clear();  // Clear the window before rendering
+        grid.drawGrid(windowsdl.getRenderer());  // Draw the game grid
+        Actualscore.updateActualScore(game.getScoreActuel());  // Update the actual score display
+        Bestscore.updateBestScore(game.getBestScore());  // Update the best score display
+
+        Actualscore.draw(windowsdl.getRenderer());  // Draw the actual score
+        Bestscore.draw(windowsdl.getRenderer());  // Draw the best score
+        resetButton.drawButton(windowsdl.getRenderer(), buttonX, buttonY, buttonWidth, buttonHeight, "Reset");  // Draw reset button
+        returnMenu.drawButton(windowsdl.getRenderer(), buttonX, buttonY +60 , buttonWidth + 10, buttonHeight, "Menu"); // Draw return menu button
+
         if (gameOver) {
-            Actualscore.drawDefeat(windowsdl.getRenderer());
+            Defeat.drawDefeat(windowsdl.getRenderer());  // Draw game-over screen if the game is over
         }
+
+        SDL_RenderPresent(windowsdl.getRenderer());  // Update the window with new render
+        SDL_Delay(100);  // Control the frame rate
     }
 }
 

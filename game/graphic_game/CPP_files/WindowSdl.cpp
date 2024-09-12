@@ -1,6 +1,8 @@
 #include "../HPP_files/WindowSdl.hpp"
 #include <iostream>
 
+
+/*This class is responsible of displaying the window in SDL */
 WindowSdl::WindowSdl(int width, int height)
     : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {
     if (!init()) {
@@ -50,6 +52,21 @@ void WindowSdl::clear() {
     SDL_SetRenderDrawColor(renderer, 237, 230, 218, 255);  
     SDL_RenderClear(renderer);
 }
+
+void WindowSdl::close() {
+    if (renderer != nullptr) {
+        SDL_DestroyRenderer(renderer);
+        renderer = nullptr;
+    }
+    if (window != nullptr) {
+        SDL_DestroyWindow(window);
+        window = nullptr;
+    }
+    TTF_Quit();
+    SDL_Quit();
+    closed = true;
+}
+
 
 bool WindowSdl::isClosed() const {
     return closed;
