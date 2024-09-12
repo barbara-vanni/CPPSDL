@@ -8,8 +8,8 @@ void gameloop() {
 
     while (run) {
         if (windowMenu.isClosed()) {
-            run = false;
-            break;
+        run = false; 
+        break;
         }
 
         windowMenu.clear();

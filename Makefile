@@ -53,7 +53,7 @@ $(OBJ_DIR)/%.o: %.cpp
 clean:
 	rm -rf $(OBJ_DIR) $(TARGET)
 	rm -f *.xml *.html
-	# rm -f game/test/defeat.txt
+	rm -f game/test/defeat.txt
 
 test: clean all
 	robot game/test/move.robot
