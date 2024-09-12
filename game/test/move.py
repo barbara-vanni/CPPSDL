@@ -49,9 +49,11 @@ while True:
             if status == "true":
                 break
 
-
 print("sortie de boucle ok")
 time.sleep(3)
 pyautogui.moveTo(1255, 170, duration=0.10)
 time.sleep(1)
 pyautogui.click(button='left', clicks=3, interval=0.30)
+time.sleep(3)
+if os.path.exists("game/test/defeat.txt"):
+    os.remove("game/test/defeat.txt")
