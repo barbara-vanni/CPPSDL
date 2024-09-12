@@ -3,24 +3,14 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#ifndef SCORESDL_HPP
-#define SCORESDL_HPP
-
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
 #include <string>
 
 class Game; // Forward declaration
 
-class Game; // Forward declaration
-
-class ScoreSdl {
 class ScoreSdl {
 public:
     ScoreSdl(Game &game, double x, double y, const std::string& label);
-    ScoreSdl(Game &game, double x, double y, const std::string& label);
     ~ScoreSdl();
-    
     
     void updateActualScore(int score);
     void updateBestScore(int score);

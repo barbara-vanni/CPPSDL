@@ -3,8 +3,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-/*This class diplay the Tiles in SDL using the Tiles class form logic game*/
-
 
 TilesSdl::TilesSdl(Game& game, int cellSize)
     : game(game), tileWidth(cellSize), tileHeight(cellSize), currentTile(nullptr), gridPosX(20), gridPosY(200) {}
@@ -44,13 +42,11 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
     SDL_Rect tileRect = { static_cast<int>(posX()), static_cast<int>(posY()), tileWidth, tileHeight };
     SDL_Color tileColor = getTileColor(tile->getNumberInTile());
     SDL_SetRenderDrawColor(renderer, tileColor.r, tileColor.g, tileColor.b, tileColor.a);
-    SDL_RenderFillRect(renderer, &tileRect);
+    SDL_RenderFillRect(renderer, &tileRect);  // Filling the same rect ensures the border shows clearly
 
-    // Now render the text (number) on the tile
+    // Render the number inside the tile
     int tileNumber = tile->getNumberInTile();
-
     if (tileNumber != 0) {
-        TTF_Font* font = TTF_OpenFont("assets/font/minecraft_font.ttf", 48); 
         // Load the font (ensure font loading happens outside the loop for better performance)
         TTF_Font* font = TTF_OpenFont("assets/font/minecraft_font.ttf", 48);  // Use appropriate font path and size
         if (!font) {
@@ -58,17 +54,16 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
             return;
         }
 
-        // Create the text surface
+        // Create the text surface with the tile number
         SDL_Color textColor = { 0, 0, 0, 255 };  // Black text
         std::string tileText = std::to_string(tileNumber);
         SDL_Surface* textSurface = TTF_RenderText_Blended(font, tileText.c_str(), textColor);
 
         if (textSurface) {
-            // Create a texture from the text surface
+            // Create a texture from the surface
             SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
-
             if (textTexture) {
-                // Get the width and height of the text
+                // Get the dimensions of the text
                 int textWidth, textHeight;
                 TTF_SizeText(font, tileText.c_str(), &textWidth, &textHeight);
 
@@ -90,7 +85,7 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
             SDL_FreeSurface(textSurface);
         }
 
-        // Close the font after use (In a real-world scenario, manage fonts better)
+        // Close the font after use (you might want to manage fonts better in real apps)
         TTF_CloseFont(font);
     }
 }

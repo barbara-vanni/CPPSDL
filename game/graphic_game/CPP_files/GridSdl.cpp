@@ -1,7 +1,5 @@
 #include "../HPP_files/GridSdl.hpp"
 
-
-/*This class display the grid in SDL with the Tiles logic and the Tiles render*/
 GridSdl::GridSdl(Game& game) : game(game), gridPosX(20), gridPosY(200), gridSize(560) {}
 
 GridSdl::~GridSdl() {}

@@ -5,11 +5,6 @@
 // #include <ncurses.h>
 #include <iostream>
 
-
-
-/* The Input class provides functionality to handle user input events using the SDL library.
- It allows detecting key presses and returning the corresponding SDL key code.
- */
 Input::Input() {
     std::cout << "Constructor called" << std::endl;
 }
