@@ -12,7 +12,7 @@ public:
     ~WindowSdl();
 
     void clear();  // Clears the renderer
-    void close();  // Closes the window 
+    void close();  // Closes the window
     bool isClosed() const;
     SDL_Renderer* getRenderer() const;  // To get the renderer for drawing
 

@@ -5,13 +5,14 @@ CXX := g++
 # LIBS := -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lsfml-graphics -lsfml-window -lsfml-system 
 
 # MacOS path
-CXXFLAGS := -std=c++11 -I/opt/homebrew/include/SDL2 -Igame -I src/include
+CXXFLAGS := -std=c++14 -I/opt/homebrew/include/SDL2 -Igame -I src/include
 LDFLAGS := -L/opt/homebrew/lib
-LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses
+LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses -lsfml-graphics -lsfml-window -lsfml-system 
 
 SRC_DIR := game
 SRC_FILE := src
 GRAPHIC_DIR := $(SRC_DIR)/graphic_game/CPP_files
+GRAPHIC_SFML := $(SRC_DIR)/graphic_game/SFML/CPP_files
 LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
 OBJ_DIR := $(SRC_FILE)/obj
 
@@ -23,17 +24,18 @@ SRC_FILES := main.cpp \
 	$(GRAPHIC_DIR)/WindowSdl.cpp \
 	$(GRAPHIC_DIR)/GridSdl.cpp \
 	$(SRC_DIR)/gameloop.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowMenu.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/GridSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/ButtonsSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/ScoreSfml.cpp \
+	$(SRC_DIR)/graphic_game/SFML/CPP_files/WindowRules.cpp \
 	$(GRAPHIC_DIR)/Background.cpp\
 	$(GRAPHIC_DIR)/TilesSdl.cpp\
 	$(GRAPHIC_DIR)/ButtonSdl.cpp\
 	$(GRAPHIC_DIR)/ScoreSdl.cpp\
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/WindowSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/WindowMenu.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/GridSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/TilesSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/ButtonsSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/ScoreSfml.cpp \
-	# $(SRC_DIR)/graphic_game/SFML/CPP_files/WindowRules.cpp \
+	
 	
 
 OBJ_FILES := $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC_FILES))
@@ -51,5 +53,8 @@ $(OBJ_DIR)/%.o: %.cpp
 
 clean:
 	rm -rf $(OBJ_DIR) $(TARGET)
+	rm -f *.xml *.html
+	rm -f game/test/defeat.txt
+
 
 .PHONY: all clean

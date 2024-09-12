@@ -1,6 +1,8 @@
 #include "../HPP_files/WindowSdl.hpp"
 #include <iostream>
 
+
+/*This class is responsible of displaying the window in SDL */
 WindowSdl::WindowSdl(int width, int height)
     : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {
     if (!init()) {

@@ -1,115 +1,102 @@
 #include "gameloop.hpp"
 #include "graphic_game/SFML/HPP_files/WindowMenu.hpp"
 
-
+/* The function initializes the game window and menu, and continuously checks for user inputs and updates the game state accordingly.
+ It uses the SFML library to play the game and provides options to switch to SDL or view the game rules.
+ The game loop continues until the user chooses to exit the game or switch to a different mode.
+ */
 void gameloop() {
-    // bool run = true;
-    // WindowMenu windowMenu(600, 800);
+    bool run = true;
+    WindowMenu windowMenu(600, 800);
 
-    // while (run) {
-    //     if (windowMenu.isClosed()) {
-    //         run = false;
-    //         break;
-    //     }
-        runSdl();
-    }
-// }
+    while (run) {
+        if (windowMenu.isClosed()) {
+            run = false;
+            break;
+        }
 
+        windowMenu.clear();
+        WindowMenu::MenuOption selectedOption = windowMenu.drawButtons();
+        windowMenu.getWindowMenu()->display();
 
-//         windowMenu.clear();
-//         WindowMenu::MenuOption selectedOption = windowMenu.drawButtons();
-//         windowMenu.getWindowMenu()->display();
+        switch (selectedOption) {
+            case WindowMenu::PLAY:
+                run = false; 
+                windowMenu.getWindowMenu()->close();
+                runSdl();    
+                break;
 
-//         switch (selectedOption) {
-//             case WindowMenu::PLAY:
-//                 run = false; 
-//                 windowMenu.getWindowMenu()->close();
-//                 runSdl();    
-//                 break;
+            case WindowMenu::NIGHT_MODE:
+                run = false;
+                windowMenu.getWindowMenu()->close();
+                runSfml();
+                break;
 
-//             case WindowMenu::NIGHT_MODE:
-//                 run = false;
-//                 windowMenu.getWindowMenu()->close();
-//                 runSfml();
-//                 break;
+            case WindowMenu::HOW_TO_PLAY:
+                run = false;
+                windowMenu.getWindowMenu()->close();
+                runHowToPlay();
+                break;
 
-//             case WindowMenu::HOW_TO_PLAY:
-//                 run = false;
-//                 windowMenu.getWindowMenu()->close();
-//                 runHowToPlay();
-//                 break;
-
-//             case WindowMenu::NONE:
-//             default:
+            case WindowMenu::NONE:
+            default:
                 
-//                 break;
-//         }
-//     }
-// }
+                break;
+        }
+    }
+}
 
-// // Play the game using SFML
-// void runSfml() {
-//     Game game;
-//     WindowSfml window(600, 800);
-//     GridSfml grid(game);
-//     ButtonsSfml button(480, 40, 100, 50, "Reset");
-//     ButtonsSfml returnMenu(480, 110, 100, 50, "Menu");
+// Play the game using SFML
+void runSfml() {
+    Game game;
+    WindowSfml window(600, 800);
+    GridSfml grid(game);
+    ButtonsSfml button(480, 40, 100, 50, "Reset");
+    ButtonsSfml returnMenu(480, 110, 100, 50, "Menu");
 
-//     ScoreSfml actualScore(game, 120, 70, "Score");
-//     ScoreSfml bestScore(game, 280, 70, "Max");
+    ScoreSfml actualScore(game, 120, 70, "Score");
+    ScoreSfml bestScore(game, 280, 70, "Max");
 
 
 
-//     if (!window.getWindowSfml()->isOpen()) {
-//         std::cerr << "Failed to initialize window" << std::endl;
-//         return;
-//     }
+    if (!window.getWindowSfml()->isOpen()) {
+        std::cerr << "Failed to initialize window" << std::endl;
+        return;
+    }
 
-//     game.start();
-//     bool isRunning = true;
-//     bool gameOver = false;
+    game.start();
+    bool isRunning = true;
 
-//     while (isRunning) {
-//         sf::Event event;
-//         while (window.getWindowSfml()->pollEvent(event)) {
-//             if (event.type == sf::Event::Closed) {
-//                 isRunning = false;
-//             } else if (event.type == sf::Event::KeyPressed) {
-//                 game.moveSfml(event.key.code);
-//             } else if (event.type == sf::Event::MouseButtonPressed) {
-//                 if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
-//                     gameOver = false;
-//                     game.reset(); 
-//                 }
-//                 if (returnMenu.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
-//                     isRunning = false;
-//                     window.getWindowSfml()->close();
-//                     gameloop(); 
-//             }
-//         }
+    while (isRunning) {
+        sf::Event event;
+        while (window.getWindowSfml()->pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                isRunning = false;
+            } else if (event.type == sf::Event::KeyPressed) {
+                game.moveSfml(event.key.code);
+            } else if (event.type == sf::Event::MouseButtonPressed) {
+                if (button.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
+                    game.reset(); 
+                }
+                if (returnMenu.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
+                    isRunning = false;
+                    gameloop(); 
+            }
+        }
 
-//         if (game.checkDefeat()) {
-//             gameOver = true; 
-//         }
+        window.clear();
+        button.draw(window.getWindowSfml());
+        returnMenu.draw(window.getWindowSfml());
 
-//         window.clear();
-//         button.draw(window.getWindowSfml());
-//         returnMenu.draw(window.getWindowSfml());
-
-//         actualScore.draw(window.getWindowSfml());
-//         bestScore.draw(window.getWindowSfml());
-//         grid.drawGrid(window.getWindowSfml());
-//         actualScore.updateActualScore(game.getScoreActuel());
-//         bestScore.updateBestScore(game.getBestScore());
-
-//         if (gameOver) {
-//             actualScore.drawGameOver(window.getWindowSfml());
-//         }
-
-//         window.getWindowSfml()->display();
-//     }
-//     }
-// }
+        actualScore.draw(window.getWindowSfml());
+        bestScore.draw(window.getWindowSfml());
+        grid.drawGrid(window.getWindowSfml());
+        actualScore.updateActualScore(game.getScoreActuel());
+        bestScore.updateBestScore(game.getBestScore());
+        window.getWindowSfml()->display();
+    }
+    }
+}
 
 // Play the game using SDL
 void runSdl() {
@@ -140,9 +127,12 @@ void runSdl() {
     bool gameOver = false;
     SDL_Event event;  // Event structure for handling user inputs
 
+
     while (!windowsdl.isClosed()) {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
+                windowsdl.close();  // Close the window properly
+                break;
                 windowsdl.close();  // Close the window properly
                 break;
             } else if (event.type == SDL_KEYDOWN) {
@@ -160,6 +150,7 @@ void runSdl() {
                         game.moveSdl(SDLK_RIGHT);
                         break;
                     case SDLK_ESCAPE:
+                        windowsdl.close();  // Quit when ESC is pressed
                         windowsdl.close();  // Quit when ESC is pressed
                         break;
                 }
@@ -204,27 +195,26 @@ void runSdl() {
 }
 
 
-
 // // Display the rules of the game
-// void runHowToPlay() {
-//     WindowRules windowRules(600, 800);
-//     if (!windowRules.getWindowRules()->isOpen()) {
-//         std::cerr << "Failed to initialize window" << std::endl;
-//         return;
-//     }
+void runHowToPlay() {
+    WindowRules windowRules(600, 800);
+    if (!windowRules.getWindowRules()->isOpen()) {
+        std::cerr << "Failed to initialize window" << std::endl;
+        return;
+    }
 
-//     bool isRunning = true;
-//     while (isRunning) {
-//         sf::Event event;
-//         while (windowRules.getWindowRules()->pollEvent(event)) {
-//             if (event.type == sf::Event::Closed) {
-//                 isRunning = false;
-//             }
-//         }
+    bool isRunning = true;
+    while (isRunning) {
+        sf::Event event;
+        while (windowRules.getWindowRules()->pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                isRunning = false;
+            }
+        }
 
-//         windowRules.clear();
-//         windowRules.drawImageRules();
-//         windowRules.drawTextRules();
-//         windowRules.getWindowRules()->display();
-//     }
-// }
+        windowRules.clear();
+        windowRules.drawImageRules();
+        windowRules.drawTextRules();
+        windowRules.getWindowRules()->display();
+    }
+}

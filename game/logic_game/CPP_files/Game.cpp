@@ -4,9 +4,16 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include "../HPP_files/Input.hpp"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 
 #include <fstream>
-
+/* 
+The Game class is responsible for managing the game logic and controls for the 2048 game. It includes functions for starting the game, 
+resetting the game, making moves, checking for defeat, displaying the score, updating the score, playing move sounds, and testing defeat scenarios.
+It interacts with the Board class to manage the game board and tile movements. It also uses the Score class to keep track of the player's score.
+It supports different input methods, including SDL and SFML, for making moves in the game.
+ */
 Game::Game() {
     board = new Board(4);
     score.loadScore();
@@ -53,6 +60,7 @@ void Game::moveSdl(int inputValue)
     int points = 0;
     bool moved = false;
 
+        
     // Compare the input directly to SDL key constants
     if (inputValue == SDLK_UP) {
         moved = board->moveUp(points);
@@ -75,6 +83,7 @@ void Game::moveSdl(int inputValue)
         updateScore(points);
         board->addRandomTile();
         board->displayBoard();
+        playMoveSound();
     }
 }
 
@@ -98,6 +107,7 @@ void Game::moveSfml(int inputValue) {
         updateScore(points);
         board->addRandomTile();
         board->displayBoard();
+        playMoveSound();
     }
 }
 
@@ -106,7 +116,11 @@ void Game::moveSfml(int inputValue) {
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {
         gameOver = true;
-        // std::cout << "Game Over!" << std::endl;
+        std::ofstream file("game/test/defeat.txt");
+        if (file.is_open()){
+            file << "true" << std::endl;
+            file.close();
+        }
         return true;
     }
     else {
@@ -133,6 +147,7 @@ void Game::updateScore(int points)
 }
 
 Game::~Game() {
+    Mix_CloseAudio();
     delete board;
 }
 
@@ -173,5 +188,36 @@ void Game::testDefeatScenario() {
         std::cout << "Test passed: Game Over detected." << std::endl;
     } else {
         std::cout << "Test failed: Game Over not detected." << std::endl;
+    }
+}
+
+
+
+void Game::playMoveSound() {
+    static bool audio_initialized = false;
+    if (!audio_initialized) {
+        if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+            std::cerr << "SDL_mixer could not initialize! SDL_mixer Error: " << Mix_GetError() << std::endl;
+            return;
+        }
+        audio_initialized = true;
+    }
+
+    static Mix_Chunk* moveSound = nullptr;
+    if (!moveSound) {
+        moveSound = Mix_LoadWAV("assets/sounds/move.wav");
+        if (moveSound == nullptr) {
+            std::cerr << "Failed to load move sound! SDL_mixer Error: " << Mix_GetError() << std::endl;
+            return;
+        }
+    }
+
+    int volume = Mix_Volume(-1, -1); 
+    if (volume == 0) {
+        Mix_Volume(-1, MIX_MAX_VOLUME); 
+    }
+
+    if (Mix_PlayChannel(-1, moveSound, 0) == -1) {
+        std::cerr << "Failed to play sound! SDL_mixer Error: " << Mix_GetError() << std::endl;
     }
 }

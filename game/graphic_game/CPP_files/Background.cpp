@@ -3,6 +3,9 @@
 #include <SDL2/SDL.h>
 
 
+
+/*this class set up the backgroud for the SDL window you can choose the color and the coordonates*/
+
 Background::Background(double x, double y, double w, double h) {
     this->x = x;
     this->y = y;
