@@ -27,9 +27,9 @@ void ScoreSfml::draw(sf::RenderWindow* window) {
 
 void ScoreSfml::updateActualScore(int score) {
 
-    int scoreActuel = game.getScoreActuel();
+    int actualScore = game.getActualScore();
 
-    text.setString(std::to_string(scoreActuel) );
+    text.setString(std::to_string(actualScore) );
 }
 
 void ScoreSfml::updateBestScore(int score) {

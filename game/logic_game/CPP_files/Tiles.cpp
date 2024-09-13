@@ -15,6 +15,7 @@ Tiles::Tiles(int posX, int posY, int numberInTile) {
     std::cout << "Tiles created at (" << posX << ", " << posY << ") with value " << numberInTile << std::endl;
 }
 
+// Destructor
 Tiles::~Tiles() {
     std::cout << "Tiles destroyed at (" << posX << ", " << posY << ") with value " << numberInTile << std::endl;
 }
@@ -45,7 +46,7 @@ void Tiles::setNumberInTile(int numberInTile) {
     this->numberInTile = numberInTile;
 }
 
-// Other methods
+// Merge tiles numbers
 int Tiles::mergeTilesNumbers(Tiles* tile) {
     if (this->numberInTile == tile->getNumberInTile()) {
         this->numberInTile += tile->getNumberInTile();

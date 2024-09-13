@@ -1,8 +1,6 @@
 #ifndef GAMELOOP_HPP
 #define GAMELOOP_HPP
-
 #include "SDL2/SDL.h"
-#include <iostream>
 #include "logic_game/HPP_files/Game.hpp"
 #include "logic_game/HPP_files/Input.hpp"
 #include "graphic_game/SFML/HPP_files/WindowSfml.hpp"
@@ -17,9 +15,13 @@
 #include "graphic_game/HPP_files/TilesSdl.hpp"
 #include "graphic_game/HPP_files/ButtonSdl.hpp"
 #include "graphic_game/HPP_files/ScoreSdl.hpp"
+#include <iostream>
+
+/*
+This function is the main function of the game, it will call the function that will run the game
+*/ 
 
 void gameloop();
-// void returnMenu();
 void runSfml();
 void runSdl();
 void runHowToPlay();

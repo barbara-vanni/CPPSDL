@@ -2,6 +2,12 @@
 #define TILES_HPP
 
 #include <iostream>
+
+/*
+This class is used to create the tiles of the game
+The tiles are the squares that will be used to play the game
+*/ 
+
 class Tiles {
     private:
     int tileHeight = 145;
