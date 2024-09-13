@@ -21,13 +21,13 @@ def move_play():
 
         # Arrow keys to move the tiles
         pyautogui.press("up")
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press("down")
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press("left")
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.press("right")
-        time.sleep(0.5)
+        time.sleep(0.1)
 
         # Reset the game
         pyautogui.moveTo(window_x + 530, window_y + 80, duration=0.10)
@@ -46,7 +46,7 @@ def move_play():
 
             # Arrow keys to move the tiles
             pyautogui.press("up")
-            time.sleep(0.5)
+            time.sleep(0.1)
             print("up")
             if os.path.exists("defeat.txt"):
                 with open("defeat.txt", "r") as file:
@@ -55,7 +55,7 @@ def move_play():
                         break
 
             pyautogui.press("down")
-            time.sleep(0.5)
+            time.sleep(0.1)
             print("down")
             if os.path.exists("defeat.txt"):
                 with open("defeat.txt", "r") as file:
@@ -64,7 +64,7 @@ def move_play():
                         break
 
             pyautogui.press("left")
-            time.sleep(0.5)
+            time.sleep(0.1)
             print("left")
             if os.path.exists("defeat.txt"):
                 with open("defeat.txt", "r") as file:
@@ -73,7 +73,7 @@ def move_play():
                         break
 
             pyautogui.press("right")
-            time.sleep(0.5)
+            time.sleep(0.1)
             print("right")
             if os.path.exists("defeat.txt"):
                 with open("defeat.txt", "r") as file:
