@@ -6,6 +6,12 @@
 #include "../../../logic_game/HPP_files/Game.hpp"
 #include <iostream>
 
+/*
+This class is a score that can be drawn in a SFML window.
+The score has a label and a text.
+The score can be drawn in a window.
+*/
+
 class ScoreSfml
 {
 private:

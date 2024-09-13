@@ -5,6 +5,12 @@
 #include <iostream>
 #include <memory>
 
+/*
+This class is a window that can be drawn in a SFML window.
+The window has a rectangle shape.
+The window can be drawn in a window.
+*/ 
+
 class WindowSfml {
     private: 
         bool init();
