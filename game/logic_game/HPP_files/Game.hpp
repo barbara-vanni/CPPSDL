@@ -57,7 +57,6 @@ class Game {
         void updateScore(int point);
         int getScoreActuel() { return score.scoreActuel; } //french
         int getBestScore() { return score.scoreMax; }
-        bool getGameOver() { return gameOver; } 
         void testDefeatScenario();
 
         Board* getBoard() const { return board; }
