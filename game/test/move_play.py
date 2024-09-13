@@ -20,14 +20,15 @@ def move_play():
         pyautogui.click(button='left', clicks=50, interval=0.30)
 
         # Arrow keys to move the tiles
+        time.sleep(3)
         pyautogui.press("up")
-        time.sleep(0.1)
+        time.sleep(1)
         pyautogui.press("down")
-        time.sleep(0.1)
+        time.sleep(1)
         pyautogui.press("left")
-        time.sleep(0.1)
+        time.sleep(1)
         pyautogui.press("right")
-        time.sleep(0.1)
+        time.sleep(1)
 
         # Reset the game
         pyautogui.moveTo(window_x + 530, window_y + 80, duration=0.10)
