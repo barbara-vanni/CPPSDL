@@ -2,7 +2,8 @@
 #include <iostream>
 
 
-/*This class is responsible of displaying the window in SDL and closing it
+/*
+This class is responsible of displaying the window in SDL and closing it
  */
 WindowSdl::WindowSdl(int width, int height)
     : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {

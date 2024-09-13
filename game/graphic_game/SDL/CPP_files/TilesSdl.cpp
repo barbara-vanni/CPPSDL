@@ -3,8 +3,9 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-/* This class manages the graphical representation of tiles in a game using SDL2. It handles
- the positioning, sizing, and rendering of tiles, including drawing the tile's number.
+/* 
+This class manages the graphical representation of tiles in a game using SDL2. It handles
+the positioning, sizing, and rendering of tiles, including drawing the tile's number.
  */
 TilesSdl::TilesSdl(Game& game, int cellSize)
     : game(game), tileWidth(cellSize), tileHeight(cellSize), currentTile(nullptr), gridPosX(20), gridPosY(200) {}

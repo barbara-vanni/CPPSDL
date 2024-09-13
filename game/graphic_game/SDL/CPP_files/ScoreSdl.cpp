@@ -1,18 +1,19 @@
 #include "../HPP_files/ScoreSdl.hpp"
 #include <iostream>
 
-/*This class display the Score and the game over message
+/*
+This class display the Score and the game over message
 */
 ScoreSdl::ScoreSdl(Game &game, double x, double y, const std::string& label)
     : game(game), scorePosX(x), scorePosY(y), labelText(label), font(nullptr),
       labelSurface(nullptr), labelTexture(nullptr), scoreSurface(nullptr), scoreTexture(nullptr) {
-    initFont(); // Initialize font here
+    initFont();
 }
 
 ScoreSdl::~ScoreSdl() {
-    cleanupFont(); // Cleanup font 
+    cleanupFont(); 
 
-    if (labelSurface) SDL_FreeSurface(labelSurface); // Free the surface
+    if (labelSurface) SDL_FreeSurface(labelSurface);
     if (labelTexture) SDL_DestroyTexture(labelTexture);
     if (scoreSurface) SDL_FreeSurface(scoreSurface);
     if (scoreTexture) SDL_DestroyTexture(scoreTexture);

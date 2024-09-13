@@ -3,7 +3,8 @@
 
 
 
-/*This class creates Button for the SDL part the front and the logic of if it s clicked or not
+/*
+This class creates Button for the SDL part the front and the logic of if it s clicked or not
  */
 ButtonSdl::ButtonSdl()
     : buttonPosX(0), buttonPosY(0), buttonWidth(0), buttonHeight(0), font(nullptr) {
