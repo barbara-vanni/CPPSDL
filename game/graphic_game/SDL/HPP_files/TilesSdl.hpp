@@ -3,9 +3,9 @@
 
 #include "SDL2/SDL_ttf.h"
 #include "SDL2/SDL.h"
-#include "../GameObject.hpp"
-#include "../../logic_game/HPP_files/Tiles.hpp"
-#include "../../logic_game/HPP_files/Game.hpp"
+#include "../../GameObject.hpp"
+#include "../../../logic_game/HPP_files/Tiles.hpp"
+#include "../../../logic_game/HPP_files/Game.hpp"
 
 class TilesSdl : public GameObject {
 private:

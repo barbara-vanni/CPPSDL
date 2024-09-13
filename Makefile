@@ -11,7 +11,7 @@ LIBS := -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer -lncurses -lsfml-
 
 SRC_DIR := game
 SRC_FILE := src
-GRAPHIC_DIR := $(SRC_DIR)/graphic_game/CPP_files
+GRAPHIC_SDL := $(SRC_DIR)/graphic_game/SDL/CPP_files
 GRAPHIC_SFML := $(SRC_DIR)/graphic_game/SFML/CPP_files
 GRAPHIC_SFML := $(SRC_DIR)/graphic_game/SFML/CPP_files
 LOGIC_DIR := $(SRC_DIR)/logic_game/CPP_files
@@ -22,8 +22,8 @@ SRC_FILES := main.cpp \
     $(LOGIC_DIR)/Tiles.cpp \
     $(LOGIC_DIR)/Game.cpp \
     $(LOGIC_DIR)/Input.cpp \
-    $(GRAPHIC_DIR)/WindowSdl.cpp \
-    $(GRAPHIC_DIR)/GridSdl.cpp \
+    $(GRAPHIC_SDL)/WindowSdl.cpp \
+    $(GRAPHIC_SDL)/GridSdl.cpp \
     $(SRC_DIR)/gameloop.cpp \
     $(GRAPHIC_SFML)//WindowSfml.cpp \
     $(GRAPHIC_SFML)//WindowMenu.cpp \
@@ -32,10 +32,10 @@ SRC_FILES := main.cpp \
     $(GRAPHIC_SFML)//ButtonsSfml.cpp \
     $(GRAPHIC_SFML)//ScoreSfml.cpp \
     $(GRAPHIC_SFML)//WindowRules.cpp \
-    $(GRAPHIC_DIR)/Background.cpp\
-    $(GRAPHIC_DIR)/TilesSdl.cpp\
-    $(GRAPHIC_DIR)/ButtonSdl.cpp\
-    $(GRAPHIC_DIR)/ScoreSdl.cpp\
+    $(GRAPHIC_SDL)/Background.cpp\
+    $(GRAPHIC_SDL)/TilesSdl.cpp\
+    $(GRAPHIC_SDL)/ButtonSdl.cpp\
+    $(GRAPHIC_SDL)/ScoreSdl.cpp\
 	
 	
 
