@@ -5,21 +5,22 @@
 #include <cstdlib>
 #include <ctime>
 #include <vector>
-#include <ctime>  
+#include <ctime> 
 
+/*
+This class is the board of the game, it will contain the grid of the game
+This class will also contain the logic of the game
+This class will contain the logic of the game
+*/ 
 
-/*/**
-The Board class is responsible for managing the game board, including initializing the board, adding random tiles, and handling tile movements.
-It also provides methods to check if there are any valid moves left on the board and to display the current state of the board.
- */
-
+// Constructor
 Board::Board(int size) : size(size) {
     std::cout << "Board constructor called" << std::endl;
-    srand(static_cast<unsigned int>(time(0)));  
+    srand(static_cast<unsigned int>(time(0)));
 }
 
-void Board::boardInit()
-{   
+// Initialize the board
+void Board::boardInit() {   
 
     if(grid.size() != 0){
         for (int i = 0; i < 4; i++)
@@ -38,13 +39,14 @@ void Board::boardInit()
 
     addRandomTile();
     addRandomTile();
-
 }
 
+// Get the grid
 std::vector<std::vector<Tiles *>>& Board::getGrid(){
     return grid;
 }
 
+// Add a random tile to the board
 void Board::addRandomTile() {
     std::vector<std::pair<int, int>> emptyTiles;
     for (int i = 0; i < 4; i++) {
@@ -67,12 +69,9 @@ void Board::addRandomTile() {
     grid[x][y] = newTile;
 }
 
-
-
-
-
-bool Board::moveUp(int& newPoint)
-{
+// Move the tiles up
+bool Board::moveUp(int& newPoint) {
+    
     bool moved = false;
 
     for (int j = 0; j < 4; j++)
@@ -101,13 +100,12 @@ bool Board::moveUp(int& newPoint)
             }
         }
     }
-
     return moved;
 }
 
-bool Board::moveRight(int& newPoint)
-{
-
+// Move the tiles to the right
+bool Board::moveRight(int& newPoint){
+    
     bool moved = false;
 
     for (int i = 0; i < 4; i++)
@@ -139,10 +137,10 @@ bool Board::moveRight(int& newPoint)
             }
         }
     }
-
     return moved;
 }
 
+// Move the tiles to the left
 bool Board::moveLeft(int& newPoint)
 {
     bool moved = false;
@@ -176,10 +174,10 @@ bool Board::moveLeft(int& newPoint)
             }
         }
     }
-
     return moved;
 }
 
+// Move the tiles down
 bool Board::moveDown(int& newPoint){
 
     bool moved = false;
@@ -199,6 +197,7 @@ bool Board::moveDown(int& newPoint){
                     moved = true;
                     k++;
                 }
+
                 if (k < 3 && grid[k + 1][j]->getNumberInTile() == grid[k][j]->getNumberInTile())
                 {
                     int valuePoint = grid[k + 1][j]->getNumberInTile() * 2;
@@ -210,10 +209,10 @@ bool Board::moveDown(int& newPoint){
             }
         }
     }
-
     return moved;
 }
 
+// Check if the player can move
 bool Board::okToMove() {
 
     for (int i = 0; i < 4; i++) {
@@ -249,8 +248,7 @@ bool Board::okToMove() {
     return false;
 }
 
-
-
+// Display the board
 void Board::displayBoard()
 {
     std::cout << "---------------------" << std::endl;
@@ -273,10 +271,11 @@ void Board::displayBoard()
     }
 }
 
+// Destructor
 Board::~Board()
 {
     std::cout << "Board destructor called" << std::endl;
-    
+
     for (int i = 0; i < 4; ++i)
     {
         for (int j = 0; j < 4; ++j)

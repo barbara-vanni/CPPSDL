@@ -1,9 +1,17 @@
 #include "../HPP_files/WindowRules.hpp"
 
+/*
+This class is a window that can be drawn in a SFML window.
+The window has a rectangle shape.
+The window can be drawn in a window.
+*/ 
+
+// Constructor
 WindowRules::WindowRules(int width, int height) : width(width), height(height), title("Rules"), closed(false) {
     init();
 }
 
+// Initialize the window0
 bool WindowRules::init() {
     Window = std::make_unique<sf::RenderWindow>(sf::VideoMode(width, height), title);
     if (!Window) {
@@ -13,10 +21,12 @@ bool WindowRules::init() {
     return true;
 }
 
+// Clear the window
 void WindowRules::clear() const {
     Window->clear(sf::Color(237, 194, 46));
 }
 
+// Check if the window is closed
 bool WindowRules::isClosed() 
 {
     sf::Event event;
@@ -31,10 +41,12 @@ bool WindowRules::isClosed()
     return closed;
 }
 
+// Get the window
 sf::RenderWindow* WindowRules::getWindowRules() const {
     return Window.get();
 }
 
+// Draw the image rules
 void WindowRules::drawImageRules() {
     sf::Texture texture1, texture2, texture3, texture4;
     
@@ -80,6 +92,7 @@ void WindowRules::drawImageRules() {
     Window->draw(sprite4);
 }
 
+// Draw the text rules
 void WindowRules::drawTextRules() {
     sf::Font font;
     if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
@@ -96,7 +109,6 @@ void WindowRules::drawTextRules() {
     sf::FloatRect textRect = text.getLocalBounds();
     text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
     text.setPosition(windowSize / 2.0f, 50);
-
 
     sf::Text text1;
     text1.setFont(font);

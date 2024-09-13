@@ -1,29 +1,31 @@
 #include "../HPP_files/Input.hpp"
 #include <stdio.h>
 #include "SDL2/SDL.h"
-// #include "conio.h"
-#include <ncurses.h>
+#include "conio.h"
+// #include <ncurses.h>
 #include <iostream>
 
+/*
+This class is used to get the input from the user
+*/ 
 
-
-/* The Input class provides functionality to handle user input events using the SDL library.
- It allows detecting key presses and returning the corresponding SDL key code.
- */
+// Constructor
 Input::Input() {
     std::cout << "Constructor called" << std::endl;
 }
 
+// Destructor
 Input::~Input() {
     std::cout << "Destructor called" << std::endl;
 }
 
+// Get the input from the user
 int Input::getInput() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_KEYDOWN) {
-            return event.key.keysym.sym;  // Return the SDL key code
+            return event.key.keysym.sym;  
         }
     }
-    return 0;  // No input detected
+    return 0; 
 }

@@ -3,8 +3,10 @@
 #include <SDL2/SDL.h>
 
 
-
-/*this class set up the backgroud for the SDL window you can choose the color and the coordonates*/
+/*  
+This file contains the implementation of the Background class, which is used to manage 
+and render a background in an SDL-based graphical application.
+ */
 
 Background::Background(double x, double y, double w, double h) {
     this->x = x;

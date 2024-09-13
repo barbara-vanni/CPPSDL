@@ -6,10 +6,15 @@
 #include "Board.hpp"
 #include "Input.hpp"
 
+/*
+This class is the main class of the game
+This class will contain the logic of the game
+This class will also contain the score of the game
+*/ 
 
 struct Score
 {
-    int scoreActuel = 0; // need to modify 
+    int actualScore = 0; 
     int scoreMax = 0;
 
     void loadScore()
@@ -52,13 +57,10 @@ class Game {
         void moveSdl(int inputValue);
         void moveSfml(int inputValue);
         bool checkDefeat();
-        // bool checkVictory();
         void displayScore();
         void updateScore(int point);
-        int getScoreActuel() { return score.scoreActuel; } //french
+        int getActualScore() { return score.actualScore; } 
         int getBestScore() { return score.scoreMax; }
-        bool getGameOver() { return gameOver; } 
-        void testDefeatScenario();
 
         Board* getBoard() const { return board; }
 
@@ -72,4 +74,4 @@ class Game {
 
 
 
-#endif // GAME_HPP
+#endif

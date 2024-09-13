@@ -2,7 +2,9 @@
 #include <iostream>
 
 
-/*This class is responsible of displaying the window in SDL */
+/*
+This class is responsible of displaying the window in SDL and closing it
+ */
 WindowSdl::WindowSdl(int width, int height)
     : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {
     if (!init()) {
@@ -48,12 +50,12 @@ bool WindowSdl::init() {
     return true;
 }
 
-void WindowSdl::clear() {
+void WindowSdl::clear() { // Clear the renderer
     SDL_SetRenderDrawColor(renderer, 237, 230, 218, 255);  
     SDL_RenderClear(renderer);
 }
 
-void WindowSdl::close() {
+void WindowSdl::close() { // Close the window
     if (renderer != nullptr) {
         SDL_DestroyRenderer(renderer);
         renderer = nullptr;

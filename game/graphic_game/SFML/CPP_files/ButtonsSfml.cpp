@@ -1,6 +1,14 @@
 #include "../HPP_files/ButtonsSfml.hpp"
 #include <iostream>
 
+/*
+This class is a button that can be drawn in a SFML window.
+The button has a label and a rectangle shape.
+The button can be clicked and the click can be detected.
+The button can be drawn in a window.
+*/ 
+
+// Constructor
 ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::string& label) {
     shape.setPosition(x, y);
     shape.setSize(sf::Vector2f(w, h));
@@ -8,9 +16,7 @@ ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::stri
     shape.setOutlineColor(sf::Color(200, 200, 200, 255));
     shape.setOutlineThickness(2);
 
-    // Chargement de la police et configuration du texte
     if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
-        // std::cout << "Failed to load font" << std::endl;
     }
     text.setFont(font);
     text.setString(label);
@@ -22,7 +28,7 @@ ButtonsSfml::ButtonsSfml(double x, double y, double w, double h, const std::stri
     text.setPosition(x + (w - textBounds.width) / 2, y + (h - textBounds.height) / 2);
 }
 
-// Implémentation des méthodes de GameObject
+// Getters
 double ButtonsSfml::posX() {
     return shape.getPosition().x;
 }
@@ -39,13 +45,13 @@ double ButtonsSfml::height() {
     return shape.getSize().y;
 }
 
-// Dessiner le bouton dans la fenêtre SFML
+// Draw the button
 void ButtonsSfml::draw(sf::RenderWindow* window) {
     window->draw(shape);
     window->draw(text);
 }
 
-// Vérifie si le bouton a été cliqué
+// Check if the button is clicked
 bool ButtonsSfml::isClicked(const sf::Vector2i& mousePosition) {
     return shape.getGlobalBounds().contains(static_cast<sf::Vector2f>(mousePosition));
 }

@@ -1,20 +1,25 @@
 #include "../HPP_files/TilesSfml.hpp"
 #include <iostream>
 
+/*
+This class is a tile that can be drawn in a SFML window.
+The tile has a rectangle shape.
+The tile can be drawn in a window.
+The tile has a color that depends on the number in the tile.
+*/ 
+
+// Constructor
 TilesSfml::TilesSfml(Game& game) : game(game), tileWidth(140), tileHeight(140), currentTile(nullptr), gridPosX(20), gridPosY(200) {
 }
 
+// Destructor
 TilesSfml::~TilesSfml() {
 }
 
-void TilesSfml::setTile(Tiles* tile, int gridSize) {
-    currentTile = tile;
-}
-
+// Getters
 double TilesSfml::posX() {
     if (currentTile) {
         double x = gridPosX + currentTile->getPosY() * tileWidth; 
-        // std::cout << "posX: " << x << std::endl;  // Debugging
         return x;
     }
     return 0;
@@ -23,7 +28,6 @@ double TilesSfml::posX() {
 double TilesSfml::posY() {
     if (currentTile) {
         double y = gridPosY + currentTile->getPosX() * tileHeight;
-        // std::cout << "posY: " << y << std::endl;  // Debugging
         return y;
     }
     return 0;
@@ -37,6 +41,12 @@ double TilesSfml::height() {
     return tileHeight;
 }
 
+// Setters
+void TilesSfml::setTile(Tiles* tile, int gridSize) {
+    currentTile = tile;
+}
+
+// Draw the tile
 void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, int gridPosY, int gridSize) {
     setTile(tile, gridSize);
     sf::RectangleShape rectangle(sf::Vector2f(tileWidth, tileHeight));
@@ -67,6 +77,7 @@ void TilesSfml::drawTile(sf::RenderWindow* window, Tiles* tile, int gridPosX, in
     }
 }
 
+// Get the color of the tile
 sf::Color TilesSfml::getTileColor(int value) {
     switch (value) {
         case 2: return sf::Color(45, 45, 45, 255);        

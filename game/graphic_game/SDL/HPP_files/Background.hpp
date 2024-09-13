@@ -1,5 +1,5 @@
 #pragma once 
-#include "../GameObject.hpp"
+#include "../../GameObject.hpp"
 #include <SDL2/SDL.h>
 
 

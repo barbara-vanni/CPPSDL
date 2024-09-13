@@ -22,4 +22,4 @@ private:
     void cleanupFont();
 };
 
-#endif // BUTTONSDL_HPP
+#endif

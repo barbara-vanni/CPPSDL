@@ -1,35 +1,38 @@
 #include "../HPP_files/Game.hpp"
 #include "../HPP_files/Board.hpp"
-#include "../src/include/SFML/Window.hpp"
-#include <iostream>
-#include <SDL2/SDL.h>
 #include "../HPP_files/Input.hpp"
+#include "../src/include/SFML/Window.hpp"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_mixer.h>
-
+#include <iostream>
 #include <fstream>
-/* 
-The Game class is responsible for managing the game logic and controls for the 2048 game. It includes functions for starting the game, 
-resetting the game, making moves, checking for defeat, displaying the score, updating the score, playing move sounds, and testing defeat scenarios.
-It interacts with the Board class to manage the game board and tile movements. It also uses the Score class to keep track of the player's score.
-It supports different input methods, including SDL and SFML, for making moves in the game.
- */
+
+/*
+This class is the game class, it will contain the logic of the game
+This class will also contain the logic of the game
+This class will contain the logic of the game
+*/ 
+
+// Constructor
 Game::Game() {
     board = new Board(4);
     score.loadScore();
     gameOver = false;
 }
 
+// Start the game
 void Game::start() {
     board->boardInit();
     board->displayBoard(); 
 }
 
+// Reset the game
 void Game::reset() {
     start();
-    score.scoreActuel = 0;
+    score.actualScore = 0;
 }
 
+// Move the tiles
 void Game::move() {
     Input input;
     int inputValue = input.getInput();
@@ -55,13 +58,12 @@ void Game::move() {
     }
 }
 
+// Move the tiles with SDL
 void Game::moveSdl(int inputValue)
 {
     int points = 0;
     bool moved = false;
 
-        
-    // Compare the input directly to SDL key constants
     if (inputValue == SDLK_UP) {
         moved = board->moveUp(points);
     }
@@ -78,7 +80,6 @@ void Game::moveSdl(int inputValue)
         gameOver = true;
     }
 
-    // Update score and board if moved
     if (moved) {
         updateScore(points);
         board->addRandomTile();
@@ -87,6 +88,7 @@ void Game::moveSdl(int inputValue)
     }
 }
 
+// Move the tiles with SFML
 void Game::moveSfml(int inputValue) {
     int points = 0;
     bool moved = false;
@@ -111,8 +113,7 @@ void Game::moveSfml(int inputValue) {
     }
 }
 
-
-
+// Check if the player is defeated
 bool Game::checkDefeat() {
     if (board->okToMove() == false) {
         gameOver = true;
@@ -128,71 +129,31 @@ bool Game::checkDefeat() {
     }
 }
 
+// Display the score
 void Game::displayScore() {
-    std::cout << "Your score is: " << score.scoreActuel << std::endl;
+    std::cout << "Your score is: " << score.actualScore << std::endl;
     std::cout << "Your best score is: " << score.scoreMax << std::endl;
 }
 
-void Game::updateScore(int points)
-{
-    
-    score.scoreActuel += points;
+// Update the score
+void Game::updateScore(int points) {
 
-    if (score.scoreActuel > score.scoreMax)
+    score.actualScore += points;
+
+    if (score.actualScore > score.scoreMax)
     {
-        score.scoreMax = score.scoreActuel;
+        score.scoreMax = score.actualScore;
         score.saveScore();
     }
   
 }
 
+// Destructor
 Game::~Game() {
-    Mix_CloseAudio();
     delete board;
 }
 
-
-/* TEST */
-
-void Game::testDefeatScenario() {
-
-    auto& grid = board->getGrid();
-
-    board->boardInit();
-
-
-    grid[0][0] = new Tiles(0, 0, 2);
-    grid[0][1] = new Tiles(0, 1, 4);
-    grid[0][2] = new Tiles(0, 2, 2);
-    grid[0][3] = new Tiles(0, 3, 4);
-
-    grid[1][0] = new Tiles(1, 0, 4);
-    grid[1][1] = new Tiles(1, 1, 2);
-    grid[1][2] = new Tiles(1, 2, 4);
-    grid[1][3] = new Tiles(1, 3, 2);
-
-    grid[2][0] = new Tiles(2, 0, 2);
-    grid[2][1] = new Tiles(2, 1, 4);
-    grid[2][2] = new Tiles(2, 2, 2);
-    grid[2][3] = new Tiles(2, 3, 4);
-
-    grid[3][0] = new Tiles(3, 0, 4);
-    grid[3][1] = new Tiles(3, 1, 2);
-    grid[3][2] = new Tiles(3, 2, 4);
-    grid[3][3] = new Tiles(3, 3, 2);
-
-    board->displayBoard();
-
-    // check if the game is over when no moves are possible
-    if (checkDefeat()) {
-        std::cout << "Test passed: Game Over detected." << std::endl;
-    } else {
-        std::cout << "Test failed: Game Over not detected." << std::endl;
-    }
-}
-
-
-
+// Play the move sound
 void Game::playMoveSound() {
     static bool audio_initialized = false;
     if (!audio_initialized) {

@@ -1,11 +1,20 @@
 #include "../HPP_files/GridSfml.hpp"
 
+/*
+This class is a grid that can be drawn in a SFML window.
+The grid has a rectangle shape.
+The grid can be drawn in a window.
+*/ 
+
+// Constructor
 GridSfml::GridSfml(Game& game) : game(game), gridPosX(20), gridPosY(200), gridSize(560) {
 }
 
+// Destructor
 GridSfml::~GridSfml() {
 }
 
+// Getters
 double GridSfml::posX() {
     return gridPosX;
 }
@@ -22,6 +31,7 @@ double GridSfml::height() {
     return gridSize;
 }
 
+// Method to draw the grid
 void GridSfml::drawGrid(sf::RenderWindow* window) {
     sf::Color gridColor = sf::Color(140, 140, 140); 
     sf::RectangleShape gridBackground(sf::Vector2f(gridSize, gridSize));

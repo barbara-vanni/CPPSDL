@@ -3,14 +3,16 @@
 
 
 
-/*This class creates Button for the SDL part the front and the logic of if it s clicked or not */
+/*
+This class creates Button for the SDL part the front and the logic of if it s clicked or not
+ */
 ButtonSdl::ButtonSdl()
     : buttonPosX(0), buttonPosY(0), buttonWidth(0), buttonHeight(0), font(nullptr) {
-    initFont(); // Initialize font here
+    initFont();
 }
 
 ButtonSdl::~ButtonSdl() {
-    cleanupFont(); // Cleanup font here
+    cleanupFont();
 }
 
 void ButtonSdl::initFont() {
@@ -30,7 +32,7 @@ void ButtonSdl::cleanupFont() {
         TTF_CloseFont(font);
         font = nullptr;
     }
-    TTF_Quit(); // Call TTF_Quit() only if it's the last class to use TTF
+    TTF_Quit();
 }
 
 void ButtonSdl::drawButton(SDL_Renderer* renderer, int x, int y, int w, int h, const std::string& label) {

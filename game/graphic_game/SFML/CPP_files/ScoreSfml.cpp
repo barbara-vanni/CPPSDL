@@ -1,6 +1,13 @@
 #include "../HPP_files/ScoreSfml.hpp"
 
+/*
+This class is a score that can be drawn in a SFML window.
+The score has a label and a text.
+The score can be drawn in a window.
+The score can be updated.
+*/ 
 
+// Constructor
 ScoreSfml::ScoreSfml(Game& game, double x, double y, const std::string& label)
     : game(game) {
     if (!font.loadFromFile("assets/font/minecraft_font.ttf")) {
@@ -20,18 +27,21 @@ ScoreSfml::ScoreSfml(Game& game, double x, double y, const std::string& label)
     text.setPosition(x, y + 40);
 }
 
+// Draw the score
 void ScoreSfml::draw(sf::RenderWindow* window) {
     window->draw(labelText);
     window->draw(text);
 }
 
+// Update the actual score
 void ScoreSfml::updateActualScore(int score) {
 
-    int scoreActuel = game.getScoreActuel();
+    int actualScore = game.getActualScore();
 
-    text.setString(std::to_string(scoreActuel) );
+    text.setString(std::to_string(actualScore) );
 }
 
+// Update the best score
 void ScoreSfml::updateBestScore(int score) {
 
     int bestScore = game.getBestScore();
@@ -39,7 +49,7 @@ void ScoreSfml::updateBestScore(int score) {
     text.setString( std::to_string(bestScore));
 }
 
-
+// Draw the game over message
 void ScoreSfml::drawGameOver(sf::RenderWindow* window) {
     sf::Text gameOverText;
     sf::Font font;
@@ -54,15 +64,12 @@ void ScoreSfml::drawGameOver(sf::RenderWindow* window) {
     gameOverText.setFillColor(sf::Color::Red);
     gameOverText.setPosition(20, 400); 
 
-
     sf::FloatRect textBounds = gameOverText.getGlobalBounds();
-
 
     sf::RectangleShape backgroundRect;
     backgroundRect.setSize(sf::Vector2f(textBounds.width + 50, textBounds.height + 50)); 
     backgroundRect.setPosition(textBounds.left - 10, textBounds.top - 10); 
     backgroundRect.setFillColor(sf::Color(45, 45, 45, 255));
-
 
     window->draw(backgroundRect);
     window->draw(gameOverText); 

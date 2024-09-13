@@ -2,9 +2,9 @@
 #define GRIDSdl_HPP
 
 #include "TilesSdl.hpp"
-#include "../GameObject.hpp"
-#include "../../logic_game/HPP_files/Board.hpp"
-#include "../../logic_game/HPP_files/Game.hpp"
+#include "../../GameObject.hpp"
+#include "../../../logic_game/HPP_files/Board.hpp"
+#include "../../../logic_game/HPP_files/Game.hpp"
 #include <SDL2/SDL.h>
 #include <vector>
 
