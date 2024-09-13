@@ -4,7 +4,8 @@
 
 
 /*  This file contains the implementation of the Background class, which is used to manage
- and render a background in an SDL-based graphical application.*/
+ and render a background in an SDL-based graphical application.
+ */
 
 Background::Background(double x, double y, double w, double h) {
     this->x = x;

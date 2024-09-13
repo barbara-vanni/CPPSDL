@@ -2,7 +2,8 @@
 
 /* The GridSdl class handles the graphical representation of the game grid.
  It draws the grid, including the borders and background, and renders the tiles
- within the grid based on the game state.*/
+ within the grid based on the game state.
+ */
 
 
 
