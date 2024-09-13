@@ -9,6 +9,12 @@
 #include <iostream>
 #include <vector>
 
+/*
+This class is a grid that can be drawn in a SFML window.
+The grid has a rectangle shape.
+The grid can be drawn in a window.
+*/
+
 class GridSfml : public GameObject {
     private:
         Game& game;

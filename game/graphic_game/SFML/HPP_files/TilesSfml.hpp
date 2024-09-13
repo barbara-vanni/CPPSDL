@@ -6,6 +6,12 @@
 #include "../../../logic_game/HPP_files/Game.hpp"
 #include "../../../../src/include/SFML/Graphics.hpp"
 
+/*
+This class is a tile that can be drawn in a SFML window.
+The tile has a rectangle shape.
+The tile can be drawn in a window.
+The tile has a color that depends on the number in the tile.
+*/ 
 
 class TilesSfml : public GameObject {
     private:

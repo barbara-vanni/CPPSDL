@@ -69,6 +69,7 @@ void runSfml() {
 
     game.start();
     bool isRunning = true;
+    bool gameOver = false;
 
     while (isRunning) {
         sf::Event event;
@@ -83,8 +84,13 @@ void runSfml() {
                 }
                 if (returnMenu.isClicked(sf::Mouse::getPosition(*window.getWindowSfml()))) {
                     isRunning = false;
+                    window.getWindowSfml()->close();
                     gameloop(); 
             }
+        }
+
+        if (game.checkDefeat()) {
+            gameOver = true; 
         }
 
         window.clear();
@@ -96,6 +102,11 @@ void runSfml() {
         grid.drawGrid(window.getWindowSfml());
         actualScore.updateActualScore(game.getActualScore());
         bestScore.updateBestScore(game.getBestScore());
+
+        if (gameOver) {
+            actualScore.drawGameOver(window.getWindowSfml());
+        }
+
         window.getWindowSfml()->display();
     }
     }
@@ -207,6 +218,7 @@ void runHowToPlay() {
             } else if (event.type == sf::Event::MouseButtonPressed) {
                 if (returnMenu.isClicked(sf::Mouse::getPosition(*windowRules.getWindowRules()))) {
                     isRunning = false;
+                    windowRules.getWindowRules()->close();
                     gameloop(); 
                 }
             }
@@ -219,4 +231,4 @@ void runHowToPlay() {
         windowRules.getWindowRules()->display();
         }
     }
-}  // namespace game
+} 

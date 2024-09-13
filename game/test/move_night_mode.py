@@ -29,7 +29,7 @@ def move_night_mode():
 
         # Arrow keys to move the tiles
         pyautogui.press("up")
-        time.sleep(0.5)
+        time.sleep(0.1)
         if os.path.exists("defeat.txt"):
             with open("defeat.txt", "r") as file:
                 status = file.read().strip()
@@ -37,7 +37,7 @@ def move_night_mode():
                     break
 
         pyautogui.press("down")
-        time.sleep(0.5)
+        time.sleep(0.1)
         if os.path.exists("defeat.txt"):
             with open("defeat.txt", "r") as file:
                 status = file.read().strip()
@@ -45,7 +45,7 @@ def move_night_mode():
                     break
 
         pyautogui.press("left")
-        time.sleep(0.5)
+        time.sleep(0.1)
         if os.path.exists("defeat.txt"):
             with open("defeat.txt", "r") as file:
                 status = file.read().strip()
@@ -53,7 +53,7 @@ def move_night_mode():
                     break
 
         pyautogui.press("right")
-        time.sleep(0.5)
+        time.sleep(0.1)
         if os.path.exists("defeat.txt"):
             with open("defeat.txt", "r") as file:
                 status = file.read().strip()
