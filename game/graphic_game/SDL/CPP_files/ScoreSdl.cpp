@@ -1,7 +1,7 @@
 #include "../HPP_files/ScoreSdl.hpp"
 #include <iostream>
 
-/*this class display the Score and the game over message*/
+/*This class display the Score and the game over message*/
 ScoreSdl::ScoreSdl(Game &game, double x, double y, const std::string& label)
     : game(game), scorePosX(x), scorePosY(y), labelText(label), font(nullptr),
       labelSurface(nullptr), labelTexture(nullptr), scoreSurface(nullptr), scoreTexture(nullptr) {
@@ -9,14 +9,14 @@ ScoreSdl::ScoreSdl(Game &game, double x, double y, const std::string& label)
 }
 
 ScoreSdl::~ScoreSdl() {
-    cleanupFont(); // Cleanup font here
+    cleanupFont(); // Cleanup font 
 
-    if (labelSurface) SDL_FreeSurface(labelSurface);
+    if (labelSurface) SDL_FreeSurface(labelSurface); // Free the surface
     if (labelTexture) SDL_DestroyTexture(labelTexture);
     if (scoreSurface) SDL_FreeSurface(scoreSurface);
     if (scoreTexture) SDL_DestroyTexture(scoreTexture);
 }
-
+// load the font
 void ScoreSdl::initFont() {
     if (TTF_Init() == -1) {
         std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
@@ -34,7 +34,7 @@ void ScoreSdl::cleanupFont() {
         TTF_CloseFont(font);
         font = nullptr;
     }
-    // Avoid calling TTF_Quit() here if other classes may still use SDL_ttf
+    
 }
 
 void ScoreSdl::updateActualScore(int score) {

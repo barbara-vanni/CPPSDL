@@ -3,7 +3,8 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 
-
+/* This class manages the graphical representation of tiles in a game using SDL2. It handles
+ the positioning, sizing, and rendering of tiles, including drawing the tile's number.*/
 TilesSdl::TilesSdl(Game& game, int cellSize)
     : game(game), tileWidth(cellSize), tileHeight(cellSize), currentTile(nullptr), gridPosX(20), gridPosY(200) {}
 
@@ -48,24 +49,24 @@ void TilesSdl::drawTile(SDL_Renderer* renderer, Tiles* tile, int gridPosX, int g
     int tileNumber = tile->getNumberInTile();
     if (tileNumber != 0) {
         // Load the font (ensure font loading happens outside the loop for better performance)
-        TTF_Font* font = TTF_OpenFont("assets/font/minecraft_font.ttf", 48);  // Use appropriate font path and size
+        TTF_Font* font = TTF_OpenFont("assets/font/minecraft_font.ttf", 48);  
         if (!font) {
             std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
             return;
         }
 
         // Create the text surface with the tile number
-        SDL_Color textColor = { 0, 0, 0, 255 };  // Black text
-        std::string tileText = std::to_string(tileNumber);
-        SDL_Surface* textSurface = TTF_RenderText_Blended(font, tileText.c_str(), textColor);
+        SDL_Color textColor = { 0, 0, 0, 255 };  
+        std::string tileText = std::to_string(tileNumber); // Convert the number to a string
+        SDL_Surface* textSurface = TTF_RenderText_Blended(font, tileText.c_str(), textColor); // Blended for antialiasing
 
         if (textSurface) {
             // Create a texture from the surface
-            SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+            SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface); // Convert the surface to a texture
             if (textTexture) {
                 // Get the dimensions of the text
                 int textWidth, textHeight;
-                TTF_SizeText(font, tileText.c_str(), &textWidth, &textHeight);
+                TTF_SizeText(font, tileText.c_str(), &textWidth, &textHeight); // Get the width and height of the text
 
                 // Center the text within the tile
                 SDL_Rect textRect;

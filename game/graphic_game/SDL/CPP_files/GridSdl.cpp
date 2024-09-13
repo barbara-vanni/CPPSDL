@@ -1,5 +1,11 @@
 #include "../HPP_files/GridSdl.hpp"
 
+/* The GridSdl class handles the graphical representation of the game grid.
+ It draws the grid, including the borders and background, and renders the tiles
+ within the grid based on the game state.*/
+
+
+
 GridSdl::GridSdl(Game& game) : game(game), gridPosX(20), gridPosY(200), gridSize(560) {}
 
 GridSdl::~GridSdl() {}
