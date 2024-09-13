@@ -30,7 +30,7 @@ public:
     void setPosY(int posY);
     void setNumberInTile(int numberInTile);
 
-    // Other methods
+    // Merge tiles numbers²
     int mergeTilesNumbers(Tiles* tile);
 
 };

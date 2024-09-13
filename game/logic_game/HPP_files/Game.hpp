@@ -6,6 +6,11 @@
 #include "Board.hpp"
 #include "Input.hpp"
 
+/*
+This class is the main class of the game
+This class will contain the logic of the game
+This class will also contain the score of the game
+*/ 
 
 struct Score
 {
@@ -56,7 +61,6 @@ class Game {
         void updateScore(int point);
         int getActualScore() { return score.actualScore; } 
         int getBestScore() { return score.scoreMax; }
-        // void testDefeatScenario();
 
         Board* getBoard() const { return board; }
 
