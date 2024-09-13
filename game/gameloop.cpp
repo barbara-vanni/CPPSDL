@@ -196,18 +196,27 @@ void runHowToPlay() {
         return;
     }
 
+    ButtonsSfml returnMenu(480, 80, 100, 50, "Menu");
+
     bool isRunning = true;
     while (isRunning) {
         sf::Event event;
         while (windowRules.getWindowRules()->pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
                 isRunning = false;
+            } else if (event.type == sf::Event::MouseButtonPressed) {
+                if (returnMenu.isClicked(sf::Mouse::getPosition(*windowRules.getWindowRules()))) {
+                    isRunning = false;
+                    gameloop(); 
+                }
             }
-        }
+    
 
         windowRules.clear();
+        returnMenu.draw(windowRules.getWindowRules());
         windowRules.drawImageRules();
         windowRules.drawTextRules();
         windowRules.getWindowRules()->display();
+        }
     }
-}
+}  // namespace game
