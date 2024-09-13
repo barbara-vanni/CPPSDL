@@ -4,6 +4,11 @@
 #include "../HPP_files/Tiles.hpp"
 #include <vector>
 
+/*
+This class is the board of the game, it will contain the grid of the game
+This class will also contain the logic of the game
+*/ 
+
 class Board
 {
 public:
@@ -27,4 +32,4 @@ private:
     int size = 4;
 };
 
-#endif // BOARD_HPP
+#endif

@@ -1,8 +1,6 @@
 #ifndef GAMELOOP_HPP
 #define GAMELOOP_HPP
-
 #include "SDL2/SDL.h"
-#include <iostream>
 #include "logic_game/HPP_files/Game.hpp"
 #include "logic_game/HPP_files/Input.hpp"
 #include "graphic_game/SFML/HPP_files/WindowSfml.hpp"
@@ -19,7 +17,6 @@
 #include "graphic_game/SDL/HPP_files/ScoreSdl.hpp"
 
 void gameloop();
-// void returnMenu();
 void runSfml();
 void runSdl();
 void runHowToPlay();
