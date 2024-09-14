@@ -3,6 +3,7 @@
 
 /*
 This class display the Score and the game over message
+This class is used by the Game class
 */
 ScoreSdl::ScoreSdl(Game &game, double x, double y, const std::string& label)
     : game(game), scorePosX(x), scorePosY(y), labelText(label), font(nullptr),

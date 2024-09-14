@@ -4,6 +4,8 @@
 
 /*
 This class is responsible of displaying the window in SDL and closing it
+This class is used by the Game class
+
  */
 WindowSdl::WindowSdl(int width, int height)
     : width(width), height(height), title("Grid Game"), closed(false), window(nullptr), renderer(nullptr) {
