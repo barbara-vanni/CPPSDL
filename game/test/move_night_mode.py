@@ -19,6 +19,23 @@ def move_night_mode():
         pyautogui.moveTo(window_x + 310, window_y + 520, duration=0.25)
         pyautogui.click(button='left', clicks=50, interval=0.30)
 
+    # Arrow keys to move the tiles
+    time.sleep(3)
+    pyautogui.press("up")
+    time.sleep(3)
+    pyautogui.press("down")
+    time.sleep(1)
+    pyautogui.press("left")
+    time.sleep(1)
+    pyautogui.press("right")
+    time.sleep(1)
+
+    # Reset the game
+    pyautogui.moveTo(window_x + 530, window_y + 100, duration=0.10)
+    time.sleep(2)
+    pyautogui.click(button="left", clicks=1, interval=0.20)
+    time.sleep(2)
+
     while True:
         # Check if the game is over
         if os.path.exists("game/test/defeat.txt"):

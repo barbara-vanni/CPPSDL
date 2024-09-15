@@ -9,6 +9,6 @@ Compile Project Using Make
 
 RunPlay Project
     Start Process  ./main
-    Sleep  1s
+    Sleep  10s
     Start Process  python  game/test/run_test.py
     Sleep  1s
