@@ -17,7 +17,7 @@
 <div align="center">
   <h2 align="center">2048</h2>
   <a href="https://github.com/barbara-vanni/CPPSDL">
-    <img src="assets/2048_logo.png" alt="Logo" width="539" height="435">
+    <img src="assets/images/2048_logo.png" alt="Logo" width="539" height="435">
   </a>
 
 
@@ -65,7 +65,7 @@ The project was divided in 3 parts for lunching the game:
 3/ With SFML librairy 
 
 
-<img src="assets/diagram_class.png" alt="UML_diagram" width="900" height="550">
+<img src="assets/images/diagram_class.png" alt="UML_diagram" width="900" height="550">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
