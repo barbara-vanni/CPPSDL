@@ -1,6 +1,7 @@
-#include <iostream>
+#include "game/gameloop.hpp"
 
-int main() {
-    std::cout << "Hello, World!" << std::endl;
+/*the main class*/
+int main(int argc, char* argv[]) {
+    gameloop();
     return 0;
 }
